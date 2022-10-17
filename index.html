@@ -164,6 +164,10 @@
                 <div class="position-relative mb-4">
                   <canvas id="passedInGround" height="200"></canvas>
                 </div>
+                <div class="d-flex flex-row justify-content-end">
+                  <span class="mr-2"><i class="fas fa-square text-primary"></i> In</span>
+                  <span><i class="fas fa-square text-gray"></i> Passing By</span>
+                </div>
               </div>
             </div>
           </div>
@@ -189,6 +193,10 @@
               <div class="card-body">
                 <div class="position-relative mb-4">
                   <canvas id="passedInLvl1" height="200"></canvas>
+                </div>
+                <div class="d-flex flex-row justify-content-end">
+                  <span class="mr-2"><i class="fas fa-square text-primary"></i> In</span>
+                  <span><i class="fas fa-square text-gray"></i> Passing By</span>
                 </div>
               </div>
             </div>
@@ -286,11 +294,31 @@ $(function () {
     }
   }
 
+  var areaChartOptions2 = {
+    maintainAspectRatio : false,
+    responsive : true,
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes: [{
+        gridLines : {
+          display : true,
+        }
+      }],
+      yAxes: [{
+        gridLines : {
+          display : true,
+        }
+      }]
+    }
+  }
+
   var areaChartData = {
     labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label               : 'Digital Goods',
+        label               : 'Level 1',
         backgroundColor     : 'rgba(60,141,188,0.9)',
         borderColor         : 'rgba(60,141,188,0.8)',
         pointRadius          : false,
@@ -298,10 +326,10 @@ $(function () {
         pointStrokeColor    : 'rgba(60,141,188,1)',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data                : [28, 48, 40, 19, 86, 27, 90]
+        data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'Electronics',
+        label               : 'Ground',
         backgroundColor     : 'rgba(210, 214, 222, 1)',
         borderColor         : 'rgba(210, 214, 222, 1)',
         pointRadius         : false,
@@ -309,7 +337,35 @@ $(function () {
         pointStrokeColor    : '#c1c7d1',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data                : [65, 59, 80, 81, 56, 55, 40]
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+    ]
+  }
+
+  var areaChartData2 = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'In',
+        backgroundColor     : 'rgba(60,141,188,0.9)',
+        borderColor         : 'rgba(60,141,188,0.8)',
+        pointRadius          : true,
+        pointColor          : '#3b8bba',
+        pointStrokeColor    : 'rgba(60,141,188,1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Passing By',
+        backgroundColor     : 'rgba(210, 214, 222, 1)',
+        borderColor         : 'rgba(210, 214, 222, 1)',
+        pointRadius         : true,
+        pointColor          : 'rgba(210, 214, 222, 1)',
+        pointStrokeColor    : '#c1c7d1',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
       },
     ]
   }
@@ -333,11 +389,31 @@ $(function () {
       var endFormatted = formatDate(end) + " 23:59:59";
       
       $.post('php/getmonthly.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
+        var obj = JSON.parse(data);
+
         if(obj.status === 'success'){
-          debugger;
-          donutChartCanvas.config.data.labels = ['Passing By','In'];
-          donutChartCanvas.config.data.datasets[0].data = [obj.message.groundTotalCount, obj.message.lvl1TotalCount];
-          donutChartCanvas.update();
+          removeData(totalVisitorsChart);
+          addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
+          addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+
+          removeData(passedInGroundPie);
+          addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
+          addData(passedInGroundPie, 'In', obj.groundInCount);
+          
+          removeData(passedInLvl1Pie);
+          addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
+          addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
+
+          removeData(barChart);
+          removeData(lineChart);
+          removeData(lineChart2);
+
+          for(var i=0; i<obj.message.length; i++){
+            addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+            addBarChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addBarChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+          }
+          
         }
         else if(obj.status === 'failed'){
           toastr["error"](obj.message, "Failed:");
@@ -356,12 +432,12 @@ $(function () {
   var donutChartCanvas = $('#totalVisitors').get(0).getContext('2d')
   var donutData        = {
     labels: [
-        'Passing By',
-        'In'
+        'Ground',
+        'Level 1'
     ],
     datasets: [
       {
-        data: [700,500],
+        data: [0,0],
         backgroundColor : ['#f56954', '#00a65a'],
       }
     ]
@@ -372,7 +448,7 @@ $(function () {
   }
   //Create pie or douhnut chart
   // You can switch between pie and douhnut using the method below.
-  new Chart(donutChartCanvas, {
+  var totalVisitorsChart = new Chart(donutChartCanvas, {
     type: 'doughnut',
     data: donutData,
     options: donutOptions
@@ -386,7 +462,7 @@ $(function () {
     ],
     datasets: [
       {
-        data: [700,500],
+        data: [0,0],
         backgroundColor : ['#f56954', '#00a65a'],
       }
     ]
@@ -397,7 +473,7 @@ $(function () {
   }
   //Create pie or douhnut chart
   // You can switch between pie and douhnut using the method below.
-  new Chart(donutChartCanvas2, {
+  var passedInGroundPie = new Chart(donutChartCanvas2, {
     type: 'doughnut',
     data: donutData2,
     options: donutOptions2
@@ -411,7 +487,7 @@ $(function () {
     ],
     datasets: [
       {
-        data: [700,500],
+        data: [0,0],
         backgroundColor : ['#f56954', '#00a65a'],
       }
     ]
@@ -423,7 +499,7 @@ $(function () {
   }
   //Create pie or douhnut chart
   // You can switch between pie and douhnut using the method below.
-  new Chart(donutChartCanvas3, {
+  var passedInLvl1Pie = new Chart(donutChartCanvas3, {
     type: 'doughnut',
     data: donutData3,
     options: donutOptions3
@@ -445,7 +521,7 @@ $(function () {
     datasetFill             : false
   }
 
-  new Chart(barChartCanvas, {
+  var barChart = new Chart(barChartCanvas, {
     type: 'bar',
     data: barChartData,
     options: barChartOptions
@@ -455,8 +531,8 @@ $(function () {
   //- LINE CHART -
   //--------------
   var lineChartCanvas = $('#passedInGround').get(0).getContext('2d')
-  var lineChartOptions = $.extend(true, {}, areaChartOptions)
-  var lineChartData = $.extend(true, {}, areaChartData)
+  var lineChartOptions = $.extend(true, {}, areaChartOptions2)
+  var lineChartData = $.extend(true, {}, areaChartData2)
   lineChartData.datasets[0].fill = false;
   lineChartData.datasets[1].fill = false;
   lineChartOptions.datasetFill = false
@@ -471,8 +547,8 @@ $(function () {
   //- LINE CHART -
   //--------------
   var lineChartCanvas2 = $('#passedInLvl1').get(0).getContext('2d')
-  var lineChartOptions2 = $.extend(true, {}, areaChartOptions)
-  var lineChartData2 = $.extend(true, {}, areaChartData)
+  var lineChartOptions2 = $.extend(true, {}, areaChartOptions2)
+  var lineChartData2 = $.extend(true, {}, areaChartData2)
   lineChartData2.datasets[0].fill = false;
   lineChartData2.datasets[1].fill = false;
   lineChartOptions.datasetFill = false
@@ -482,21 +558,82 @@ $(function () {
     data: lineChartData2,
     options: lineChartOptions2
   })
+
+  $.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+      removeData(totalVisitorsChart);
+      addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
+      addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+
+      removeData(passedInGroundPie);
+      addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
+      addData(passedInGroundPie, 'In', obj.groundInCount);
+      
+      removeData(passedInLvl1Pie);
+      addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
+      addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
+
+      removeData(barChart);
+      removeData(lineChart);
+      removeData(lineChart2);
+
+      for(var i=0; i<obj.message.length; i++){
+        addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+        addBarChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+        addBarChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+      }
+      
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when geting data", "Failed:");
+    }
+  });
 });
 
+function addData(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.push(data);
+  });
+  chart.update();
+}
+
+function addBarChartData(chart, label, data, data2) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.update();
+}
+
+function removeData(chart) {
+  while(chart.data.labels.length > 0){
+    chart.data.labels.pop();
+  }
+
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = [];
+  });
+  chart.update();
+}
+
 function formatDate(date) {
-    var d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
+  var d = new Date(date),
+  month = '' + (d.getMonth() + 1),
+  day = '' + d.getDate(),
+  year = d.getFullYear();
 
-    if (month.length < 2) 
-      month = '0' + month;
+  if (month.length < 2) 
+    month = '0' + month;
 
-    if (day.length < 2) 
-      day = '0' + day;
+  if (day.length < 2) 
+    day = '0' + day;
 
-    return [year, month, day].join('-');
+  return [year, month, day].join('-');
 }
 </script>
 </body>

@@ -7,7 +7,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
 
-    if ($select_stmt = $db->prepare("SELECT * FROM uniqlo_1u WHERE Date>=? AND Date<=?")) {
+    if ($select_stmt = $db->prepare("SELECT * FROM uniqlo_1u WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
         // Execute the prepared query.
@@ -21,6 +21,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
         else{
             $result = $select_stmt->get_result();
             $message = array();
+            $dateBar = array();
             $groundTotalCount = 0;
             $groundPassingCount = 0;
             $groundInCount = 0;
@@ -29,46 +30,69 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $lvl1InCount = 0;
             
             while ($row = $result->fetch_assoc()) {
-                $message['iduniqlo_1u'] = $row['iduniqlo_1u'];
-                $message['Date'] = $row['Date'];
-                $message['Count'] = $row['Count'];
-                $message['Door'] = $row['Door'];
-                $message['Mode'] = $row['Mode'];
-                $message['Device'] = $row['Device'];
+                if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
+                    $message[] = array( 
+                        'Date' => substr($row['Date'], 0, 10),
+                        'TotalGroundCount' => 0,
+                        'InStoreGroundCount' => 0,
+                        'PassingGroundCount' => 0,
+                        'TotalLvl1Count' => 0,
+                        'InStoreLvl1Count' => 0,
+                        'PassingLvl1Count' => 0
+                    );
+
+                    array_push($dateBar, substr($row['Date'], 0, 10));
+                }
+
+                $key = array_search(substr($row['Date'], 0, 10), $dateBar);
 
                 if($row['Mode'] == 'Ground'){
                     if($row['Door'] == 'in'){
                         $groundInCount += (int)$row['Count'];
+                        $groundTotalCount += (int)$row['Count'];
+                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                        $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
                     }
-                    else{
+                    else if($row['Door'] == 'passing by'){
                         $groundPassingCount += (int)$row['Count'];
+                        $groundTotalCount += (int)$row['Count'];
+                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                        $message[$key]['PassingGroundCount'] += (int)$row['Count'];
                     }
-
-                    $groundTotalCount++;
                 }
-                else{
+                else if($row['Mode'] == 'Level 1'){
                     if($row['Door'] == 'in'){
                         $lvl1InCount += (int)$row['Count'];
+                        $lvl1TotalCount += (int)$row['Count'];
+                        $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
+                        $message[$key]['InStoreLvl1Count'] += (int)$row['Count'];
                     }
-                    else{
+                    else if($row['Door'] == 'passing by'){
                         $lvl1PassingCount += (int)$row['Count'];
+                        $lvl1TotalCount += (int)$row['Count'];
+                        $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
+                        $message[$key]['PassingLvl1Count'] += (int)$row['Count'];
                     }
-
-                    $lvl1TotalCount++;
                 }
             }
 
-            $message['groundTotalCount'] = $groundTotalCount;
+            /*$message['groundTotalCount'] = $groundTotalCount;
             $message['groundInCount'] = $groundInCount;
             $message['groundPassingCount'] = $groundPassingCount;
             $message['lvl1TotalCount'] = $lvl1TotalCount;
             $message['lvl1InCount'] = $lvl1InCount;
-            $message['lvl1PassingCount'] = $lvl1PassingCount;
+            $message['lvl1PassingCount'] = $lvl1PassingCount;*/
             
             echo json_encode(
                 array(
                     "status" => "success",
-                    "message" => $message
+                    "message" => $message,
+                    "groundTotalCount" => $groundTotalCount,
+                    "groundInCount" => $groundInCount,
+                    "groundPassingCount" => $groundPassingCount,
+                    "lvl1TotalCount" => $lvl1TotalCount,
+                    "lvl1InCount" => $lvl1InCount,
+                    "lvl1PassingCount" => $lvl1PassingCount
                 ));   
         }
     }
