@@ -1,11 +1,12 @@
 <?php
 require_once "db_connect.php";
 
-//session_start();
+session_start();
 
-if(isset($_POST['startDate'], $_POST['endDate'])){
+if(isset($_POST['startDate'], $_POST['endDate'], $_POST['location'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
+    $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
     if ($select_stmt = $db->prepare("SELECT * FROM uniqlo_1u WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
