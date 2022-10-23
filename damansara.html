@@ -48,6 +48,13 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-lg-12">
+        <div id="heatmapContainerWrapper" style="width:100%; height:100%; position:absolute;">
+          <div id="heatmapContainer" style="width:100%; height:250px;"></div>
+        </div>
+      </div>
+    </div>
+    <!--div class="row">
       <div class="col-lg-6">
         <div class="card card-danger">
           <div class="card-header">
@@ -56,7 +63,6 @@
           <div class="card-body">
             <canvas id="totalVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
           </div>
-          <!-- /.card-body -->
         </div>
       </div>
       <div class="col-lg-6">
@@ -69,7 +75,6 @@
               <canvas id="totalVisitorsMonth" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
           </div>
-          <!-- /.card-body -->
         </div>
       </div>
       <div class="col-lg-6">
@@ -99,7 +104,6 @@
           <div class="card-body">
             <canvas id="passedInGroundPie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
           </div>
-          <!-- /.card-body -->
         </div>
       </div>
       <div class="col-lg-6">
@@ -129,11 +133,9 @@
           <div class="card-body">
             <canvas id="passedInLvl1Pie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
           </div>
-          <!-- /.card-body -->
         </div>
       </div>
-      <!-- /.col-md-6 -->
-    </div>
+    </div-->
     <!-- /.row -->
   </div>
   <!-- /.container-fluid -->
@@ -142,24 +144,6 @@
 
 <script>
 $(function () {
-  toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
-
   var areaChartOptions = {
     maintainAspectRatio : false,
     responsive : true,
@@ -274,7 +258,7 @@ $(function () {
       var startFormatted = formatDate(start) + " 00:00:00";
       var endFormatted = formatDate(end) + " 23:59:59";
       
-      $.post('php/getmonthly.php', {startDate: startFormatted, endDate: endFormatted, location: "1utama"}, function(data){
+      $.post('php/getdamansara.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
         var obj = JSON.parse(data);
 
         if(obj.status === 'success'){
@@ -310,6 +294,24 @@ $(function () {
       });
     }
   );
+
+  var heatmap = h337.create({
+    container: document.getElementById('heatmapContainer'),
+    // a waterdrop gradient ;-)
+    gradient: { 
+      .1: 'rgba(0,0,0,0)', 
+      0.25: "rgba(0,0,90, .6)", 
+      .6: "blue", 
+      .9: "cyan", 
+      .95: 'rgba(255,255,255,.4)'},
+    maxOpacity: .6,
+    radius: 10,
+    blur: .90
+  });
+
+  // boundaries for data generation
+  var width = (+window.getComputedStyle(document.getElementById('heatmapContainer')).width.replace(/px/,''));
+  var height = (+window.getComputedStyle(document.getElementById('heatmapContainer')).height.replace(/px/,''));
 
   //-------------
   //- DONUT CHART -
@@ -445,7 +447,7 @@ $(function () {
     options: lineChartOptions2
   })
 
-  $.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59", location: "1utama"}, function(data){
+  $.post('php/getdamansara.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){

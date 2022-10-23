@@ -62,7 +62,7 @@ if(!isset($_SESSION['userID'])){
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <!--img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"-->
-      <span class="brand-text font-weight-light">Uniqlo 1 Utama</span>
+      <span class="brand-text font-weight-light">Uniqlo</span>
     </a>
 
     <!-- Sidebar -->
@@ -73,19 +73,19 @@ if(!isset($_SESSION['userID'])){
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#home" data-file="home.html" class="nav-link active">
+            <a href="#home" data-file="home.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Home</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#1utama" data-file="1utama.html" class="nav-link">
+            <a href="#1utama" data-file="1utama.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Uniqlo 1 Utama</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#damansara" data-file="damansara.html" class="nav-link">
+            <a href="#damansara" data-file="damansara.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Uniqlo Damansara</p>
             </a>
@@ -139,6 +139,7 @@ if(!isset($_SESSION['userID'])){
 <script src="plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard3.js"></script>
+<script src="plugins/heatmap/build/heatmap.js"></script>
 <script>
 $(function () {
   toastr.options = {
@@ -183,7 +184,7 @@ $(function () {
       });
   });
   
-  $("a[href='#receive']").click();
+  $("a[href='#home']").click();
 });
 
 function addData(chart, label, data) {

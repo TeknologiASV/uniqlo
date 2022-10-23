@@ -3,7 +3,7 @@ require_once "db_connect.php";
 
 session_start();
 
-if(isset($_POST['startDate'], $_POST['endDate'], $_POST['location'])){
+if(isset($_POST['startDate'], $_POST['endDate'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);

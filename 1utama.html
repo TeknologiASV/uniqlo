@@ -142,24 +142,6 @@
 
 <script>
 $(function () {
-  toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
-
   var areaChartOptions = {
     maintainAspectRatio : false,
     responsive : true,
@@ -274,7 +256,7 @@ $(function () {
       var startFormatted = formatDate(start) + " 00:00:00";
       var endFormatted = formatDate(end) + " 23:59:59";
       
-      $.post('php/getmonthly.php', {startDate: startFormatted, endDate: endFormatted, location: "1utama"}, function(data){
+      $.post('php/get1utama.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
         var obj = JSON.parse(data);
 
         if(obj.status === 'success'){
@@ -445,7 +427,7 @@ $(function () {
     options: lineChartOptions2
   })
 
-  $.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59", location: "1utama"}, function(data){
+  $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
