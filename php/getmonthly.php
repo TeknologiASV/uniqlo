@@ -8,7 +8,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
 
-    if ($select_stmt = $db->prepare("SELECT COUNT(*) AS oneUCount FROM uniqlo_1u WHERE Date>=? AND Date<=? ORDER BY Date")) {
+    if ($select_stmt = $db->prepare("SELECT * FROM uniqlo_1u WHERE Date>=? AND Date<=? ORDER BY Date")) {
         $select_stmt->bind_param('ss', $startDate, $endDate);
         
         // Execute the prepared query.
@@ -20,7 +20,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 )); 
         }
         else{
-            if ($select_stmt2 = $db->prepare("SELECT COUNT(*) AS damansaraCount FROM uniqlo_DA WHERE Date>=? AND Date<=? ORDER BY Date")) {
+            if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE Date>=? AND Date<=? ORDER BY Date")) {
                 $select_stmt2->bind_param('ss', $startDate, $endDate);
                 
                 // Execute the prepared query.
@@ -39,12 +39,12 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                     $oneUtamaCount = 0;
                     $damansaraCount = 0;
 
-                    if ($row = $result->fetch_assoc()) {
-                        $oneUtamaCount = $row['oneUCount'];
+                    while($row = $result->fetch_assoc()) {
+                        $oneUtamaCount += $row['Count'];
                     }
 
-                    if ($row2 = $result2->fetch_assoc()) {
-                        $damansaraCount = $row['damansaraCount'];
+                    while($row2 = $result2->fetch_assoc()) {
+                        $damansaraCount += $row2['Count'];
                     }
 
                     /*while ($row = $result->fetch_assoc()) {
