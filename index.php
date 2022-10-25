@@ -1,5 +1,5 @@
 <?php
-require_once 'php/db_connect.php';
+//require_once 'php/db_connect.php';
 
 session_start();
 
@@ -16,6 +16,7 @@ if(!isset($_SESSION['userID'])){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Uniqlo | Dashboard</title>
 
+  <link rel="icon" href="images/logo.png" type="image">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -72,12 +73,12 @@ if(!isset($_SESSION['userID'])){
         <ul class="nav nav-pills nav-sidebar flex-column" id="sideMenu" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
+          <!--li class="nav-item">
             <a href="#home" data-file="home.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Home</p>
             </a>
-          </li>
+          </li-->
           <li class="nav-item">
             <a href="#1utama" data-file="1utama.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -184,7 +185,7 @@ $(function () {
       });
   });
   
-  $("a[href='#home']").click();
+  $("a[href='#1utama']").click();
 });
 
 function addData(chart, label, data) {
@@ -195,7 +196,21 @@ function addData(chart, label, data) {
   chart.update();
 }
 
-function addBarChartData(chart, label, data, data2) {
+function addBarChartData(chart, label, data, data2, data3, data4, data5, data6, data7, data8, data9) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
+  chart.data.datasets[1].data.push(data2);
+  chart.data.datasets[2].data.push(data3);
+  chart.data.datasets[3].data.push(data4);
+  chart.data.datasets[4].data.push(data5);
+  chart.data.datasets[5].data.push(data6);
+  chart.data.datasets[6].data.push(data7);
+  chart.data.datasets[7].data.push(data8);
+  chart.data.datasets[8].data.push(data9);
+  chart.update();
+}
+
+function addLineChartData(chart, label, data, data2) {
   chart.data.labels.push(label);
   chart.data.datasets[0].data.push(data);
   chart.data.datasets[1].data.push(data2);

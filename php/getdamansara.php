@@ -26,9 +26,15 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $groundTotalCount = 0;
             $groundPassingCount = 0;
             $groundInCount = 0;
-            $lvl1TotalCount = 0;
-            $lvl1PassingCount = 0;
-            $lvl1InCount = 0;
+            $totalL1 = 0;
+            $totalL2 = 0;
+            $totalL3 = 0;
+            $totalL4 = 0;
+            $totalR1 = 0;
+            $totalR2 = 0;
+            $totalR3 = 0;
+            $totalR4 = 0;
+            $totalC = 0;
             
             while ($row = $result->fetch_assoc()) {
                 if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
@@ -37,9 +43,15 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         'TotalGroundCount' => 0,
                         'InStoreGroundCount' => 0,
                         'PassingGroundCount' => 0,
-                        'TotalLvl1Count' => 0,
-                        'InStoreLvl1Count' => 0,
-                        'PassingLvl1Count' => 0
+                        'TotalL1' => 0,
+                        'TotalL2' => 0,
+                        'TotalL3' => 0,
+                        'TotalL4' => 0,
+                        'TotalR1' => 0,
+                        'TotalR2' => 0,
+                        'TotalR3' => 0,
+                        'TotalR4' => 0,
+                        'TotalC' => 0
                     );
 
                     array_push($dateBar, substr($row['Date'], 0, 10));
@@ -53,6 +65,47 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $groundTotalCount += (int)$row['Count'];
                         $message[$key]['TotalGroundCount'] += (int)$row['Count'];
                         $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
+
+                        if($row['Device'] == 'L1'){
+                            $totalL1 += (int)$row['Count'];
+                            $message[$key]['TotalL1'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'L1'){
+                            $totalL1 += (int)$row['Count'];
+                            $message[$key]['TotalL1'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'L2'){
+                            $totalL2 += (int)$row['Count'];
+                            $message[$key]['TotalL2'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'L3'){
+                            $totalL3 += (int)$row['Count'];
+                            $message[$key]['TotalL3'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'L4'){
+                            $totalL4 += (int)$row['Count'];
+                            $message[$key]['TotalL4'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'R1'){
+                            $totalR1 += (int)$row['Count'];
+                            $message[$key]['TotalR1'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'R2'){
+                            $totalR2 += (int)$row['Count'];
+                            $message[$key]['TotalR2'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'R3'){
+                            $totalR3 += (int)$row['Count'];
+                            $message[$key]['TotalR3'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'R4'){
+                            $totalR4 += (int)$row['Count'];
+                            $message[$key]['TotalR4'] += (int)$row['Count'];
+                        }
+                        else if($row['Device'] == 'C'){
+                            $totalC += (int)$row['Count'];
+                            $message[$key]['TotalC'] += (int)$row['Count'];
+                        }
                     }
                     else if($row['Door'] == 'passing by'){
                         $groundPassingCount += (int)$row['Count'];
@@ -61,28 +114,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $message[$key]['PassingGroundCount'] += (int)$row['Count'];
                     }
                 }
-                else if($row['Mode'] == 'Level 1'){
-                    if($row['Door'] == 'in'){
-                        $lvl1InCount += (int)$row['Count'];
-                        $lvl1TotalCount += (int)$row['Count'];
-                        $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
-                        $message[$key]['InStoreLvl1Count'] += (int)$row['Count'];
-                    }
-                    else if($row['Door'] == 'passing by'){
-                        $lvl1PassingCount += (int)$row['Count'];
-                        $lvl1TotalCount += (int)$row['Count'];
-                        $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
-                        $message[$key]['PassingLvl1Count'] += (int)$row['Count'];
-                    }
-                }
             }
-
-            /*$message['groundTotalCount'] = $groundTotalCount;
-            $message['groundInCount'] = $groundInCount;
-            $message['groundPassingCount'] = $groundPassingCount;
-            $message['lvl1TotalCount'] = $lvl1TotalCount;
-            $message['lvl1InCount'] = $lvl1InCount;
-            $message['lvl1PassingCount'] = $lvl1PassingCount;*/
             
             echo json_encode(
                 array(
@@ -91,9 +123,15 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                     "groundTotalCount" => $groundTotalCount,
                     "groundInCount" => $groundInCount,
                     "groundPassingCount" => $groundPassingCount,
-                    "lvl1TotalCount" => $lvl1TotalCount,
-                    "lvl1InCount" => $lvl1InCount,
-                    "lvl1PassingCount" => $lvl1PassingCount
+                    "totalL1" => $totalL1,
+                    "totalL2" => $totalL2,
+                    "totalL3" => $totalL3,
+                    "totalL4" => $totalL4,
+                    "totalR1" => $totalR1,
+                    "totalR2" => $totalR2,
+                    "totalR3" => $totalR3,
+                    "totalR4" => $totalR4,
+                    "totalC" => $totalC
                 ));   
         }
     }

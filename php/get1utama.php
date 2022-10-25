@@ -76,13 +76,6 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                     }
                 }
             }
-
-            /*$message['groundTotalCount'] = $groundTotalCount;
-            $message['groundInCount'] = $groundInCount;
-            $message['groundPassingCount'] = $groundPassingCount;
-            $message['lvl1TotalCount'] = $lvl1TotalCount;
-            $message['lvl1InCount'] = $lvl1InCount;
-            $message['lvl1PassingCount'] = $lvl1PassingCount;*/
             
             echo json_encode(
                 array(
