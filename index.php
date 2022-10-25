@@ -73,12 +73,12 @@ if(!isset($_SESSION['userID'])){
         <ul class="nav nav-pills nav-sidebar flex-column" id="sideMenu" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <!--li class="nav-item">
+          <li class="nav-item">
             <a href="#home" data-file="home.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Home</p>
             </a>
-          </li-->
+          </li>
           <li class="nav-item">
             <a href="#1utama" data-file="1utama.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -185,7 +185,7 @@ $(function () {
       });
   });
   
-  $("a[href='#1utama']").click();
+  $("a[href='#home']").click();
 });
 
 function addData(chart, label, data) {

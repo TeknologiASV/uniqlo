@@ -47,91 +47,50 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-md-6 col-sm-6 col-12">
+          <div class="info-box">
+            <img src="images/1utama.png" width="60" height="70"/>
+            <div class="info-box-content">
+              <span class="info-box-text">1 Utama</span>
+              <span class="info-box-number" id="salesInfo">0</span>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-md-6 col-sm-6 col-12">
+          <div class="info-box">
+            <img src="images/damansara.png" width="60" height="70"/>
+            <div class="info-box-content">
+              <span class="info-box-text">Damansara</span>
+              <span class="info-box-number" id="purchaseInfo">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
           <div class="card card-danger">
             <div class="card-header">
               <h3 class="card-title">Total Visitors</h3>
             </div>
             <div class="card-body">
-              <canvas id="totalVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              <canvas id="totalVisitors" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
             </div>
             <!-- /.card-body -->
           </div>
         </div>
-        <div class="col-lg-6">
+        <!--div class="col-lg-6">
           <div class="card card-success">
             <div class="card-header">
-              <h3 class="card-title">Total Visitor Monthly</h3>
+              <h3 class="card-title">Total Visitor By Branches</h3>
             </div>
             <div class="card-body">
               <div class="chart">
                 <canvas id="totalVisitorsMonth" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
               </div>
             </div>
-            <!-- /.card-body -->
-          </div>
+          </div-->
         </div>
-        <div class="col-lg-6">
-          <div class="card card-info">
-            <div class="card-header border-0">
-              <div class="d-flex justify-content-between">
-                <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Daily)</h3>
-                <a href="javascript:void(0);">View Report</a>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="position-relative mb-4">
-                <canvas id="passedInGround" height="200"></canvas>
-              </div>
-              <div class="d-flex flex-row justify-content-end">
-                <span class="mr-2"><i class="fas fa-square text-primary"></i> In</span>
-                <span><i class="fas fa-square text-gray"></i> Passing By</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card card-danger">
-            <div class="card-header">
-              <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Ground Floor - Daily)</h3>
-            </div>
-            <div class="card-body">
-              <canvas id="passedInGroundPie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-            <!-- /.card-body -->
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card card-info">
-            <div class="card-header border-0">
-              <div class="d-flex justify-content-between">
-                <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Daily)</h3>
-                <a href="javascript:void(0);">View Report</a>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="position-relative mb-4">
-                <canvas id="passedInLvl1" height="200"></canvas>
-              </div>
-              <div class="d-flex flex-row justify-content-end">
-                <span class="mr-2"><i class="fas fa-square text-primary"></i> In</span>
-                <span><i class="fas fa-square text-gray"></i> Passing By</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card card-danger">
-            <div class="card-header">
-              <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Level 1 - Daily)</h3>
-            </div>
-            <div class="card-body">
-              <canvas id="passedInLvl1Pie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-            <!-- /.card-body -->
-          </div>
-        </div>
-        <!-- /.col-md-6 -->
       </div>
       <!-- /.row -->
     </div>
@@ -141,120 +100,6 @@
   
   <script>
   $(function () {
-    toastr.options = {
-      "closeButton": false,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": false,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
-  
-    var areaChartOptions = {
-      maintainAspectRatio : false,
-      responsive : true,
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }],
-        yAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }]
-      }
-    }
-  
-    var areaChartOptions2 = {
-      maintainAspectRatio : false,
-      responsive : true,
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines : {
-            display : true,
-          }
-        }],
-        yAxes: [{
-          gridLines : {
-            display : true,
-          }
-        }]
-      }
-    }
-  
-    var areaChartData = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label               : 'Level 1',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [0, 0, 0, 0, 0, 0, 0]
-        },
-        {
-          label               : 'Ground',
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [0, 0, 0, 0, 0, 0, 0]
-        },
-      ]
-    }
-  
-    var areaChartData2 = {
-      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label               : 'In',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : true,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [0, 0, 0, 0, 0, 0, 0]
-        },
-        {
-          label               : 'Passing By',
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : true,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [0, 0, 0, 0, 0, 0, 0]
-        },
-      ]
-    }
-  
     //Date range as a button
     $('#daterange-btn').daterangepicker(
       {
@@ -266,8 +111,8 @@
           'This Month'  : [moment().startOf('month'), moment().endOf('month')],
           'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
+        startDate: moment().subtract(1, 'days'),
+        endDate  : moment().subtract(1, 'days')
       },
       function (start, end) {
         var startFormatted = formatDate(start) + " 00:00:00";
@@ -278,27 +123,16 @@
   
           if(obj.status === 'success'){
             removeData(totalVisitorsChart);
-            addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
-            addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+            addData(totalVisitorsChart, '1 Utama', obj.oneUtamaCount);
+            addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);
+            $('#salesInfo').html(obj.oneUtamaCount);
+            $('#purchaseInfo').html(obj.damansaraCount);
   
-            removeData(passedInGroundPie);
-            addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-            addData(passedInGroundPie, 'In', obj.groundInCount);
-            
-            removeData(passedInLvl1Pie);
-            addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
-            addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
-  
-            removeData(barChart);
-            removeData(lineChart);
-            removeData(lineChart2);
+            /*removeData(barChart);
   
             for(var i=0; i<obj.message.length; i++){
               addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-              addBarChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-              addBarChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
-            }
-            
+            }*/
           }
           else if(obj.status === 'failed'){
             toastr["error"](obj.message, "Failed:");
@@ -314,162 +148,69 @@
     //- DONUT CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
-    var donutChartCanvas = $('#totalVisitors').get(0).getContext('2d')
+    var donutChartCanvas = $('#totalVisitors').get(0).getContext('2d');
     var donutData        = {
-      labels: [
-          'Ground',
-          'Level 1'
-      ],
+      labels: ['1 Utama', 'Damansara'],
       datasets: [
         {
           data: [0,0],
-          backgroundColor : ['#f56954', '#00a65a'],
+          backgroundColor : ['#f4a522', '#6092cd'],
         }
       ]
     }
-    var donutOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var totalVisitorsChart = new Chart(donutChartCanvas, {
-      type: 'doughnut',
-      data: donutData,
-      options: donutOptions
-    });
-  
-    var donutChartCanvas2 = $('#passedInGroundPie').get(0).getContext('2d')
-    var donutData2        = {
-      labels: [
-          'Passing By',
-          'In'
-      ],
-      datasets: [
-        {
-          data: [0,0],
-          backgroundColor : ['#f56954', '#00a65a'],
-        }
-      ]
-    }
-    var donutOptions2     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var passedInGroundPie = new Chart(donutChartCanvas2, {
-      type: 'doughnut',
-      data: donutData2,
-      options: donutOptions2
-    });
-  
-    var donutChartCanvas3 = $('#passedInLvl1Pie').get(0).getContext('2d')
-    var donutData3        = {
-      labels: [
-          'Passing By',
-          'In'
-      ],
-      datasets: [
-        {
-          data: [0,0],
-          backgroundColor : ['#f56954', '#00a65a'],
-        }
-      ]
-    }
-  
-    var donutOptions3    = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    var passedInLvl1Pie = new Chart(donutChartCanvas3, {
-      type: 'doughnut',
-      data: donutData3,
-      options: donutOptions3
-    });
+    var donutOptions = {maintainAspectRatio : false, responsive : true}
+    var totalVisitorsChart = new Chart(donutChartCanvas, {type: 'doughnut', data: donutData, options: donutOptions});
   
     //-------------
     //- BAR CHART -
     //-------------
-    var barChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d')
-    var barChartData = $.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var temp1 = areaChartData.datasets[1]
-    barChartData.datasets[0] = temp1
-    barChartData.datasets[1] = temp0
-  
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
+    /*var barChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d');
+    var barChartData = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label               : '1 Utama',
+          backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+          borderColor         : 'rgba(244, 165, 34, 0.8)',
+          pointRadius         : false,
+          pointColor          : '#f4a522',
+          pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+          data                : [0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+          label               : 'Damasara',
+          backgroundColor     : 'rgba(96, 146, 205, 1)',
+          borderColor         : 'rgba(96, 146, 205, 1)',
+          pointRadius         : false,
+          pointColor          : 'rgba(96, 146, 205, 1)',
+          pointStrokeColor    : '#6092cd',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+          data                : [0, 0, 0, 0, 0, 0, 0]
+        },
+      ]
     }
   
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    });
+    var barChartOptions = {responsive: true, maintainAspectRatio: false, datasetFill: false}
+    var barChart = new Chart(barChartCanvas, {type: 'bar', data: barChartData, options: barChartOptions});*/
   
-    //-------------
-    //- LINE CHART -
-    //--------------
-    var lineChartCanvas = $('#passedInGround').get(0).getContext('2d')
-    var lineChartOptions = $.extend(true, {}, areaChartOptions2)
-    var lineChartData = $.extend(true, {}, areaChartData2)
-    lineChartData.datasets[0].fill = false;
-    lineChartData.datasets[1].fill = false;
-    lineChartOptions.datasetFill = false
-  
-    var lineChart = new Chart(lineChartCanvas, {
-      type: 'line',
-      data: lineChartData,
-      options: lineChartOptions
-    })
-  
-    //-------------
-    //- LINE CHART -
-    //--------------
-    var lineChartCanvas2 = $('#passedInLvl1').get(0).getContext('2d')
-    var lineChartOptions2 = $.extend(true, {}, areaChartOptions2)
-    var lineChartData2 = $.extend(true, {}, areaChartData2)
-    lineChartData2.datasets[0].fill = false;
-    lineChartData2.datasets[1].fill = false;
-    lineChartOptions.datasetFill = false
-  
-    var lineChart2 = new Chart(lineChartCanvas2, {
-      type: 'line',
-      data: lineChartData2,
-      options: lineChartOptions2
-    })
-  
-    $.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
+    $.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(1, 'days')) + " 00:00:00", endDate: formatDate(moment().subtract(1, 'days')) + " 23:59:59"}, function(data){
       var obj = JSON.parse(data);
   
       if(obj.status === 'success'){
         removeData(totalVisitorsChart);
-        addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
-        addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+        addData(totalVisitorsChart, '1 Utama', obj.oneUtamaCount);
+        addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);
+        $('#salesInfo').html(obj.oneUtamaCount);
+        $('#purchaseInfo').html(obj.damansaraCount);
   
-        removeData(passedInGroundPie);
-        addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-        addData(passedInGroundPie, 'In', obj.groundInCount);
-        
-        removeData(passedInLvl1Pie);
-        addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
-        addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
-  
-        removeData(barChart);
-        removeData(lineChart);
-        removeData(lineChart2);
+        /*removeData(barChart);
   
         for(var i=0; i<obj.message.length; i++){
-          addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-          addBarChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-          addBarChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
-        }
-        
+          addLineChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+        }*/
       }
       else if(obj.status === 'failed'){
         toastr["error"](obj.message, "Failed:");
