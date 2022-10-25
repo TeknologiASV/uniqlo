@@ -16,10 +16,18 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             echo json_encode(
                 array(
                     "status" => "failed",
-                    "message" => "Something went wrong when getting 1 Utama count"
+                    "message" => $select_stmt->error 
                 )); 
         }
         else{
+            $oneUtamaCount = 0;
+            $damansaraCount = 0;
+            $result = $select_stmt->get_result();
+            
+            while($row = $result->fetch_assoc()) {
+                $oneUtamaCount += $row['Count'];
+            }
+            
             if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE Date>=? AND Date<=? ORDER BY Date")) {
                 $select_stmt2->bind_param('ss', $startDate, $endDate);
                 
@@ -28,20 +36,11 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                     echo json_encode(
                         array(
                             "status" => "failed",
-                            "message" => "Something went wrong when getting Damansara count"
+                            "message" => $select_stmt2->error 
                         )); 
                 }
                 else{
-                    $result = $select_stmt->get_result();
                     $result2 = $select_stmt2->get_result();
-                    $message = array();
-                    //$dateBar = array();
-                    $oneUtamaCount = 0;
-                    $damansaraCount = 0;
-
-                    while($row = $result->fetch_assoc()) {
-                        $oneUtamaCount += $row['Count'];
-                    }
 
                     while($row2 = $result2->fetch_assoc()) {
                         $damansaraCount += $row2['Count'];
@@ -99,7 +98,23 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         ));   
                 }
             }
+            else{
+                echo json_encode(
+                    array(
+                        "status" => "failed",
+                        "message" => "Failed to prepare query for DA"
+                    )
+                ); 
+            }
         }
+    }
+    else{
+        echo json_encode(
+            array(
+                "status" => "failed",
+                "message" => "Failed to prepare query for 1U"
+            )
+        ); 
     }
 }
 else{
