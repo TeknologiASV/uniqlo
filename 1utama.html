@@ -277,9 +277,9 @@ $(function () {
           removeData(lineChart2);
 
           for(var i=0; i<obj.message.length; i++){
-            addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-            addBarChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-            addBarChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+            addLineChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+            addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addLineChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
           }
           
         }
@@ -448,9 +448,9 @@ $(function () {
       removeData(lineChart2);
 
       for(var i=0; i<obj.message.length; i++){
-        addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-        addBarChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-        addBarChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+        addLineChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+        addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+        addLineChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
       }
       
     }
