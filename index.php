@@ -30,6 +30,7 @@ if(!isset($_SESSION['userID'])){
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 </head>
 <!--
 `body` tag options:
@@ -140,7 +141,9 @@ if(!isset($_SESSION['userID'])){
 <script src="plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard3.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 <script src="plugins/heatmap/build/heatmap.js"></script>
+<script src="plugins/heatmap/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 <script>
 $(function () {
   toastr.options = {

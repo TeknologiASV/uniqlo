@@ -100,8 +100,15 @@
         </div>
       </div>
       <div class="col-lg-12">
-        <div id="heatmapContainerWrapper" style="width:100%; height:100%; position:absolute; background-image: url('images/floor.png');">
-          <div id="heatmapContainer" style="width:100%; height:auto;"></div>
+        <div class="card card-danger">
+          <div class="card-header">
+            <h3 class="card-title">Heatmap</h3>
+          </div>
+          <div class="card-body">
+            <!--div id="heatmapContainerWrapper" style="width:100%; height:100%; position:absolute;"-->
+            <div id="heatmapContainer" style="width:100%; height:1000px;"></div>
+            <!--/div-->
+          </div>
         </div>
       </div>
     </div>
@@ -204,6 +211,67 @@ $(function () {
             addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
             addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
           }
+
+          heatmap.setData({
+            max: 100,
+            min: 0,
+            data: [
+              {
+                x: 0.2 * width >> 0,
+                y: 0.25 * height >> 0, 
+                value: (obj.totalL4 / obj.groundTotalCount) * 1000,
+                radius: 100
+              }, 
+              {
+                x: 0.2 * width >> 0, 
+                y: 0.5 * height >> 0,
+                value: (obj.totalL3 / obj.groundTotalCount) * 1000,
+                radius: 100
+              },
+              {
+                x: 0.2 * width >> 0,
+                y: 0.7 * height >> 0,
+                value: (obj.totalL2 / obj.groundTotalCount) * 1000,
+                radius: 100
+              }, 
+              {
+                x: 0.25 * width >> 0,
+                y: 0.85 * height >> 0,
+                value: (obj.totalL1 / obj.groundTotalCount) * 1000,
+                radius: 100
+              }, 
+              {
+                x: 0.9 * width >> 0,
+                y: 0.25 * height >> 0,
+                value: (obj.totalR4 / obj.groundTotalCount) * 1000,
+                radius: 100
+              }, 
+              {
+                x: 0.9 * width >> 0,
+                y: 0.5 * height >> 0,
+                value: (obj.totalR3 / obj.groundTotalCount) * 1000,
+                radius: 100
+              }, 
+              {
+                x: 0.9 * width >> 0,
+                y: 0.7 * height >> 0,
+                value: (obj.totalR2 / obj.groundTotalCount) * 1000,
+                radius: 100
+              }, 
+              {
+                x: 0.85 * width >> 0,
+                y: 0.85 * height >> 0,
+                value: (obj.totalR1 / obj.groundTotalCount) * 1000,
+                radius: 100
+              },
+              {
+                x: 0.5 * width >> 0, 
+                y: 0.7 * height >> 0,
+                value: (obj.totalC / obj.groundTotalCount) * 1000,
+                radius: 100
+              }
+            ]
+          });
         }
         else if(obj.status === 'failed'){
           toastr["error"](obj.message, "Failed:");
@@ -219,11 +287,10 @@ $(function () {
     container: document.getElementById('heatmapContainer'),
     // a waterdrop gradient ;-)
     gradient: { 
-      .1: 'rgba(0,0,0,0)', 
-      0.25: "rgba(0,0,90, .6)", 
-      .6: "blue", 
-      .9: "cyan", 
-      .95: 'rgba(255,255,255,.4)'},
+      0.25: "cyan", 
+      0.5: "yellow", 
+      0.75: "orange", 
+      1: 'red'},
     maxOpacity: .6,
     radius: 10,
     blur: .90
@@ -232,6 +299,9 @@ $(function () {
   // boundaries for data generation
   var width = (+window.getComputedStyle(document.getElementById('heatmapContainer')).width.replace(/px/,''));
   var height = (+window.getComputedStyle(document.getElementById('heatmapContainer')).height.replace(/px/,''));
+  $('.heatmap-canvas').css('background-image', 'url("images/floor.png")');
+  $('.heatmap-canvas').css('background-repeat', 'no-repeat');
+  $('.heatmap-canvas').css('background-size', '100% auto');
   
   // Start: DONUT CHART
   var donutChartCanvas = $('#totalVisitors').get(0).getContext('2d')
@@ -240,7 +310,7 @@ $(function () {
     datasets: [
       {
         data: [0,0,0,0,0,0,0,0,0],
-        backgroundColor : ['#f56954', '#00a65a', '#FFFF00', '#0000FF', '#800000', '#FF00FF', '#7FFFD4', '#FF0000', '#00FFFF'],
+        backgroundColor : ['#f4a522', '#6092cd', '#61b546', '#aa4498', '#dccc77', '#89dcf0', '#8c564b', '#d62728', '#28383c'],
       }
     ]
   }
@@ -268,101 +338,101 @@ $(function () {
     datasets: [
       {
         label               : 'L1',
-        backgroundColor     : 'rgba(245, 105, 84,0.9)',
-        borderColor         : 'rgba(245, 105, 84,0.8)',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
         pointRadius          : false,
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(245, 105, 84, 1)',
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(245, 105, 84, 1)',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'L2',
-        backgroundColor     : 'rgba(0, 166, 90, 1)',
-        borderColor         : 'rgba(0, 166, 90, 1)',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
         pointRadius         : false,
-        pointColor          : 'rgba(0, 166, 90, 1)',
-        pointStrokeColor    : '#c1c7d1',
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(0, 166, 90, 1)',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'L3',
-        backgroundColor     : 'rgba(255, 255, 0,0.9)',
-        borderColor         : 'rgba(255, 255, 0,0.8)',
+        backgroundColor     : 'rgba(97, 181, 70, 0.9)',
+        borderColor         : 'rgba(97, 181, 70, 0.8)',
         pointRadius          : false,
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(255, 255, 0, 1)',
+        pointColor          : '#61b546',
+        pointStrokeColor    : 'rgba(97, 181, 70, 1)',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(255, 255, 0, 1)',
+        pointHighlightStroke: 'rgba(97, 181, 70, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'L4',
-        backgroundColor     : 'rgba(0, 0, 255, 1)',
-        borderColor         : 'rgba(0, 0, 255, 1)',
+        backgroundColor     : 'rgba(170, 68, 152, 1)',
+        borderColor         : 'rgba(170, 68, 152, 1)',
         pointRadius         : false,
-        pointColor          : 'rgba(0, 0, 255, 1)',
-        pointStrokeColor    : '#c1c7d1',
+        pointColor          : 'rgba(170, 68, 152, 1)',
+        pointStrokeColor    : '#aa4498',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(0, 0, 255, 1)',
+        pointHighlightStroke: 'rgba(170, 68, 152, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'R1',
-        backgroundColor     : 'rgba(128, 0, 0,0.9)',
-        borderColor         : 'rgba(128, 0, 0,0.8)',
+        backgroundColor     : 'rgba(220, 204, 119, 0.9)',
+        borderColor         : 'rgba(220, 204, 119, 0.8)',
         pointRadius          : false,
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(128, 0, 0, 1)',
+        pointColor          : '#dccc77',
+        pointStrokeColor    : 'rgba(220, 204, 119, 1)',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(128, 0, 0, 1)',
+        pointHighlightStroke: 'rgba(220, 204, 119, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'R2',
-        backgroundColor     : 'rgba(255, 0, 255, 1)',
-        borderColor         : 'rgba(255, 0, 255, 1)',
+        backgroundColor     : 'rgba(137, 220, 240, 1)',
+        borderColor         : 'rgba(137, 220, 240, 1)',
         pointRadius         : false,
-        pointColor          : 'rgba(255, 0, 255, 1)',
-        pointStrokeColor    : '#c1c7d1',
+        pointColor          : 'rgba(137, 220, 240, 1)',
+        pointStrokeColor    : '#89dcf0',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(255, 0, 255, 1)',
+        pointHighlightStroke: 'rgba(137, 220, 240, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'R3',
-        backgroundColor     : 'rgba(127, 255, 212,0.9)',
-        borderColor         : 'rgba(127, 255, 212,0.8)',
+        backgroundColor     : 'rgba(140, 86, 75, 0.9)',
+        borderColor         : 'rgba(140, 86, 75, 0.8)',
         pointRadius          : false,
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(127, 255, 212, 1)',
+        pointColor          : '#8c564b',
+        pointStrokeColor    : 'rgba(140, 86, 75, 1)',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(127, 255, 212, 1)',
+        pointHighlightStroke: 'rgba(140, 86, 75, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'R4',
-        backgroundColor     : 'rgba(255, 0, 0, 1)',
-        borderColor         : 'rgba(255, 0, 0, 1)',
+        backgroundColor     : 'rgba(214, 39, 40, 1)',
+        borderColor         : 'rgba(214, 39, 40, 1)',
         pointRadius         : false,
-        pointColor          : 'rgba(255, 0, 0, 1)',
-        pointStrokeColor    : '#c1c7d1',
+        pointColor          : 'rgba(214, 39, 40, 1)',
+        pointStrokeColor    : '#d62728',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(255, 0, 0, 1)',
+        pointHighlightStroke: 'rgba(214, 39, 40, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'C',
-        backgroundColor     : 'rgba(0, 255, 255,0.9)',
-        borderColor         : 'rgba(0, 255, 255,0.8)',
+        backgroundColor     : 'rgba(40, 56, 60, 0.9)',
+        borderColor         : 'rgba(40, 56, 60, 0.8)',
         pointRadius          : false,
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(0, 255, 255, 1)',
+        pointColor          : '#28383c',
+        pointStrokeColor    : 'rgba(40, 56, 60, 1)',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(0, 255, 255, 1)',
+        pointHighlightStroke: 'rgba(40, 56, 60, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       }
     ]
@@ -422,6 +492,67 @@ $(function () {
         addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
         addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
       }
+
+      heatmap.setData({
+        max: 100,
+        min: 0,
+        data: [
+          {
+            x: 0.2 * width >> 0,
+            y: 0.25 * height >> 0, 
+            value: (obj.totalL4 / obj.groundTotalCount) * 1000,
+            radius: 100
+          }, 
+          {
+            x: 0.2 * width >> 0, 
+            y: 0.5 * height >> 0,
+            value: (obj.totalL3 / obj.groundTotalCount) * 1000,
+            radius: 100
+          },
+          {
+            x: 0.2 * width >> 0,
+            y: 0.7 * height >> 0,
+            value: (obj.totalL2 / obj.groundTotalCount) * 1000,
+            radius: 100
+          }, 
+          {
+            x: 0.25 * width >> 0,
+            y: 0.85 * height >> 0,
+            value: (obj.totalL1 / obj.groundTotalCount) * 1000,
+            radius: 100
+          }, 
+          {
+            x: 0.9 * width >> 0,
+            y: 0.25 * height >> 0,
+            value: (obj.totalR4 / obj.groundTotalCount) * 1000,
+            radius: 100
+          }, 
+          {
+            x: 0.9 * width >> 0,
+            y: 0.5 * height >> 0,
+            value: (obj.totalR3 / obj.groundTotalCount) * 1000,
+            radius: 100
+          }, 
+          {
+            x: 0.9 * width >> 0,
+            y: 0.7 * height >> 0,
+            value: (obj.totalR2 / obj.groundTotalCount) * 1000,
+            radius: 100
+          }, 
+          {
+            x: 0.85 * width >> 0,
+            y: 0.85 * height >> 0,
+            value: (obj.totalR1 / obj.groundTotalCount) * 1000,
+            radius: 100
+          },
+          {
+            x: 0.5 * width >> 0, 
+            y: 0.7 * height >> 0,
+            value: (obj.totalC / obj.groundTotalCount) * 1000,
+            radius: 100
+          }
+        ]
+      });
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");
