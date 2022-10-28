@@ -85,8 +85,8 @@
               <canvas id="passedInGround" height="200"></canvas>
             </div>
             <div class="d-flex flex-row justify-content-end">
-              <span class="mr-2"><i class="fas fa-square text-primary"></i> In</span>
-              <span><i class="fas fa-square text-gray"></i> Passing By</span>
+              <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
+              <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
             </div>
           </div>
         </div>
@@ -115,8 +115,8 @@
               <canvas id="passedInLvl1" height="200"></canvas>
             </div>
             <div class="d-flex flex-row justify-content-end">
-              <span class="mr-2"><i class="fas fa-square text-primary"></i> In</span>
-              <span><i class="fas fa-square text-gray"></i> Passing By</span>
+              <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
+              <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
             </div>
           </div>
         </div>
@@ -187,26 +187,26 @@ $(function () {
     datasets: [
       {
         label               : 'Level 1',
-        backgroundColor     : 'rgba(60,141,188,0.9)',
-        borderColor         : 'rgba(60,141,188,0.8)',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
         pointRadius          : false,
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(60,141,188,1)',
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'Ground',
-        backgroundColor     : 'rgba(210, 214, 222, 1)',
-        borderColor         : 'rgba(210, 214, 222, 1)',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
         pointRadius         : false,
-        pointColor          : 'rgba(210, 214, 222, 1)',
-        pointStrokeColor    : '#c1c7d1',
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
-      },
+      }
     ]
   }
 
@@ -215,26 +215,26 @@ $(function () {
     datasets: [
       {
         label               : 'In',
-        backgroundColor     : 'rgba(60,141,188,0.9)',
-        borderColor         : 'rgba(60,141,188,0.8)',
-        pointRadius          : true,
-        pointColor          : '#3b8bba',
-        pointStrokeColor    : 'rgba(60,141,188,1)',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(60,141,188,1)',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
         label               : 'Passing By',
-        backgroundColor     : 'rgba(210, 214, 222, 1)',
-        borderColor         : 'rgba(210, 214, 222, 1)',
-        pointRadius         : true,
-        pointColor          : 'rgba(210, 214, 222, 1)',
-        pointStrokeColor    : '#c1c7d1',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
         pointHighlightFill  : '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
-      },
+      }
     ]
   }
 
@@ -306,7 +306,7 @@ $(function () {
     datasets: [
       {
         data: [0,0],
-        backgroundColor : ['#f56954', '#00a65a'],
+        backgroundColor : ['#f4a522', '#6092cd'],
       }
     ]
   }
@@ -331,7 +331,7 @@ $(function () {
     datasets: [
       {
         data: [0,0],
-        backgroundColor : ['#f56954', '#00a65a'],
+        backgroundColor : ['#f4a522', '#6092cd'],
       }
     ]
   }
@@ -356,7 +356,7 @@ $(function () {
     datasets: [
       {
         data: [0,0],
-        backgroundColor : ['#f56954', '#00a65a'],
+        backgroundColor : ['#f4a522', '#6092cd'],
       }
     ]
   }

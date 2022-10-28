@@ -48,10 +48,23 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Total Visitors</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart">
+              <canvas id="totalVisitorsAllTime" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
       <div class="col-lg-6">
         <div class="card card-danger">
           <div class="card-header">
-            <h3 class="card-title">Total Visitors</h3>
+            <h3 class="card-title">Total Zone Visitors</h3>
           </div>
           <div class="card-body">
             <canvas id="totalVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -61,7 +74,7 @@
       <div class="col-lg-6">
         <div class="card card-success">
           <div class="card-header">
-            <h3 class="card-title">Total Visitor Monthly</h3>
+            <h3 class="card-title">Total Zone Visitors by Month</h3>
           </div>
           <div class="card-body">
             <div class="chart">
@@ -70,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
+      <!--div class="col-lg-6">
         <div class="card card-info">
           <div class="card-header border-0">
             <div class="d-flex justify-content-between">
@@ -98,16 +111,16 @@
             <canvas id="passedInGroundPie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
           </div>
         </div>
-      </div>
+      </div-->
       <div class="col-lg-12">
         <div class="card card-danger">
           <div class="card-header">
             <h3 class="card-title">Heatmap</h3>
           </div>
           <div class="card-body">
-            <!--div id="heatmapContainerWrapper" style="width:100%; height:100%; position:absolute;"-->
-            <div id="heatmapContainer" style="width:100%; height:1000px;"></div>
-            <!--/div-->
+            <div id="heatmapContainerWrapper" style="width:100%; height:100%;">
+              <div id="heatmapContainer" style="width:100%; height:1300px;"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,10 +130,34 @@
   <!-- /.container-fluid -->
 </div>
 <!-- /.content -->
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="title">-</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="card-body">
+            <p id="modalTotalVisitor"></p>
+            <p id="modalTotalVisitorZone"></p>
+            <p id="modalTotalVisitorZonePerc"></p>
+          </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close 关闭</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <script>
 $(function () {
-  var areaChartData2 = {
+  /*var areaChartData2 = {
     labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
@@ -166,7 +203,18 @@ $(function () {
         }
       }]
     }
-  }
+  }*/
+  var L1Total = 0;
+  var L2Total = 0;
+  var L3Total = 0;
+  var L4Total = 0;
+  var R1Total = 0;
+  var R2Total = 0;
+  var R3Total = 0;
+  var R4Total = 0;
+  var CTotal = 0;
+  var GroundTotal = 0;
+  var InTotal = 0;
 
   $('#daterange-btn').daterangepicker(
     {
@@ -189,27 +237,40 @@ $(function () {
         var obj = JSON.parse(data);
 
         if(obj.status === 'success'){
-          removeData(totalVisitorsChart);
-          addData(totalVisitorsChart, 'L1', obj.totalL1);
-          addData(totalVisitorsChart, 'L2', obj.totalL2);
-          addData(totalVisitorsChart, 'L3', obj.totalL3);
-          addData(totalVisitorsChart, 'L4', obj.totalL4);
-          addData(totalVisitorsChart, 'R1', obj.totalR1);
-          addData(totalVisitorsChart, 'R2', obj.totalR2);
-          addData(totalVisitorsChart, 'R3', obj.totalR3);
-          addData(totalVisitorsChart, 'R4', obj.totalR4);
-          addData(totalVisitorsChart, 'C', obj.totalC);
+          L1Total = obj.totalL1;
+          L2Total = obj.totalL2;
+          L3Total = obj.totalL3;
+          L4Total = obj.totalL4;
+          R1Total = obj.totalR1;
+          R2Total = obj.totalR2;
+          R3Total = obj.totalR3;
+          R4Total = obj.totalR4;
+          CTotal = obj.totalC;
+          GroundTotal = obj.groundTotalCount;
+          InTotal = obj.groundInCount;
 
-          removeData(passedInGroundPie);
+          removeData(totalVisitorsChart);
+          addData(totalVisitorsChart, 'M1', obj.totalL1);
+          addData(totalVisitorsChart, 'M2', obj.totalL2);
+          addData(totalVisitorsChart, 'M3', obj.totalL3);
+          addData(totalVisitorsChart, 'M4', obj.totalL4);
+          addData(totalVisitorsChart, 'W1', obj.totalR1);
+          addData(totalVisitorsChart, 'W2', obj.totalR2);
+          addData(totalVisitorsChart, 'W3', obj.totalR3);
+          addData(totalVisitorsChart, 'W4', obj.totalR4);
+          addData(totalVisitorsChart, 'MVP + WVP', obj.totalC);
+
+          /*removeData(passedInGroundPie);
           addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-          addData(passedInGroundPie, 'In', obj.groundInCount);
+          addData(passedInGroundPie, 'In', obj.groundInCount);*/
 
           removeData(barChart);
-          removeData(lineChart);
+          removeData(stackChart);
 
           for(var i=0; i<obj.message.length; i++){
-            addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
-            addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addBarChartData(barChart, obj.message[i].Date, obj.message[i].InStoreGroundCount);
+            addStackChartData(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
+            //addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
           }
 
           heatmap.setData({
@@ -218,54 +279,54 @@ $(function () {
             data: [
               {
                 x: 0.2 * width >> 0,
-                y: 0.25 * height >> 0, 
+                y: 0.2 * height >> 0, 
                 value: (obj.totalL4 / obj.groundTotalCount) * 1000,
                 radius: 100
               }, 
               {
                 x: 0.2 * width >> 0, 
-                y: 0.5 * height >> 0,
+                y: 0.45 * height >> 0,
                 value: (obj.totalL3 / obj.groundTotalCount) * 1000,
                 radius: 100
               },
               {
                 x: 0.2 * width >> 0,
-                y: 0.7 * height >> 0,
+                y: 0.65 * height >> 0,
                 value: (obj.totalL2 / obj.groundTotalCount) * 1000,
                 radius: 100
               }, 
               {
                 x: 0.25 * width >> 0,
-                y: 0.85 * height >> 0,
+                y: 0.75 * height >> 0,
                 value: (obj.totalL1 / obj.groundTotalCount) * 1000,
                 radius: 100
               }, 
               {
                 x: 0.9 * width >> 0,
-                y: 0.25 * height >> 0,
+                y: 0.2 * height >> 0,
                 value: (obj.totalR4 / obj.groundTotalCount) * 1000,
                 radius: 100
               }, 
               {
                 x: 0.9 * width >> 0,
-                y: 0.5 * height >> 0,
+                y: 0.45 * height >> 0,
                 value: (obj.totalR3 / obj.groundTotalCount) * 1000,
                 radius: 100
               }, 
               {
                 x: 0.9 * width >> 0,
-                y: 0.7 * height >> 0,
+                y: 0.65 * height >> 0,
                 value: (obj.totalR2 / obj.groundTotalCount) * 1000,
                 radius: 100
               }, 
               {
                 x: 0.85 * width >> 0,
-                y: 0.85 * height >> 0,
+                y: 0.75 * height >> 0,
                 value: (obj.totalR1 / obj.groundTotalCount) * 1000,
                 radius: 100
               },
               {
-                x: 0.5 * width >> 0, 
+                x: 0.55 * width >> 0, 
                 y: 0.7 * height >> 0,
                 value: (obj.totalC / obj.groundTotalCount) * 1000,
                 radius: 100
@@ -302,6 +363,72 @@ $(function () {
   $('.heatmap-canvas').css('background-image', 'url("images/floor.png")');
   $('.heatmap-canvas').css('background-repeat', 'no-repeat');
   $('.heatmap-canvas').css('background-size', '100% auto');
+
+  document.querySelector('#heatmapContainerWrapper').onclick = function(ev) {
+    if((ev.layerX <= (0.2*width + 10) && (0.2*width - 10) <= ev.layerX) && (ev.layerY <= (0.2 * height + 10) && (0.2 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("M4 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M4 Zone: " + L4Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M4 Zone (%): " + parseFloat((L4Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.2*width + 10) && (0.2*width - 10) <= ev.layerX) && (ev.layerY <= (0.45 * height + 10) && (0.45 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("M3 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M3 Zone: " + L3Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M3 Zone (%): " + parseFloat((L3Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.2*width + 10) && (0.2*width - 10) <= ev.layerX) && (ev.layerY <= (0.65 * height + 10) && (0.65 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("M2 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M2 Zone: " + L2Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M2 Zone (%): " + parseFloat((L2Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.25*width + 10) && (0.25*width - 10) <= ev.layerX) && (ev.layerY <= (0.75 * height + 10) && (0.75 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("M1 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M1 Zone: " + L1Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M1 Zone (%): " + parseFloat((L1Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.9*width + 10) && (0.9*width - 10) <= ev.layerX) && (ev.layerY <= (0.2 * height + 10) && (0.2 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("W4 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W4 Zone: " + R4Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W4 Zone (%): " + parseFloat((R4Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.9*width + 10) && (0.9*width - 10) <= ev.layerX) && (ev.layerY <= (0.45 * height + 10) && (0.45 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("W3 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W3 Zone: " + R3Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W3 Zone (%): " + parseFloat((R3Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.9*width + 10) && (0.9*width - 10) <= ev.layerX) && (ev.layerY <= (0.65 * height + 10) && (0.65 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("W2 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W2 Zone: " + R2Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W2 Zone (%): " + parseFloat((R2Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.85*width + 10) && (0.85*width - 10) <= ev.layerX) && (ev.layerY <= (0.75 * height + 10) && (0.75 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("W1 Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W1 Zone: " + R1Total);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W1 Zone (%): " + parseFloat((R1Total/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+    else if((ev.layerX <= (0.55*width + 10) && (0.55*width - 10) <= ev.layerX) && (ev.layerY <= (0.7 * height + 10) && (0.7 * height - 10) <= ev.layerY)){
+      $('#editModal').find('#title').html("MVP + WVP Zone");
+      $('#editModal').find('#modalTotalVisitor').html("Total Visitor To The Store: " + InTotal);
+      $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To Middle Zone: " + CTotal);
+      $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To Middle Zone (%): " + parseFloat((CTotal/InTotal)*100).toFixed(1) + " %");
+      $('#editModal').modal('show');
+    }
+  };
   
   // Start: DONUT CHART
   var donutChartCanvas = $('#totalVisitors').get(0).getContext('2d')
@@ -317,7 +444,7 @@ $(function () {
   var donutOptions     = {maintainAspectRatio : false, responsive : true}
   var totalVisitorsChart = new Chart(donutChartCanvas, {type: 'doughnut', data: donutData, options: donutOptions});
 
-  var donutChartCanvas2 = $('#passedInGroundPie').get(0).getContext('2d')
+  /*var donutChartCanvas2 = $('#passedInGroundPie').get(0).getContext('2d')
   var donutData2        = {
     labels: ['Passing By', 'In'],
     datasets: [
@@ -328,8 +455,40 @@ $(function () {
     ]
   }
   var donutOptions2     = {maintainAspectRatio : false, responsive : true}
-  var passedInGroundPie = new Chart(donutChartCanvas2, {type: 'doughnut', data: donutData2, options: donutOptions2});
+  var passedInGroundPie = new Chart(donutChartCanvas2, {type: 'doughnut', data: donutData2, options: donutOptions2});*/
   // End: DONUT CHART
+
+  // Start: Bar cahrt
+  var barChartCanvas = $('#totalVisitorsAllTime').get(0).getContext('2d')
+  var barChartData = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'Visitors',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  };
+
+  var barChartOptions = {
+    responsive              : true,
+    maintainAspectRatio     : false,
+    datasetFill             : false
+  }
+
+  var barChart = new Chart(barChartCanvas, {
+    type: 'bar',
+    data: barChartData,
+    options: barChartOptions
+  })
+  //End: BAR CHART
 
   //Start: STACKED BAR CHART
   var stackedBarChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d')
@@ -337,7 +496,7 @@ $(function () {
     labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label               : 'L1',
+        label               : 'M1',
         backgroundColor     : 'rgba(244, 165, 34, 0.9)',
         borderColor         : 'rgba(244, 165, 34, 0.8)',
         pointRadius          : false,
@@ -348,7 +507,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'L2',
+        label               : 'M2',
         backgroundColor     : 'rgba(96, 146, 205, 1)',
         borderColor         : 'rgba(96, 146, 205, 1)',
         pointRadius         : false,
@@ -359,7 +518,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'L3',
+        label               : 'M3',
         backgroundColor     : 'rgba(97, 181, 70, 0.9)',
         borderColor         : 'rgba(97, 181, 70, 0.8)',
         pointRadius          : false,
@@ -370,7 +529,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'L4',
+        label               : 'M4',
         backgroundColor     : 'rgba(170, 68, 152, 1)',
         borderColor         : 'rgba(170, 68, 152, 1)',
         pointRadius         : false,
@@ -381,7 +540,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'R1',
+        label               : 'W1',
         backgroundColor     : 'rgba(220, 204, 119, 0.9)',
         borderColor         : 'rgba(220, 204, 119, 0.8)',
         pointRadius          : false,
@@ -392,7 +551,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'R2',
+        label               : 'W2',
         backgroundColor     : 'rgba(137, 220, 240, 1)',
         borderColor         : 'rgba(137, 220, 240, 1)',
         pointRadius         : false,
@@ -403,7 +562,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'R3',
+        label               : 'W3',
         backgroundColor     : 'rgba(140, 86, 75, 0.9)',
         borderColor         : 'rgba(140, 86, 75, 0.8)',
         pointRadius          : false,
@@ -414,7 +573,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'R4',
+        label               : 'W4',
         backgroundColor     : 'rgba(214, 39, 40, 1)',
         borderColor         : 'rgba(214, 39, 40, 1)',
         pointRadius         : false,
@@ -425,7 +584,7 @@ $(function () {
         data                : [0, 0, 0, 0, 0, 0, 0]
       },
       {
-        label               : 'C',
+        label               : 'MVP + WVP',
         backgroundColor     : 'rgba(40, 56, 60, 0.9)',
         borderColor         : 'rgba(40, 56, 60, 0.8)',
         pointRadius          : false,
@@ -444,14 +603,14 @@ $(function () {
     scales: {xAxes: [{stacked: true,}], yAxes: [{stacked: true}]}
   }
 
-  var barChart = new Chart(stackedBarChartCanvas, {
+  var stackChart = new Chart(stackedBarChartCanvas, {
     type: 'bar',
     data: stackedBarChartData,
     options: stackedBarChartOptions
   })
   //End: STACKED BAR CHART
 
-  // Start: LINE CHART
+  /*/ Start: LINE CHART
   var lineChartCanvas = $('#passedInGround').get(0).getContext('2d')
   var lineChartOptions = $.extend(true, {}, areaChartOptions2)
   var lineChartData = $.extend(true, {}, areaChartData2)
@@ -464,33 +623,46 @@ $(function () {
     data: lineChartData,
     options: lineChartOptions
   });
-  // End: LINE CHART
+  // End: LINE CHART*/
 
   $.post('php/getdamansara.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
     var obj = JSON.parse(data);
 
     if(obj.status === 'success'){
-      removeData(totalVisitorsChart);
-      addData(totalVisitorsChart, 'L1', obj.totalL1);
-      addData(totalVisitorsChart, 'L2', obj.totalL2);
-      addData(totalVisitorsChart, 'L3', obj.totalL3);
-      addData(totalVisitorsChart, 'L4', obj.totalL4);
-      addData(totalVisitorsChart, 'R1', obj.totalR1);
-      addData(totalVisitorsChart, 'R2', obj.totalR2);
-      addData(totalVisitorsChart, 'R3', obj.totalR3);
-      addData(totalVisitorsChart, 'R4', obj.totalR4);
-      addData(totalVisitorsChart, 'C', obj.totalC);
+      L1Total = obj.totalL1;
+      L2Total = obj.totalL2;
+      L3Total = obj.totalL3;
+      L4Total = obj.totalL4;
+      R1Total = obj.totalR1;
+      R2Total = obj.totalR2;
+      R3Total = obj.totalR3;
+      R4Total = obj.totalR4;
+      CTotal = obj.totalC;
+      GroundTotal = obj.groundTotalCount;
+      InTotal = obj.groundInCount;
 
-      removeData(passedInGroundPie);
+      removeData(totalVisitorsChart);
+      addData(totalVisitorsChart, 'M1', obj.totalL1);
+      addData(totalVisitorsChart, 'M2', obj.totalL2);
+      addData(totalVisitorsChart, 'M3', obj.totalL3);
+      addData(totalVisitorsChart, 'M4', obj.totalL4);
+      addData(totalVisitorsChart, 'W1', obj.totalR1);
+      addData(totalVisitorsChart, 'W2', obj.totalR2);
+      addData(totalVisitorsChart, 'W3', obj.totalR3);
+      addData(totalVisitorsChart, 'W4', obj.totalR4);
+      addData(totalVisitorsChart, 'MVP + WVP', obj.totalC);
+
+      /*removeData(passedInGroundPie);
       addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-      addData(passedInGroundPie, 'In', obj.groundInCount);
+      addData(passedInGroundPie, 'In', obj.groundInCount);*/
 
       removeData(barChart);
-      removeData(lineChart);
+      removeData(stackChart);
 
       for(var i=0; i<obj.message.length; i++){
-        addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
-        addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+        addBarChartData(barChart, obj.message[i].Date, obj.message[i].InStoreGroundCount);
+        addStackChartData(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
+        //addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
       }
 
       heatmap.setData({
@@ -499,54 +671,54 @@ $(function () {
         data: [
           {
             x: 0.2 * width >> 0,
-            y: 0.25 * height >> 0, 
+            y: 0.2 * height >> 0, 
             value: (obj.totalL4 / obj.groundTotalCount) * 1000,
             radius: 100
           }, 
           {
             x: 0.2 * width >> 0, 
-            y: 0.5 * height >> 0,
+            y: 0.45 * height >> 0,
             value: (obj.totalL3 / obj.groundTotalCount) * 1000,
             radius: 100
           },
           {
             x: 0.2 * width >> 0,
-            y: 0.7 * height >> 0,
+            y: 0.65 * height >> 0,
             value: (obj.totalL2 / obj.groundTotalCount) * 1000,
             radius: 100
           }, 
           {
             x: 0.25 * width >> 0,
-            y: 0.85 * height >> 0,
+            y: 0.75 * height >> 0,
             value: (obj.totalL1 / obj.groundTotalCount) * 1000,
             radius: 100
           }, 
           {
             x: 0.9 * width >> 0,
-            y: 0.25 * height >> 0,
+            y: 0.2 * height >> 0,
             value: (obj.totalR4 / obj.groundTotalCount) * 1000,
             radius: 100
           }, 
           {
             x: 0.9 * width >> 0,
-            y: 0.5 * height >> 0,
+            y: 0.45 * height >> 0,
             value: (obj.totalR3 / obj.groundTotalCount) * 1000,
             radius: 100
           }, 
           {
             x: 0.9 * width >> 0,
-            y: 0.7 * height >> 0,
+            y: 0.65 * height >> 0,
             value: (obj.totalR2 / obj.groundTotalCount) * 1000,
             radius: 100
           }, 
           {
             x: 0.85 * width >> 0,
-            y: 0.85 * height >> 0,
+            y: 0.75 * height >> 0,
             value: (obj.totalR1 / obj.groundTotalCount) * 1000,
             radius: 100
           },
           {
-            x: 0.5 * width >> 0, 
+            x: 0.55 * width >> 0, 
             y: 0.7 * height >> 0,
             value: (obj.totalC / obj.groundTotalCount) * 1000,
             radius: 100

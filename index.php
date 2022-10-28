@@ -77,7 +77,7 @@ if(!isset($_SESSION['userID'])){
           <li class="nav-item">
             <a href="#home" data-file="home.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Home</p>
+              <p>Main Page</p>
             </a>
           </li>
           <li class="nav-item">
@@ -199,7 +199,7 @@ function addData(chart, label, data) {
   chart.update();
 }
 
-function addBarChartData(chart, label, data, data2, data3, data4, data5, data6, data7, data8, data9) {
+function addStackChartData(chart, label, data, data2, data3, data4, data5, data6, data7, data8, data9) {
   chart.data.labels.push(label);
   chart.data.datasets[0].data.push(data);
   chart.data.datasets[1].data.push(data2);
@@ -210,6 +210,12 @@ function addBarChartData(chart, label, data, data2, data3, data4, data5, data6, 
   chart.data.datasets[6].data.push(data7);
   chart.data.datasets[7].data.push(data8);
   chart.data.datasets[8].data.push(data9);
+  chart.update();
+}
+
+function addBarChartData(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data);
   chart.update();
 }
 

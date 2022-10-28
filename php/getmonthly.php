@@ -7,9 +7,10 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
+    $door = 'in';
 
-    if ($select_stmt = $db->prepare("SELECT * FROM uniqlo_1u WHERE Date>=? AND Date<=? ORDER BY Date")) {
-        $select_stmt->bind_param('ss', $startDate, $endDate);
+    if ($select_stmt = $db->prepare("SELECT * FROM uniqlo_1u WHERE Door=? AND Date>=? AND Date<=? ORDER BY Date")) {
+        $select_stmt->bind_param('sss', $door, $startDate, $endDate);
         
         // Execute the prepared query.
         if (! $select_stmt->execute()) {
@@ -23,13 +24,14 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $oneUtamaCount = 0;
             $damansaraCount = 0;
             $result = $select_stmt->get_result();
+            $device = 'L1';
             
             while($row = $result->fetch_assoc()) {
                 $oneUtamaCount += $row['Count'];
             }
             
-            if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE Date>=? AND Date<=? ORDER BY Date")) {
-                $select_stmt2->bind_param('ss', $startDate, $endDate);
+            if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE Door=? AND Device=? AND Date>=? AND Date<=? ORDER BY Date")) {
+                $select_stmt2->bind_param('ssss', $door, $device, $startDate, $endDate);
                 
                 // Execute the prepared query.
                 if (! $select_stmt2->execute()) {

@@ -62,49 +62,13 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 if($row['Mode'] == 'Ground'){
                     if($row['Door'] == 'in'){
                         $groundInCount += (int)$row['Count'];
-                        $groundTotalCount += (int)$row['Count'];
+                        //$groundTotalCount += (int)$row['Count'];
                         $message[$key]['TotalGroundCount'] += (int)$row['Count'];
                         $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
 
                         if($row['Device'] == 'L1'){
-                            $totalL1 += (int)$row['Count'];
+                            //$totalL1 += (int)$row['Count'];
                             $message[$key]['TotalL1'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'L1'){
-                            $totalL1 += (int)$row['Count'];
-                            $message[$key]['TotalL1'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'L2'){
-                            $totalL2 += (int)$row['Count'];
-                            $message[$key]['TotalL2'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'L3'){
-                            $totalL3 += (int)$row['Count'];
-                            $message[$key]['TotalL3'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'L4'){
-                            $totalL4 += (int)$row['Count'];
-                            $message[$key]['TotalL4'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'R1'){
-                            $totalR1 += (int)$row['Count'];
-                            $message[$key]['TotalR1'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'R2'){
-                            $totalR2 += (int)$row['Count'];
-                            $message[$key]['TotalR2'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'R3'){
-                            $totalR3 += (int)$row['Count'];
-                            $message[$key]['TotalR3'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'R4'){
-                            $totalR4 += (int)$row['Count'];
-                            $message[$key]['TotalR4'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'C'){
-                            $totalC += (int)$row['Count'];
-                            $message[$key]['TotalC'] += (int)$row['Count'];
                         }
                     }
                     else if($row['Door'] == 'passing by'){
@@ -114,10 +78,6 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $message[$key]['PassingGroundCount'] += (int)$row['Count'];
 
                         if($row['Device'] == 'L1'){
-                            $totalL1 += (int)$row['Count'];
-                            //$message[$key]['TotalL1'] += (int)$row['Count'];
-                        }
-                        else if($row['Device'] == 'L1'){
                             $totalL1 += (int)$row['Count'];
                             //$message[$key]['TotalL1'] += (int)$row['Count'];
                         }
