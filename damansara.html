@@ -7,7 +7,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Damansara</li>
+          <li class="breadcrumb-item active">Uniqlo DAS</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -216,7 +216,7 @@ $(function () {
   var R3Total = 0;
   var R4Total = 0;
   var CTotal = 0;
-  var GroundTotal = 0;
+  var groundTotalCount = 0;
   var InTotal = 0;
 
   $('#daterange-btn').daterangepicker(
@@ -249,7 +249,7 @@ $(function () {
           R3Total = obj.totalR3;
           R4Total = obj.totalR4;
           CTotal = obj.totalC;
-          GroundTotal = obj.groundTotalCount;
+          groundTotalCount = obj.groundTotalCount;
           InTotal = obj.groundInCount;
 
           removeData(totalVisitorsChart);
@@ -271,7 +271,7 @@ $(function () {
           removeData(stackChart);
 
           for(var i=0; i<obj.message.length; i++){
-            addBarChartData(barChart, obj.message[i].Date, obj.message[i].InStoreGroundCount);
+            addLineChartData(barChart, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
             addStackChartData(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
             //addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
           }
@@ -361,14 +361,14 @@ $(function () {
   });
 
   // boundaries for data generation
-  var width = (+window.getComputedStyle(document.getElementById('heatmapContainer')).width.replace(/px/,''));
-  var height = (+window.getComputedStyle(document.getElementById('heatmapContainer')).height.replace(/px/,''));
+  var width = (+window.getComputedStyle(document.getElementsByClassName('heatmap-canvas')[0]).width.replace(/px/,''));
+  var height = (+window.getComputedStyle(document.getElementsByClassName('heatmap-canvas')[0]).height.replace(/px/,''));
   $('.heatmap-canvas').css('background-image', 'url("images/floor.png")');
   $('.heatmap-canvas').css('background-repeat', 'no-repeat');
   $('.heatmap-canvas').css('background-size', '100% auto');
 
   document.querySelector('#heatmapContainerWrapper').onclick = function(ev) {
-    if((ev.layerX <= (0.2*width + 10) && (0.2*width - 10) <= ev.layerX) && (ev.layerY <= (0.2 * height + 10) && (0.2 * height - 10) <= ev.layerY)){
+    if((ev.layerX <= (0.2*width + 50) && (0.2*width - 50) <= ev.layerX) && (ev.layerY <= (0.2 * height + 50) && (0.2 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("M4 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Male Zone: " + (L1Total+L2Total+L3Total+L4Total));
@@ -377,7 +377,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M4 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L4Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.2*width + 10) && (0.2*width - 10) <= ev.layerX) && (ev.layerY <= (0.45 * height + 10) && (0.45 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.2*width + 50) && (0.2*width - 50) <= ev.layerX) && (ev.layerY <= (0.45 * height + 50) && (0.45 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("M3 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Male Zone: " + (L1Total+L2Total+L3Total+L4Total));
@@ -386,7 +386,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M3 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L3Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.2*width + 10) && (0.2*width - 10) <= ev.layerX) && (ev.layerY <= (0.65 * height + 10) && (0.65 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.2*width + 50) && (0.2*width - 50) <= ev.layerX) && (ev.layerY <= (0.65 * height + 50) && (0.65 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("M2 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Male Zone: " + (L1Total+L2Total+L3Total+L4Total));
@@ -395,7 +395,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M2 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L2Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.25*width + 10) && (0.25*width - 10) <= ev.layerX) && (ev.layerY <= (0.75 * height + 10) && (0.75 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.25*width + 50) && (0.25*width - 50) <= ev.layerX) && (ev.layerY <= (0.75 * height + 50) && (0.75 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("M1 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Male Zone: " + (L1Total+L2Total+L3Total+L4Total));
@@ -404,7 +404,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M1 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L1Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.9*width + 10) && (0.9*width - 10) <= ev.layerX) && (ev.layerY <= (0.2 * height + 10) && (0.2 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.9*width + 50) && (0.9*width - 50) <= ev.layerX) && (ev.layerY <= (0.2 * height + 50) && (0.2 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("W4 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Female Zone: " + (R1Total+R2Total+R3Total+R4Total));
@@ -413,7 +413,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W4 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R4Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.9*width + 10) && (0.9*width - 10) <= ev.layerX) && (ev.layerY <= (0.45 * height + 10) && (0.45 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.9*width + 50) && (0.9*width - 50) <= ev.layerX) && (ev.layerY <= (0.45 * height + 50) && (0.45 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("W3 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Female Zone: " + (R1Total+R2Total+R3Total+R4Total));
@@ -422,7 +422,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W3 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R3Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.9*width + 10) && (0.9*width - 10) <= ev.layerX) && (ev.layerY <= (0.65 * height + 10) && (0.65 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.9*width + 50) && (0.9*width - 50) <= ev.layerX) && (ev.layerY <= (0.65 * height + 50) && (0.65 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("W2 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Female Zone: " + (R1Total+R2Total+R3Total+R4Total));
@@ -431,7 +431,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W2 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R2Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.85*width + 10) && (0.85*width - 10) <= ev.layerX) && (ev.layerY <= (0.75 * height + 10) && (0.75 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.85*width + 50) && (0.85*width - 50) <= ev.layerX) && (ev.layerY <= (0.75 * height + 50) && (0.75 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("W1 Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("Total Visitor of Female Zone: " + (R1Total+R2Total+R3Total+R4Total));
@@ -440,7 +440,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W1 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R1Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
       $('#editModal').modal('show');
     }
-    else if((ev.layerX <= (0.55*width + 10) && (0.55*width - 10) <= ev.layerX) && (ev.layerY <= (0.7 * height + 10) && (0.7 * height - 10) <= ev.layerY)){
+    else if((ev.layerX <= (0.55*width + 50) && (0.55*width - 50) <= ev.layerX) && (ev.layerY <= (0.7 * height + 50) && (0.7 * height - 50) <= ev.layerY)){
       $('#editModal').find('#title').html("MVP + WVP Zone");
       $('#editModal').find('#modalTotalVisitor').html("Total Visitor of All Zone: " + groundTotalCount);
       $('#editModal').find('#modalTotalVisitorMorF').html("");
@@ -462,7 +462,30 @@ $(function () {
       }
     ]
   }
-  var donutOptions     = {maintainAspectRatio : false, responsive : true}
+  var donutOptions     = {
+    maintainAspectRatio : false, 
+    responsive : true,
+    plugins: {
+      datalabels: {
+        display: true,
+        formatter: (val, ctx) => {
+          // Grab the label for this value
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+
+          // Format the number with 2 decimal places
+          const formattedVal = Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+          }).format(val);
+
+          // Put them together
+          return `${label}: ${formattedVal}`;
+        },
+        color: '#fff',
+        backgroundColor: '#404040',
+      },
+    },
+  }
+  
   var totalVisitorsChart = new Chart(donutChartCanvas, {type: 'doughnut', data: donutData, options: donutOptions});
 
   /*var donutChartCanvas2 = $('#passedInGroundPie').get(0).getContext('2d')
@@ -485,7 +508,7 @@ $(function () {
     labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label               : 'Visitors',
+        label               : 'Left Door',
         backgroundColor     : 'rgba(244, 165, 34, 0.9)',
         borderColor         : 'rgba(244, 165, 34, 0.8)',
         pointRadius          : false,
@@ -493,6 +516,17 @@ $(function () {
         pointStrokeColor    : 'rgba(244, 165, 34, 1)',
         pointHighlightFill  : '#fff',
         pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Right Door',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
         data                : [0, 0, 0, 0, 0, 0, 0]
       }
     ]
@@ -659,7 +693,7 @@ $(function () {
       R3Total = obj.totalR3;
       R4Total = obj.totalR4;
       CTotal = obj.totalC;
-      GroundTotal = obj.groundTotalCount;
+      groundTotalCount = obj.groundTotalCount;
       InTotal = obj.groundInCount;
 
       removeData(totalVisitorsChart);
@@ -681,7 +715,7 @@ $(function () {
       removeData(stackChart);
 
       for(var i=0; i<obj.message.length; i++){
-        addBarChartData(barChart, obj.message[i].Date, obj.message[i].InStoreGroundCount);
+        addLineChartData(barChart, obj.message[i].Date, obj.message[i].LeftDoorCount, obj.message[i].RightDoorCount);
         addStackChartData(stackChart, obj.message[i].Date, obj.message[i].TotalL1, obj.message[i].TotalL2, obj.message[i].TotalL3, obj.message[i].TotalL4, obj.message[i].TotalR1, obj.message[i].TotalR2, obj.message[i].TotalR3, obj.message[i].TotalR4, obj.message[i].TotalC);
         //addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
       }

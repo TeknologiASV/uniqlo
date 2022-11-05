@@ -42,6 +42,8 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         'Date' => substr($row['Date'], 0, 10),
                         'TotalGroundCount' => 0,
                         'InStoreGroundCount' => 0,
+                        'LeftDoorCount' => 0,
+                        'RightDoorCount' => 0,
                         'PassingGroundCount' => 0,
                         'TotalL1' => 0,
                         'TotalL2' => 0,
@@ -66,9 +68,13 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $message[$key]['TotalGroundCount'] += (int)$row['Count'];
                         $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
 
-                        if($row['Device'] == 'L1'){
+                        if($row['Device'] == 'L1' || $row['Device'] == 'l1'){
                             //$totalL1 += (int)$row['Count'];
-                            $message[$key]['TotalL1'] += (int)$row['Count'];
+                            $message[$key]['LeftDoorCount'] += (int)$row['Count'];
+                        }
+                        if($row['Device'] == 'R1' || $row['Device'] == 'r1'){
+                            //$totalL1 += (int)$row['Count'];
+                            $message[$key]['RightDoorCount'] += (int)$row['Count'];
                         }
                     }
                     else if($row['Door'] == 'passing by'){
@@ -79,11 +85,11 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
 
                         if($row['Device'] == 'L1' || $row['Device'] == 'l1'){
                             $totalL1 += (int)$row['Count'];
-                            //$message[$key]['TotalL1'] += (int)$row['Count'];
+                            $message[$key]['TotalL1'] += (int)$row['Count'];
                         }
                         else if($row['Device'] == 'L2' || $row['Device'] == 'l2'){
                             $totalL2 += (int)$row['Count'];
-                            //$message[$key]['TotalL2'] += (int)$row['Count'];
+                            $message[$key]['TotalL2'] += (int)$row['Count'];
                         }
                         else if($row['Device'] == 'L3' || $row['Device'] == 'l3'){
                             $totalL3 += (int)$row['Count'];
@@ -91,27 +97,27 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         }
                         else if($row['Device'] == 'L4' || $row['Device'] == 'l4'){
                             $totalL4 += (int)$row['Count'];
-                            //$message[$key]['TotalL4'] += (int)$row['Count'];
+                            $message[$key]['TotalL4'] += (int)$row['Count'];
                         }
                         else if($row['Device'] == 'R1' || $row['Device'] == 'r1'){
                             $totalR1 += (int)$row['Count'];
-                            //$message[$key]['TotalR1'] += (int)$row['Count'];
+                            $message[$key]['TotalR1'] += (int)$row['Count'];
                         }
                         else if($row['Device'] == 'R2' || $row['Device'] == 'r2'){
                             $totalR2 += (int)$row['Count'];
-                            //$message[$key]['TotalR2'] += (int)$row['Count'];
+                            $message[$key]['TotalR2'] += (int)$row['Count'];
                         }
                         else if($row['Device'] == 'R3' || $row['Device'] == 'r3'){
                             $totalR3 += (int)$row['Count'];
-                            //$message[$key]['TotalR3'] += (int)$row['Count'];
+                            $message[$key]['TotalR3'] += (int)$row['Count'];
                         }
                         else if($row['Device'] == 'R4' || $row['Device'] == 'r4'){
                             $totalR4 += (int)$row['Count'];
-                            //$message[$key]['TotalR4'] += (int)$row['Count'];
+                            $message[$key]['TotalR4'] += (int)$row['Count'];
                         }
                         else if($row['Device'] == 'C' || $row['Device'] == 'c'){
                             $totalC += (int)$row['Count'];
-                            //$message[$key]['TotalC'] += (int)$row['Count'];
+                            $message[$key]['TotalC'] += (int)$row['Count'];
                         }
                     }
                 }

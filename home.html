@@ -53,7 +53,7 @@
             <div class="info-box-content">
               <div class="row">
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">1 Utama</span>
+                  <span class="info-box-text" style="font-size: 22px;">OU</span>
                   <span class="info-box-number" style="font-size: 18px;" id="salesInfo">0</span>
                 </div>
                 <div class="col-4">
@@ -75,7 +75,7 @@
             <div class="info-box-content">
               <div class="row">
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">Damansara</span>
+                  <span class="info-box-text" style="font-size: 22px;">DAS</span>
                   <span class="info-box-number" style="font-size: 18px;" id="purchaseInfo">0</span>
                 </div>
                 <div class="col-4">
@@ -98,7 +98,13 @@
               <h3 class="card-title">Total Visitors</h3>
             </div>
             <div class="card-body">
-              <canvas id="totalVisitors" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+              <div class="position-relative mb-4">
+                <canvas id="totalVisitorsMonth" height="200"></canvas>
+              </div>
+              <div class="d-flex flex-row justify-content-end">
+                <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> Uniqlo OU</span>
+                <span><i class="fas fa-square" style="color: #6092cd;"></i> Uniqlo DAS</span>
+              </div>  
             </div>
             <!-- /.card-body -->
           </div>
@@ -135,8 +141,8 @@
           'This Month'  : [moment().startOf('month'), moment().endOf('month')],
           'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
-        startDate: moment().subtract(1, 'days'),
-        endDate  : moment().subtract(1, 'days')
+        startDate: moment().subtract(6, 'days'),
+        endDate  : moment()
       },
       function (start, end) {
         var startFormatted = formatDate(start) + " 00:00:00";
@@ -146,19 +152,19 @@
           var obj = JSON.parse(data);
   
           if(obj.status === 'success'){
-            removeData(totalVisitorsChart);
-            addData(totalVisitorsChart, '1 Utama', obj.oneUtamaCount);
-            addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);
+            /*removeData(totalVisitorsChart);
+            addData(totalVisitorsChart, 'OU', obj.oneUtamaCount);
+            addData(totalVisitorsChart, 'DAS', obj.damansaraCount);*/
             $('#salesInfo').html(obj.oneUtamaCount);
             $('#purchaseInfo').html(obj.damansaraCount);
-            $('#salesInfoPerc').html(parseFloat((100/obj.oneUtamaCount) * 100).toFixed(2));
-            $('#salesInfoPerc2').html(parseFloat((50/obj.damansaraCount) * 100).toFixed(2));
+            $('#salesInfoPerc').html(parseFloat((5000/obj.oneUtamaCount) * 100).toFixed(2));
+            $('#salesInfoPerc2').html(parseFloat((1000/obj.damansaraCount) * 100).toFixed(2));
   
-            /*removeData(barChart);
+            removeData(barChart);
   
             for(var i=0; i<obj.message.length; i++){
-              addBarChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-            }*/
+              addLineChartData(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
+            }
           }
           else if(obj.status === 'failed'){
             toastr["error"](obj.message, "Failed:");
@@ -174,7 +180,7 @@
     //- DONUT CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
-    var donutChartCanvas = $('#totalVisitors').get(0).getContext('2d');
+    /*var donutChartCanvas = $('#totalVisitors').get(0).getContext('2d');
     var donutData        = {
       labels: ['1 Utama', 'Damansara'],
       datasets: [
@@ -185,17 +191,17 @@
       ]
     }
     var donutOptions = {maintainAspectRatio : false, responsive : true}
-    var totalVisitorsChart = new Chart(donutChartCanvas, {type: 'doughnut', data: donutData, options: donutOptions});
+    var totalVisitorsChart = new Chart(donutChartCanvas, {type: 'doughnut', data: donutData, options: donutOptions});*/
   
     //-------------
     //- BAR CHART -
     //-------------
-    /*var barChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d');
+    var barChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d');
     var barChartData = {
       labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label               : '1 Utama',
+          label               : 'Uniqlo OU',
           backgroundColor     : 'rgba(244, 165, 34, 0.9)',
           borderColor         : 'rgba(244, 165, 34, 0.8)',
           pointRadius         : false,
@@ -206,7 +212,7 @@
           data                : [0, 0, 0, 0, 0, 0, 0]
         },
         {
-          label               : 'Damasara',
+          label               : 'Uniqlo DAS',
           backgroundColor     : 'rgba(96, 146, 205, 1)',
           borderColor         : 'rgba(96, 146, 205, 1)',
           pointRadius         : false,
@@ -220,25 +226,25 @@
     }
   
     var barChartOptions = {responsive: true, maintainAspectRatio: false, datasetFill: false}
-    var barChart = new Chart(barChartCanvas, {type: 'bar', data: barChartData, options: barChartOptions});*/
+    var barChart = new Chart(barChartCanvas, {type: 'bar', data: barChartData, options: barChartOptions});
   
-    $.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(1, 'days')) + " 00:00:00", endDate: formatDate(moment().subtract(1, 'days')) + " 23:59:59"}, function(data){
+    $.post('php/getmonthly.php', {startDate: formatDate(moment().subtract(6, 'days')) + " 00:00:00", endDate: formatDate(moment()) + " 23:59:59"}, function(data){
       var obj = JSON.parse(data);
   
       if(obj.status === 'success'){
-        removeData(totalVisitorsChart);
+        /*removeData(totalVisitorsChart);
         addData(totalVisitorsChart, '1 Utama', obj.oneUtamaCount);
-        addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);
+        addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);*/
         $('#salesInfo').html(obj.oneUtamaCount);
         $('#purchaseInfo').html(obj.damansaraCount);
-        $('#salesInfoPerc').html(parseFloat((100/obj.oneUtamaCount) * 100).toFixed(2));
-        $('#salesInfoPerc2').html(parseFloat((50/obj.damansaraCount) * 100).toFixed(2));
+        $('#salesInfoPerc').html(parseFloat((5000/obj.oneUtamaCount) * 100).toFixed(2));
+        $('#salesInfoPerc2').html(parseFloat((1000/obj.damansaraCount) * 100).toFixed(2));
   
-        /*removeData(barChart);
+        removeData(barChart);
   
         for(var i=0; i<obj.message.length; i++){
-          addLineChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-        }*/
+          addLineChartData(barChart, obj.message[i].Date, obj.message[i].uniqloOU, obj.message[i].uniqloDAS);
+        }
       }
       else if(obj.status === 'failed'){
         toastr["error"](obj.message, "Failed:");

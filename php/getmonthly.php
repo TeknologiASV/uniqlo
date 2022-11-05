@@ -18,15 +18,30 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 array(
                     "status" => "failed",
                     "message" => $select_stmt->error 
-                )); 
+                )
+            ); 
         }
         else{
             $oneUtamaCount = 0;
             $damansaraCount = 0;
             $result = $select_stmt->get_result();
             $device = 'L1';
+            $message = array();
+            $dateBar = array();
             
             while($row = $result->fetch_assoc()) {
+                if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
+                    $message[] = array( 
+                        'Date' => substr($row['Date'], 0, 10),
+                        'uniqloOU' => 0,
+                        'uniqloDAS' => 0
+                    );
+
+                    array_push($dateBar, substr($row['Date'], 0, 10));
+                }
+
+                $key = array_search(substr($row['Date'], 0, 10), $dateBar);
+                $message[$key]['uniqloOU'] += (int)$row['Count'];
                 $oneUtamaCount += $row['Count'];
             }
             
@@ -46,55 +61,15 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
 
                     while($row2 = $result2->fetch_assoc()) {
                         $damansaraCount += $row2['Count'];
+                        $key = array_search(substr($row2['Date'], 0, 10), $dateBar);
+                        $message[$key]['uniqloDAS'] += (int)$row2['Count'];
+                        $oneUtamaCount += $row2['Count'];
                     }
-
-                    /*while ($row = $result->fetch_assoc()) {
-                        if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
-                            $message[] = array( 
-                                'Date' => substr($row['Date'], 0, 10),
-                                'oneUtamaCount' => 0,
-                                'damansaraCount' => 0
-                            );
-        
-                            array_push($dateBar, substr($row['Date'], 0, 10));
-                        }
-        
-                        $key = array_search(substr($row['Date'], 0, 10), $dateBar);
-        
-                        if($row['Mode'] == 'Ground'){
-                            if($row['Door'] == 'in'){
-                                $groundInCount += (int)$row['Count'];
-                                $groundTotalCount += (int)$row['Count'];
-                                $message[$key]['TotalGroundCount'] += (int)$row['Count'];
-                                $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
-                            }
-                            else if($row['Door'] == 'passing by'){
-                                $groundPassingCount += (int)$row['Count'];
-                                $groundTotalCount += (int)$row['Count'];
-                                $message[$key]['TotalGroundCount'] += (int)$row['Count'];
-                                $message[$key]['PassingGroundCount'] += (int)$row['Count'];
-                            }
-                        }
-                        else if($row['Mode'] == 'Level 1'){
-                            if($row['Door'] == 'in'){
-                                $lvl1InCount += (int)$row['Count'];
-                                $lvl1TotalCount += (int)$row['Count'];
-                                $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
-                                $message[$key]['InStoreLvl1Count'] += (int)$row['Count'];
-                            }
-                            else if($row['Door'] == 'passing by'){
-                                $lvl1PassingCount += (int)$row['Count'];
-                                $lvl1TotalCount += (int)$row['Count'];
-                                $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
-                                $message[$key]['PassingLvl1Count'] += (int)$row['Count'];
-                            }
-                        }
-                    }*/
                     
                     echo json_encode(
                         array(
                             "status" => "success",
-                            //"message" => $message,
+                            "message" => $message,
                             "oneUtamaCount" => $oneUtamaCount,
                             "damansaraCount" => $damansaraCount
                         ));   

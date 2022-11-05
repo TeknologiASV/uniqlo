@@ -83,13 +83,13 @@ if(!isset($_SESSION['userID'])){
           <li class="nav-item">
             <a href="#1utama" data-file="1utama.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Uniqlo 1 Utama</p>
+              <p>Uniqlo OU</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="#damansara" data-file="damansara.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Uniqlo Damansara</p>
+              <p>Uniqlo DAS</p>
             </a>
           </li>
           <li class="nav-item">
@@ -133,6 +133,7 @@ if(!isset($_SESSION['userID'])){
 <script src="dist/js/adminlte.js"></script>
 <!-- OPTIONAL SCRIPTS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <!-- date-range-picker -->
 <script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
