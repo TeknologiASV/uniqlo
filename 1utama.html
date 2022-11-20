@@ -20,121 +20,254 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card">
+        <div class="card  card-primary card-outline card-outline-tabs">
+          <div class="card-header p-0 border-bottom-0">
+            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Weekly</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Daily</a>
+              </li>
+            </ul>
+          </div>
           <div class="card-body">
-            <div class="row">
-              <div class="col-9">
-                <div class="form-group">
-                  <label>Date range button:</label>
-
-                  <div class="input-group">
-                    <button type="button" class="btn btn-default float-right" id="daterange-btn">
-                      <i class="far fa-calendar-alt"></i> Date range picker
-                      <i class="fas fa-caret-down"></i>
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+              <div class="tab-pane fade show active" id="weekly" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                <div class="row">
+                  <div class="col-9">
+                    <div class="form-group">
+                      <label>Date range button:</label>
+    
+                      <div class="input-group">
+                        <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                          <i class="far fa-calendar-alt"></i> Date range picker
+                          <i class="fas fa-caret-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Total Visitor Monthly</h3>
+                        </div>
+                        <div class="card-body">
+                          <div class="chart">
+                            <canvas id="totalVisitorsMonth" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                          </div>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Total Visitors <br></h3>
+                        </div>
+                        <div class="card-body">
+                          <canvas id="totalVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Ground Floor - Monthly)</h3>
+                        </div>
+                        <div class="card-body">
+                          <canvas id="passedInGroundPie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Level 1 - Monthly)</h3>
+                        </div>
+                        <div class="card-body">
+                          <canvas id="passedInLvl1Pie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                    </div>
+                    <!-- /.col-md-6 -->
+                    <div class="col-lg-12">
+                      <div class="card">
+                        <div class="card-header border-0">
+                          <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Monthly)</h3>
+                            <a href="javascript:void(0);">View Report</a>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="chart">
+                            <canvas id="passedInGround" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                          </div>
+                          <!--div class="position-relative mb-4">
+                            <canvas id="passedInGround" height="200"></canvas>
+                          </div-->
+                          <div class="d-flex flex-row justify-content-end">
+                            <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
+                            <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="card">
+                        <div class="card-header border-0">
+                          <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Monthly)</h3>
+                            <a href="javascript:void(0);">View Report</a>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="position-relative mb-4">
+                            <canvas id="passedInLvl1" height="200"></canvas>
+                          </div>
+                          <div class="d-flex flex-row justify-content-end">
+                            <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
+                            <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.row -->
+                </div>
+              </div>
+              <div class="tab-pane fade" id="daily" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>Date:</label>
+                      <div class="input-group">
+                        <input id="reservationdate" type="date" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>Start Time:</label>
+                      <div class="input-group">
+                        <input id="reservationtime" type="time" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>End Time:</label>
+                      <div class="input-group">
+                        <input id="endtime" type="time" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <label></label>
+                    <button type="button" class="btn btn-block bg-gradient-warning btn" id="filterSearch">
+                      <i class="fas fa-search"></i>
+                      Search
                     </button>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Total Visitor Daily</h3>
+                      </div>
+                      <div class="card-body">
+                        <div class="chart">
+                          <canvas id="totalVisitorsDaily" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Total Visitors <br> (Daily)</h3>
+                      </div>
+                      <div class="card-body">
+                        <canvas id="totalDailyVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Ground Floor - Daily)</h3>
+                      </div>
+                      <div class="card-body">
+                        <canvas id="passedInGroundPieDaily" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Level 1 - Daily)</h3>
+                      </div>
+                      <div class="card-body">
+                        <canvas id="passedInLvl1PieDaily" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                  <!-- /.col-md-6 -->
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Daily)</h3>
+                          <a href="javascript:void(0);">View Report</a>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <div class="chart">
+                          <canvas id="passedInGroundDaily" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <div class="d-flex flex-row justify-content-end">
+                          <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
+                          <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Daily)</h3>
+                          <a href="javascript:void(0);">View Report</a>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <div class="chart">
+                          <canvas id="passedInLvl1Daily" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                        <div class="d-flex flex-row justify-content-end">
+                          <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
+                          <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.row -->
               </div>
-              <!--div class="col-3">
-                <label></label>
-                <button type="button" class="btn btn-block bg-gradient-warning btn" id="filterSearch">
-                  <i class="fas fa-search"></i>
-                  Search
-                </button>
-              </div-->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Total Visitor Monthly</h3>
-          </div>
-          <div class="card-body">
-            <div class="chart">
-              <canvas id="totalVisitorsMonth" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Total Visitors</h3>
-          </div>
-          <div class="card-body">
-            <canvas id="totalVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-          </div>
-          <!-- /.card-body -->
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Ground Floor - Daily)</h3>
-          </div>
-          <div class="card-body">
-            <canvas id="passedInGroundPie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-          </div>
-          <!-- /.card-body -->
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Passing By Traffic VS In-Store Traffic Pie Chart (Level 1 - Daily)</h3>
-          </div>
-          <div class="card-body">
-            <canvas id="passedInLvl1Pie" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-          </div>
-          <!-- /.card-body -->
-        </div>
-      </div>
-      <!-- /.col-md-6 -->
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="d-flex justify-content-between">
-              <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Daily)</h3>
-              <a href="javascript:void(0);">View Report</a>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="position-relative mb-4">
-              <canvas id="passedInGround" height="200"></canvas>
-            </div>
-            <div class="d-flex flex-row justify-content-end">
-              <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
-              <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="d-flex justify-content-between">
-              <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Daily)</h3>
-              <a href="javascript:void(0);">View Report</a>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="position-relative mb-4">
-              <canvas id="passedInLvl1" height="200"></canvas>
-            </div>
-            <div class="d-flex flex-row justify-content-end">
-              <span class="mr-2"><i class="fas fa-square" style="color: #f4a522"></i> In</span>
-              <span><i class="fas fa-square" style="color: #6092cd;"></i> Passing By</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /.row -->
   </div>
   <!-- /.container-fluid -->
 </div>
@@ -373,11 +506,88 @@ $(function () {
     options: donutOptions3
   });
 
+  var donutChartCanvas4 = $('#totalDailyVisitors').get(0).getContext('2d')
+  var donutData4        = {
+    labels: [
+        'Ground',
+        'Level 1'
+    ],
+    datasets: [
+      {
+        data: [0,0],
+        backgroundColor : ['#f4a522', '#6092cd'],
+      }
+    ]
+  }
+  var donutOptions4     = {
+    maintainAspectRatio : false,
+    responsive : true,
+  }
+  //Create pie or douhnut chart
+  // You can switch between pie and douhnut using the method below.
+  var totalDailyVisitors = new Chart(donutChartCanvas4, {
+    type: 'doughnut',
+    data: donutData4,
+    options: donutOptions4
+  });
+
+  var donutChartCanvas5 = $('#passedInGroundPieDaily').get(0).getContext('2d')
+  var donutData5        = {
+    labels: [
+        'Passing By',
+        'In'
+    ],
+    datasets: [
+      {
+        data: [0,0],
+        backgroundColor : ['#f4a522', '#6092cd'],
+      }
+    ]
+  }
+  var donutOptions5     = {
+    maintainAspectRatio : false,
+    responsive : true,
+  }
+  //Create pie or douhnut chart
+  // You can switch between pie and douhnut using the method below.
+  var passedInGroundPieDaily = new Chart(donutChartCanvas5, {
+    type: 'doughnut',
+    data: donutData5,
+    options: donutOptions5
+  });
+
+  var donutChartCanvas6 = $('#passedInLvl1PieDaily').get(0).getContext('2d')
+  var donutData6        = {
+    labels: [
+        'Passing By',
+        'In'
+    ],
+    datasets: [
+      {
+        data: [0,0],
+        backgroundColor : ['#f4a522', '#6092cd'],
+      }
+    ]
+  }
+
+  var donutOptions6    = {
+    maintainAspectRatio : false,
+    responsive : true,
+  }
+  //Create pie or douhnut chart
+  // You can switch between pie and douhnut using the method below.
+  var passedInLvl1PieDaily = new Chart(donutChartCanvas6, {
+    type: 'doughnut',
+    data: donutData6,
+    options: donutOptions6
+  });
+
   //-------------
   //- BAR CHART -
   //-------------
-  var barChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d')
-  var barChartData = $.extend(true, {}, areaChartData)
+  var barChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d');
+  var barChartCanvas2 = $('#totalVisitorsDaily').get(0).getContext('2d');
+  var barChartData = $.extend(true, {}, areaChartData);
   var temp0 = areaChartData.datasets[0]
   var temp1 = areaChartData.datasets[1]
   barChartData.datasets[0] = temp1
@@ -395,12 +605,19 @@ $(function () {
     options: barChartOptions
   });
 
+  var totalVisitorsDaily = new Chart(barChartCanvas2, {
+    type: 'bar',
+    data: barChartData,
+    options: barChartOptions
+  });
+
   //-------------
   //- LINE CHART -
   //--------------
-  var lineChartCanvas = $('#passedInGround').get(0).getContext('2d')
-  var lineChartOptions = $.extend(true, {}, areaChartOptions2)
-  var lineChartData = $.extend(true, {}, areaChartData2)
+  var lineChartCanvas = $('#passedInGround').get(0).getContext('2d');
+  var lineChartCanvas3 = $('#passedInGroundDaily').get(0).getContext('2d');
+  var lineChartOptions = $.extend(true, {}, areaChartOptions2);
+  var lineChartData = $.extend(true, {}, areaChartData2);
   lineChartData.datasets[0].fill = false;
   lineChartData.datasets[1].fill = false;
   lineChartOptions.datasetFill = false
@@ -409,23 +626,90 @@ $(function () {
     type: 'line',
     data: lineChartData,
     options: lineChartOptions
-  })
+  });
+
+  var passedInGroundDaily = new Chart(lineChartCanvas3, {
+    type: 'line',
+    data: lineChartData,
+    options: lineChartOptions
+  });
 
   //-------------
   //- LINE CHART -
   //--------------
-  var lineChartCanvas2 = $('#passedInLvl1').get(0).getContext('2d')
-  var lineChartOptions2 = $.extend(true, {}, areaChartOptions2)
-  var lineChartData2 = $.extend(true, {}, areaChartData2)
+  var lineChartCanvas2 = $('#passedInLvl1').get(0).getContext('2d');
+  var lineChartCanvas4 = $('#passedInLvl1Daily').get(0).getContext('2d');
+  var lineChartOptions2 = $.extend(true, {}, areaChartOptions2);
+  var lineChartData2 = $.extend(true, {}, areaChartData2);
   lineChartData2.datasets[0].fill = false;
   lineChartData2.datasets[1].fill = false;
-  lineChartOptions.datasetFill = false
+  lineChartOptions2.datasetFill = false
 
   var lineChart2 = new Chart(lineChartCanvas2, {
     type: 'line',
     data: lineChartData2,
     options: lineChartOptions2
-  })
+  });
+  
+  var passedInLvl1Daily = new Chart(lineChartCanvas4, {
+    type: 'line',
+    data: lineChartData2,
+    options: lineChartOptions2
+  });
+
+  $('#reservationdate').val(formatDate(new Date()));
+  $('#reservationtime').val('00:00');
+  $('#endtime').val('23:59');
+
+  $('#filterSearch').on('click', function(){
+    var reservationdate = $('#reservationdate').val() ? $('#reservationdate').val() : formatDate(new Date()),
+        reservationtime = $('#reservationtime').val() ? $('#reservationtime').val() + ':00' : '00:00:00',
+        endtime = $('#endtime').val() ? $('#endtime').val() + ':59' : '23:59:59';
+
+    $.post('php/get1utamadaily.php', {startDate: reservationdate + " " + reservationtime, endDate: reservationdate + " " + endtime}, function(data){
+      var obj = JSON.parse(data);
+
+      if(obj.status === 'success'){
+        var obj = JSON.parse(data);
+
+        if(obj.status === 'success'){
+          removeData(totalDailyVisitors);
+          addData(totalDailyVisitors, 'Ground', obj.groundTotalCount);
+          addData(totalDailyVisitors, 'Level 1', obj.lvl1TotalCount);
+
+          removeData(passedInGroundPieDaily);
+          addData(passedInGroundPieDaily, 'Passing By', obj.groundPassingCount);
+          addData(passedInGroundPieDaily, 'In', obj.groundInCount);
+          
+          removeData(passedInLvl1PieDaily);
+          addData(passedInLvl1PieDaily, 'Passing By', obj.lvl1PassingCount);
+          addData(passedInLvl1PieDaily, 'In', obj.lvl1InCount);
+
+          removeData(totalVisitorsDaily);
+          removeData(passedInGroundDaily);
+          removeData(passedInLvl1Daily);
+
+          for(var i=0; i<obj.message.length; i++){
+            addLineChartData(totalVisitorsDaily, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+            addLineChartData(passedInGroundDaily, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addLineChartData(passedInLvl1Daily, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+          }
+        }
+        else if(obj.status === 'failed'){
+          toastr["error"](obj.message, "Failed:");
+        }
+        else{
+          toastr["error"]("Something wrong when geting data", "Failed:");
+        }
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when geting data", "Failed:");
+      }
+    });
+  });
 
   $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
     var obj = JSON.parse(data);
@@ -453,6 +737,40 @@ $(function () {
         addLineChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
       }
       
+    }
+    else if(obj.status === 'failed'){
+      toastr["error"](obj.message, "Failed:");
+    }
+    else{
+      toastr["error"]("Something wrong when geting data", "Failed:");
+    }
+  });
+
+  $.post('php/get1utamadaily.php', {startDate: $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00', endDate: $('#reservationdate').val() + " " + $('#endtime').val() + ':59'}, function(data){
+    var obj = JSON.parse(data);
+
+    if(obj.status === 'success'){
+      removeData(totalDailyVisitors);
+      addData(totalDailyVisitors, 'Ground', obj.groundTotalCount);
+      addData(totalDailyVisitors, 'Level 1', obj.lvl1TotalCount);
+
+      removeData(passedInGroundPieDaily);
+      addData(passedInGroundPieDaily, 'Passing By', obj.groundPassingCount);
+      addData(passedInGroundPieDaily, 'In', obj.groundInCount);
+      
+      removeData(passedInLvl1PieDaily);
+      addData(passedInLvl1PieDaily, 'Passing By', obj.lvl1PassingCount);
+      addData(passedInLvl1PieDaily, 'In', obj.lvl1InCount);
+
+      removeData(totalVisitorsDaily);
+      removeData(passedInGroundDaily);
+      removeData(passedInLvl1Daily);
+
+      for(var i=0; i<obj.message.length; i++){
+        addLineChartData(totalVisitorsDaily, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+        addLineChartData(passedInGroundDaily, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+        addLineChartData(passedInLvl1Daily, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+      }
     }
     else if(obj.status === 'failed'){
       toastr["error"](obj.message, "Failed:");

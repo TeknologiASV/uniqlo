@@ -31,9 +31,9 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $lvl1InCount = 0;
             
             while ($row = $result->fetch_assoc()) {
-                if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
+                if(!in_array(substr($row['Date'], 10, 3), $dateBar)){
                     $message[] = array( 
-                        'Date' => substr($row['Date'], 0, 10),
+                        'Date' => substr($row['Date'], 10, 3).":00",
                         'TotalGroundCount' => 0,
                         'InStoreGroundCount' => 0,
                         'PassingGroundCount' => 0,
@@ -42,10 +42,10 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         'PassingLvl1Count' => 0
                     );
 
-                    array_push($dateBar, substr($row['Date'], 0, 10));
+                    array_push($dateBar, substr($row['Date'], 10, 3));
                 }
 
-                $key = array_search(substr($row['Date'], 0, 10), $dateBar);
+                $key = array_search(substr($row['Date'], 10, 3), $dateBar);
 
                 if($row['Mode'] == 'Ground'){
                     if($row['Door'] == 'in'){
