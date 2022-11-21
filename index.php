@@ -252,6 +252,10 @@ function formatDate(date) {
 
   return [year, month, day].join('-');
 }
+
+function report(type){
+  
+}
 </script>
 </body>
 </html>
