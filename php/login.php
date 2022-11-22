@@ -18,6 +18,7 @@ if(($row = $result->fetch_assoc()) !== null){
 	if($password == $row['password']){
 		$_SESSION['userID']=$row['id'];
 		$_SESSION['name']=$row['name'];
+		$_SESSION['role']=$row['role_code'];
 		$stmt->close();
 		$db->close();
 		

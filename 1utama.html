@@ -24,7 +24,7 @@
           <div class="card-header p-0 border-bottom-0">
             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Weekly</a>
+                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Monthly</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Daily</a>
@@ -50,8 +50,11 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="card">
-                        <div class="card-header">
-                          <h3 class="card-title">Total Visitor Monthly</h3>
+                        <div class="card-header border-0">
+                          <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Total Visitor Monthly</h3>
+                            <a href="javascript:void(0);" onclick="report('groundlvl1monthly')">View Report</a>
+                          </div>
                         </div>
                         <div class="card-body">
                           <div class="chart">
@@ -177,8 +180,11 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="card">
-                      <div class="card-header">
-                        <h3 class="card-title">Total Visitor Daily</h3>
+                      <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                          <h3 class="card-title">Total Visitor Daily</h3>
+                          <a href="javascript:void(0);" onclick="report('groundlvl1daily')">View Report</a>
+                        </div>
                       </div>
                       <div class="card-body">
                         <div class="chart">
@@ -391,6 +397,8 @@ $(function () {
       
       $.post('php/get1utama.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
         var obj = JSON.parse(data);
+        ouStartDate = startFormatted;
+        ouEndDate = endFormatted;
 
         if(obj.status === 'success'){
           removeData(totalVisitorsChart);
@@ -668,6 +676,8 @@ $(function () {
 
     $.post('php/get1utamadaily.php', {startDate: reservationdate + " " + reservationtime, endDate: reservationdate + " " + endtime}, function(data){
       var obj = JSON.parse(data);
+      ouStartTime = reservationdate + " " + reservationtime;
+      ouEndTime = reservationdate + " " + endtime;
 
       if(obj.status === 'success'){
         var obj = JSON.parse(data);
@@ -713,6 +723,8 @@ $(function () {
 
   $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
     var obj = JSON.parse(data);
+    ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
+    ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";
 
     if(obj.status === 'success'){
       removeData(totalVisitorsChart);
@@ -748,6 +760,8 @@ $(function () {
 
   $.post('php/get1utamadaily.php', {startDate: $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00', endDate: $('#reservationdate').val() + " " + $('#endtime').val() + ':59'}, function(data){
     var obj = JSON.parse(data);
+    ouStartTime = $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00';
+    ouEndTime = $('#reservationdate').val() + " " + $('#endtime').val() + ':59';
 
     if(obj.status === 'success'){
       removeData(totalDailyVisitors);

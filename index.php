@@ -2,10 +2,14 @@
 //require_once 'php/db_connect.php';
 
 session_start();
+$role = 'NORMAL';
 
 if(!isset($_SESSION['userID'])){
   echo '<script type="text/javascript">';
   echo 'window.location.href = "login.html";</script>';
+}
+else{
+  $role = $_SESSION['role'];
 }
 ?>
 
@@ -92,6 +96,16 @@ if(!isset($_SESSION['userID'])){
               <p>Uniqlo DAS</p>
             </a>
           </li>
+          <?php
+            if($role == 'ADMIN'){
+              echo '<li class="nav-item">
+              <a href="#transaction" data-file="transaction.html" class="nav-link link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Transaction</p>
+              </a>
+            </li>';
+            }
+          ?>
           <li class="nav-item">
             <a href="php/logout.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -146,6 +160,11 @@ if(!isset($_SESSION['userID'])){
 <script src="plugins/heatmap/build/heatmap.js"></script>
 <script src="plugins/heatmap/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 <script>
+var ouStartDate = "";
+var ouEndDate = "";
+var ouStartTime = "";
+var ouEndTime = "";
+
 $(function () {
   toastr.options = {
     "closeButton": false,
@@ -254,7 +273,12 @@ function formatDate(date) {
 }
 
 function report(type){
-  
+  if(type == 'passedingroundmonthly' || type =='passedinlvl1monthly' || type =='groundlvl1monthly' || type =='dastotalvisitorsmonthly' || type =='dastotalzonevisitorsmonthly'){
+    window.open("php/export.php?fromDate="+ouStartDate+"&toDate="+ouEndDate+"&type="+type);
+  }
+  else if(type == 'passedingrounddaily' || type =='passedinlvl1daily' || type =='groundlvl1daily' || type =='dastotalvisitorsdaily' || type =='dastotalzonevisitorsdaily'){
+    window.open("php/export.php?fromDate="+ouStartTime+"&toDate="+ouEndTime+"&type="+type);
+  }
 }
 </script>
 </body>
