@@ -41,8 +41,11 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 }
 
                 $key = array_search(substr($row['Date'], 0, 10), $dateBar);
-                $message[$key]['uniqloOU'] += (int)$row['Count'];
-                $oneUtamaCount += $row['Count'];
+                
+                if($row['Door'] == 'in'){
+                    $oneUtamaCount += (int)$row['Count'];
+                    $message[$key]['uniqloOU'] += (int)$row['Count'];
+                }
             }
             
             if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE Door=? AND Device=? AND Date>=? AND Date<=? ORDER BY Date")) {
