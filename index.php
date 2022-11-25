@@ -18,7 +18,7 @@ else{
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Felda | Dashboard</title>
+  <title>Uniqlo | Dashboard</title>
 
   <link rel="icon" href="images/logo.png" type="image">
   <!-- Google Font: Source Sans Pro -->
@@ -68,7 +68,7 @@ else{
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <!--img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"-->
-      <span class="brand-text font-weight-light">Felda</span>
+      <span class="brand-text font-weight-light">Uniqlo</span>
     </a>
 
     <!-- Sidebar -->
@@ -81,10 +81,10 @@ else{
           <li class="nav-item">
             <a href="#home" data-file="home.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Dashboard</p>
+              <p>Main Page</p>
             </a>
           </li>
-          <!--li class="nav-item">
+          <li class="nav-item">
             <a href="#1utama" data-file="1utama.html" class="nav-link link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Uniqlo OU</p>
@@ -95,7 +95,17 @@ else{
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Uniqlo DAS</p>
             </a>
-          </li-->
+          </li>
+          <?php
+            if($role == 'ADMIN'){
+              echo '<li class="nav-item">
+              <a href="#transaction" data-file="transaction.html" class="nav-link link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Transaction</p>
+              </a>
+            </li>';
+            }
+          ?>
           <li class="nav-item">
             <a href="php/logout.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
