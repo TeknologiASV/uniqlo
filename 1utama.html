@@ -321,7 +321,7 @@ $(function () {
     }
   }
 
-  var areaChartData = {
+  var areaChartDataMonthly = {
     labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
@@ -349,7 +349,119 @@ $(function () {
     ]
   }
 
-  var areaChartData2 = {
+  var areaChartDataDaily = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'Level 1',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Ground',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  }
+
+  var areaChartDataInGroundMonthly = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'In',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Passing By',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  }
+
+  var areaChartDataInGroundDaily = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'In',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Passing By',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  }
+
+  var areaChartDataInLvl1Monthly = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'In',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Passing By',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  }
+
+  var areaChartDataInLvl1Daily = {
     labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
@@ -413,14 +525,14 @@ $(function () {
           addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
           addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
 
-          removeData(barChart);
-          removeData(lineChart);
-          removeData(lineChart2);
+          removeData(barChartMonthly);
+          removeData(lineChartMonthly);
+          removeData(lineChartInLvl1Monthly);
 
           for(var i=0; i<obj.message.length; i++){
-            addLineChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-            addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-            addLineChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+            addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+            addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+            addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
           }
           
         }
@@ -595,11 +707,18 @@ $(function () {
   //-------------
   var barChartCanvas = $('#totalVisitorsMonth').get(0).getContext('2d');
   var barChartCanvas2 = $('#totalVisitorsDaily').get(0).getContext('2d');
-  var barChartData = $.extend(true, {}, areaChartData);
-  var temp0 = areaChartData.datasets[0]
-  var temp1 = areaChartData.datasets[1]
-  barChartData.datasets[0] = temp1
-  barChartData.datasets[1] = temp0
+
+  var barChartDataMonthly = $.extend(true, {}, areaChartDataMonthly);
+  var temp0 = areaChartDataMonthly.datasets[0]
+  var temp1 = areaChartDataMonthly.datasets[1]
+  barChartDataMonthly.datasets[0] = temp1
+  barChartDataMonthly.datasets[1] = temp0
+
+  var barChartDataDaily = $.extend(true, {}, areaChartDataDaily);
+  var temp0 = areaChartDataDaily.datasets[0]
+  var temp1 = areaChartDataDaily.datasets[1]
+  barChartDataDaily.datasets[0] = temp1
+  barChartDataDaily.datasets[1] = temp0
 
   var barChartOptions = {
     responsive              : true,
@@ -607,15 +726,15 @@ $(function () {
     datasetFill             : false
   }
 
-  var barChart = new Chart(barChartCanvas, {
+  var barChartMonthly = new Chart(barChartCanvas, {
     type: 'bar',
-    data: barChartData,
+    data: barChartDataMonthly,
     options: barChartOptions
   });
 
   var totalVisitorsDaily = new Chart(barChartCanvas2, {
     type: 'bar',
-    data: barChartData,
+    data: barChartDataDaily,
     options: barChartOptions
   });
 
@@ -625,20 +744,26 @@ $(function () {
   var lineChartCanvas = $('#passedInGround').get(0).getContext('2d');
   var lineChartCanvas3 = $('#passedInGroundDaily').get(0).getContext('2d');
   var lineChartOptions = $.extend(true, {}, areaChartOptions2);
-  var lineChartData = $.extend(true, {}, areaChartData2);
-  lineChartData.datasets[0].fill = false;
-  lineChartData.datasets[1].fill = false;
+
+  var lineChartDataMonthly = $.extend(true, {}, areaChartDataInGroundMonthly);
+  lineChartDataMonthly.datasets[0].fill = false;
+  lineChartDataMonthly.datasets[1].fill = false;
+
+  var lineChartDataDaily = $.extend(true, {}, areaChartDataInGroundDaily);
+  lineChartDataDaily.datasets[0].fill = false;
+  lineChartDataDaily.datasets[1].fill = false;
+
   lineChartOptions.datasetFill = false
 
-  var lineChart = new Chart(lineChartCanvas, {
+  var lineChartMonthly = new Chart(lineChartCanvas, {
     type: 'line',
-    data: lineChartData,
+    data: lineChartDataMonthly,
     options: lineChartOptions
   });
 
   var passedInGroundDaily = new Chart(lineChartCanvas3, {
     type: 'line',
-    data: lineChartData,
+    data: lineChartDataDaily,
     options: lineChartOptions
   });
 
@@ -648,20 +773,26 @@ $(function () {
   var lineChartCanvas2 = $('#passedInLvl1').get(0).getContext('2d');
   var lineChartCanvas4 = $('#passedInLvl1Daily').get(0).getContext('2d');
   var lineChartOptions2 = $.extend(true, {}, areaChartOptions2);
-  var lineChartData2 = $.extend(true, {}, areaChartData2);
-  lineChartData2.datasets[0].fill = false;
-  lineChartData2.datasets[1].fill = false;
+
+  var lineChartDataInLvl1Monthly = $.extend(true, {}, areaChartDataInLvl1Monthly);
+  lineChartDataInLvl1Monthly.datasets[0].fill = false;
+  lineChartDataInLvl1Monthly.datasets[1].fill = false;
+
+  var lineChartDataInLvl1Daily = $.extend(true, {}, areaChartDataInLvl1Daily);
+  lineChartDataInLvl1Daily.datasets[0].fill = false;
+  lineChartDataInLvl1Daily.datasets[1].fill = false;
+
   lineChartOptions2.datasetFill = false
 
-  var lineChart2 = new Chart(lineChartCanvas2, {
+  var lineChartInLvl1Monthly = new Chart(lineChartCanvas2, {
     type: 'line',
-    data: lineChartData2,
+    data: lineChartDataInLvl1Monthly,
     options: lineChartOptions2
   });
   
   var passedInLvl1Daily = new Chart(lineChartCanvas4, {
     type: 'line',
-    data: lineChartData2,
+    data: lineChartDataInLvl1Daily,
     options: lineChartOptions2
   });
 
@@ -739,14 +870,14 @@ $(function () {
       addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
       addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
 
-      removeData(barChart);
-      removeData(lineChart);
-      removeData(lineChart2);
+      removeData(barChartMonthly);
+      removeData(lineChartMonthly);
+      removeData(lineChartInLvl1Monthly);
 
       for(var i=0; i<obj.message.length; i++){
-        addLineChartData(barChart, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-        addLineChartData(lineChart, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-        addLineChartData(lineChart2, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+        addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+        addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+        addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
       }
       
     }
