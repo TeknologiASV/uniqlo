@@ -24,6 +24,8 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
         else{
             $oneUtamaCount = 0;
             $damansaraCount = 0;
+            $oneUtamaTranc = 0;
+            $damansaraTranc = 0;
             $result = $select_stmt->get_result();
             $device = 'L1';
             $message = array();
@@ -68,14 +70,49 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $message[$key]['uniqloDAS'] += (int)$row2['Count'];
                         $oneUtamaCount += $row2['Count'];
                     }
-                    
-                    echo json_encode(
-                        array(
-                            "status" => "success",
-                            "message" => $message,
-                            "oneUtamaCount" => $oneUtamaCount,
-                            "damansaraCount" => $damansaraCount
-                        ));   
+
+                    if ($select_stmt3 = $db->prepare("SELECT * FROM transaction WHERE Date>=? AND Date<=? ORDER BY Date")) {
+                        $select_stmt3->bind_param('ss', $startDate, $endDate);
+                        
+                        // Execute the prepared query.
+                        if (! $select_stmt3->execute()) {
+                            echo json_encode(
+                                array(
+                                    "status" => "failed",
+                                    "message" => $select_stmt3->error 
+                                )); 
+                        }
+                        else{
+                            $result3 = $select_stmt3->get_result();
+        
+                            while($row3 = $result3->fetch_assoc()) {
+                                if($row3['Outlet'] == 'OU'){
+                                    $oneUtamaTranc += (int)$row3['Transaction'];
+                                }
+                                else if($row3['Outlet'] == 'DAS'){
+                                    $damansaraTranc += (int)$row3['Transaction'];
+                                }
+                            }
+                            
+                            echo json_encode(
+                                array(
+                                    "status" => "success",
+                                    "message" => $message,
+                                    "oneUtamaCount" => $oneUtamaCount,
+                                    "damansaraCount" => $damansaraCount,
+                                    "oneUtamaTranc" => $oneUtamaTranc,
+                                    "damansaraTranc" => $damansaraTranc,
+                                ));   
+                        }
+                    }
+                    else{
+                        echo json_encode(
+                            array(
+                                "status" => "failed",
+                                "message" => "Failed to get transactions"
+                            )
+                        ); 
+                    }
                 }
             }
             else{

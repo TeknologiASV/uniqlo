@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-4">
                   <span class="info-box-text" style="font-size: 22px;">Transaction</span>
-                  <span class="info-box-number" style="font-size: 18px;" id="receiptInfo">100</span>
+                  <span class="info-box-number" style="font-size: 18px;" id="receiptInfo">0</span>
                 </div>
                 <div class="col-4">
                   <span class="info-box-text" style="font-size: 22px;">Conversion (%)</span>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-4">
                   <span class="info-box-text" style="font-size: 22px;">Transaction</span>
-                  <span class="info-box-number" style="font-size: 18px;" id="receiptInfo2">50</span>
+                  <span class="info-box-number" style="font-size: 18px;" id="receiptInfo2">0</span>
                 </div>
                 <div class="col-4">
                   <span class="info-box-text" style="font-size: 22px;">Conversion (%)</span>
@@ -157,8 +157,10 @@
             addData(totalVisitorsChart, 'DAS', obj.damansaraCount);*/
             $('#salesInfo').html(obj.oneUtamaCount);
             $('#purchaseInfo').html(obj.damansaraCount);
-            $('#salesInfoPerc').html(parseFloat((5000/obj.oneUtamaCount) * 100).toFixed(2));
-            $('#salesInfoPerc2').html(parseFloat((1000/obj.damansaraCount) * 100).toFixed(2));
+            $('#receiptInfo').html(obj.oneUtamaTranc);
+            $('#receiptInfo2').html(obj.damansaraTranc);
+            $('#salesInfoPerc').html(parseFloat((obj.oneUtamaTranc/obj.oneUtamaCount) * 100).toFixed(2));
+            $('#salesInfoPerc2').html(parseFloat((obj.damansaraTranc/obj.damansaraCount) * 100).toFixed(2));
   
             removeData(barChart);
   
@@ -237,8 +239,10 @@
         addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);*/
         $('#salesInfo').html(obj.oneUtamaCount);
         $('#purchaseInfo').html(obj.damansaraCount);
-        $('#salesInfoPerc').html(parseFloat((5000/obj.oneUtamaCount) * 100).toFixed(2));
-        $('#salesInfoPerc2').html(parseFloat((1000/obj.damansaraCount) * 100).toFixed(2));
+        $('#receiptInfo').html(obj.oneUtamaTranc);
+        $('#receiptInfo2').html(obj.damansaraTranc);
+        $('#salesInfoPerc').html(parseFloat((obj.oneUtamaTranc/obj.oneUtamaCount) * 100).toFixed(2));
+        $('#salesInfoPerc2').html(parseFloat((obj.damansaraTranc/obj.damansaraCount) * 100).toFixed(2));
   
         removeData(barChart);
   
