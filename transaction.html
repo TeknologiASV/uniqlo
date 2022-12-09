@@ -19,7 +19,7 @@
 <section class="content">
 	<div class="container-fluid">
         <div class="row">
-            <div class="col-12" style="display: none;">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -180,44 +180,34 @@ $(function () {
         endDate  : moment()
         },
         function (start, end) {
+            
         var startFormatted = formatDate(start) + " 00:00:00";
         var endFormatted = formatDate(end) + " 23:59:59";
-        
-        $.post('php/get1utama.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
-            var obj = JSON.parse(data);
-            ouStartDate = startFormatted;
-            ouEndDate = endFormatted;
+        var branchId = $('#branchId').val();
 
-            if(obj.status === 'success'){
-            removeData(totalVisitorsChart);
-            addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
-            addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+        $("#transactionTable").DataTable().clear().destroy();
 
-            removeData(passedInGroundPie);
-            addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-            addData(passedInGroundPie, 'In', obj.groundInCount);
-            
-            removeData(passedInLvl1Pie);
-            addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
-            addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
-
-            removeData(barChartMonthly);
-            removeData(lineChartMonthly);
-            removeData(lineChartInLvl1Monthly);
-
-            for(var i=0; i<obj.message.length; i++){
-                addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-                addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-                addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
-            }
-            
-            }
-            else if(obj.status === 'failed'){
-            toastr["error"](obj.message, "Failed:");
-            }
-            else{
-            toastr["error"]("Something wrong when geting data", "Failed:");
-            }
+        var table = $("#transactionTable").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            'processing': true,
+            'serverSide': true,
+            'serverMethod': 'post',
+            "bFilter": false,
+            'ajax': {
+                'url':'php/filterTransaction.php',
+                'type': 'POST',
+                'data': {
+                    startDate: startFormatted,
+                    endDate: endFormatted,
+                    branch: branchId,
+                },
+            },
+            'columns': [
+                { data: 'Date'},
+                { data: 'Transaction'},
+                { data: 'Outlet'}
+            ],       
         });
         }
     );
