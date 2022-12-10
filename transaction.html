@@ -180,35 +180,7 @@ $(function () {
         endDate  : moment()
         },
         function (start, end) {
-            
-        var startFormatted = formatDate(start) + " 00:00:00";
-        var endFormatted = formatDate(end) + " 23:59:59";
-        var branchId = $('#branchId').val();
-
-        $("#transactionTable").DataTable().clear().destroy();
-
-        var table = $("#transactionTable").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            'processing': true,
-            'serverSide': true,
-            'serverMethod': 'post',
-            "bFilter": false,
-            'ajax': {
-                'url':'php/filterTransaction.php',
-                'type': 'POST',
-                'data': {
-                    startDate: startFormatted,
-                    endDate: endFormatted,
-                    branch: branchId,
-                },
-            },
-            'columns': [
-                { data: 'Date'},
-                { data: 'Transaction'},
-                { data: 'Outlet'}
-            ],       
-        });
+            filterTransaction(start,end);
         }
     );
     
@@ -262,8 +234,46 @@ $(function () {
         });
     });
 
+    $('#branchId').on('change', function(){
+        var start = formatDate($('#daterange-btn').data('daterangepicker').startDate) + " 00:00:00";
+        var end = formatDate($('#daterange-btn').data('daterangepicker').endDate) + " 23:59:59";
+        filterTransaction(start,end);
+    });
+
     document.getElementById('transaction').addEventListener('change', handleFileSelect, false);
 });
+
+function filterTransaction(start,end){
+
+    var startFormatted = formatDate(start) + " 00:00:00";
+        var endFormatted = formatDate(end) + " 23:59:59";
+        var branchId = $('#branchId').val();
+
+    $("#transactionTable").DataTable().clear().destroy();
+
+    var table = $("#transactionTable").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        'processing': true,
+        'serverSide': true,
+        'serverMethod': 'post',
+        "bFilter": false,
+        'ajax': {
+            'url':'php/filterTransaction.php',
+            'type': 'POST',
+            'data': {
+                startDate: startFormatted,
+                endDate: endFormatted,
+                branch: branchId,
+            },
+        },
+        'columns': [
+            { data: 'Date'},
+            { data: 'Transaction'},
+            { data: 'Outlet'}
+        ],       
+    });
+}
 
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
