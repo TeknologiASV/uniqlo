@@ -129,7 +129,7 @@
                     <div class="form-group">
                       <label>Start Time:</label>
                       <div class="input-group">
-                        <input id="reservationtime" type="time" class="form-control">
+                        <input id="reservationtime" type="time" min="10:00" class="form-control">
                       </div>
                     </div>
                   </div>
@@ -882,7 +882,7 @@ $(function () {
   //End: STACKED BAR CHART
 
   $('#reservationdate').val(formatDate(new Date()));
-  $('#reservationtime').val('00:00');
+  $('#reservationtime').val('11:00');
   $('#endtime').val('23:59');
 
   $('#filterSearch').on('click', function(){
