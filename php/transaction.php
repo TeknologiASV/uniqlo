@@ -16,8 +16,8 @@ if(isset($_POST['branch'], $_POST['transactions'])){
     $message = array();
 
     for($i=0; $i<count($transactionsArray); $i++){
-        if ($select_stmt = $db->prepare("SELECT COUNT(*) FROM transaction WHERE Date = ?")) {
-            $select_stmt->bind_param('s', $transactionsArray[$i]['date']);
+        if ($select_stmt = $db->prepare("SELECT COUNT(*) FROM transaction WHERE Date = ? AND Outlet = ?")) {
+            $select_stmt->bind_param('ss', $transactionsArray[$i]['date'], $branch);
             
             // Execute the prepared query.
             if (! $select_stmt->execute()) {

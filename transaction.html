@@ -244,10 +244,9 @@ $(function () {
 });
 
 function filterTransaction(start,end){
-
     var startFormatted = formatDate(start) + " 00:00:00";
-        var endFormatted = formatDate(end) + " 23:59:59";
-        var branchId = $('#branchId').val();
+    var endFormatted = formatDate(end) + " 23:59:59";
+    var branchId = $('#branchId').val();
 
     $("#transactionTable").DataTable().clear().destroy();
 

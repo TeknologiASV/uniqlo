@@ -19,7 +19,7 @@ if($_POST['startDate'] != null && $_POST['endDate'] != '' && $_POST['branch']){
   $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
   $branch = filter_input(INPUT_POST, 'branch', FILTER_SANITIZE_STRING);
 
-  $searchQuery = " where Date between '".$startDate."' and '".$endDate."' and Outlet = '".$branch."'";
+  $searchQuery = " WHERE Date>='".$startDate."' AND Date<='".$endDate."' and Outlet = '".$branch."'";
 }
 
 ## Total number of records without filtering
