@@ -72,7 +72,7 @@ else{
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <!--img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"-->
-      <span class="brand-text font-weight-light">Uniqlo</span>
+      <span class="brand-text font-weight-light">Uniqlo Visitors <br> Counting</span>
     </a>
 
     <!-- Sidebar -->
@@ -84,27 +84,35 @@ else{
                with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="#home" data-file="home.html" class="nav-link link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-home"></i>
               <p>Main Page</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#1utama" data-file="1utama.html" class="nav-link link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Uniqlo OU</p>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-store"></i>
+              <p>Stores<i class="fas fa-angle-left right"></i></p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="#damansara" data-file="damansara.html" class="nav-link link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Uniqlo DAS</p>
-            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#1utama" data-file="1utama.html" class="nav-link link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Uniqlo OU</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#damansara" data-file="damansara.html" class="nav-link link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Uniqlo DAS</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <?php
             if($role == 'ADMIN'){
               echo '<li class="nav-item">
               <a href="#transaction" data-file="transaction.html" class="nav-link link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-file"></i>
                 <p>Transaction</p>
               </a>
             </li>';

@@ -33,11 +33,44 @@ $empRecords = mysqli_query($db, $empQuery);
 $data = array();
 
 while($row = mysqli_fetch_assoc($empRecords)) {
-    $data[] = array( 
-      "Date"=>substr($row['Date'], 0, 10),
-      "Transaction"=>$row['Transaction'],
-      "Outlet"=>$row['Outlet']
-    );
+  $count = 0;
+  $trans = 0;
+
+  if($row['Outlet'] == "OU"){
+    $empQuery2 = "SELECT * FROM uniqlo_1u WHERE Date>='".substr($row['Date'], 0, 10)." 00:00:00' AND Date<='".substr($row['Date'], 0, 10)." 23:59:59'";
+    $empRecords2 = mysqli_query($db, $empQuery2);
+
+    while($row2 = mysqli_fetch_assoc($empRecords2)) {
+      if($row2['Door'] == 'in'){
+        $count += (int)$row['Count'];
+      }
+    }
+  }
+  else if($row['Outlet'] == "DAS"){
+    $empQuery2 = "SELECT * FROM uniqlo_DA WHERE Date>='".substr($row['Date'], 0, 10)." 00:00:00' AND Date<='".substr($row['Date'], 0, 10)." 23:59:59'";
+    $empRecords2 = mysqli_query($db, $empQuery2);
+
+    while($row2 = mysqli_fetch_assoc($empRecords2)) {
+      if($row['Door'] == 'in'){
+        $count += (int)$row['Count'];
+      }
+    }
+  }
+
+  if((int)$count != 0){
+    $trans = number_format((float)(((int)$row['Transaction'] / $count) * 100), 2);
+  }
+  else{
+    $trans = 0.00;
+  }
+
+  $data[] = array( 
+    "Date"=>substr($row['Date'], 0, 10),
+    "Transaction"=>$row['Transaction'],
+    "Outlet"=>$row['Outlet'],
+    "Visitors"=>$count,
+    "Conversion"=>$trans
+  );
 }
 
 ## Response

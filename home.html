@@ -49,19 +49,20 @@
       <div class="row">
         <div class="col-md-6 col-sm-6 col-12">
           <div class="info-box">
-            <img src="images/1utama.png" width="80" height="90"/>
+            <img src="images/1utama.png" width="90" height="100"/>
             <div class="info-box-content">
+              <p style="margin-bottom: 0;font-size: 22px;"><b>OU</b></p>
               <div class="row">
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">OU</span>
+                  <span class="info-box-text" style="font-size: 20px;">Visitors</span>
                   <span class="info-box-number" style="font-size: 18px;" id="salesInfo">0</span>
                 </div>
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">Transaction</span>
+                  <span class="info-box-text" style="font-size: 20px;">Transaction</span>
                   <span class="info-box-number" style="font-size: 18px;" id="receiptInfo">0</span>
                 </div>
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">Conversion (%)</span>
+                  <span class="info-box-text" style="font-size: 20px;">Conversion(%)</span>
                   <span class="info-box-number" style="font-size: 18px;" id="salesInfoPerc">0</span>
                 </div>
               </div>
@@ -71,19 +72,20 @@
   
         <div class="col-md-6 col-sm-6 col-12">
           <div class="info-box">
-            <img src="images/damansara.png" width="80" height="90"/>
+            <img src="images/damansara.png" width="90" height="100"/>
             <div class="info-box-content">
+              <p style="margin-bottom: 0;font-size: 22px;"><b>DAS</b></p>
               <div class="row">
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">DAS</span>
+                  <span class="info-box-text" style="font-size: 20px;">Visitors</span>
                   <span class="info-box-number" style="font-size: 18px;" id="purchaseInfo">0</span>
                 </div>
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">Transaction</span>
+                  <span class="info-box-text" style="font-size: 20px;">Transaction</span>
                   <span class="info-box-number" style="font-size: 18px;" id="receiptInfo2">0</span>
                 </div>
                 <div class="col-4">
-                  <span class="info-box-text" style="font-size: 22px;">Conversion (%)</span>
+                  <span class="info-box-text" style="font-size: 20px;">Conversion(%)</span>
                   <span class="info-box-number" style="font-size: 18px;" id="salesInfoPerc2">0</span>
                 </div>
               </div>
@@ -155,8 +157,8 @@
             /*removeData(totalVisitorsChart);
             addData(totalVisitorsChart, 'OU', obj.oneUtamaCount);
             addData(totalVisitorsChart, 'DAS', obj.damansaraCount);*/
-            $('#salesInfo').html(obj.oneUtamaCount);
-            $('#purchaseInfo').html(obj.damansaraCount);
+            $('#salesInfo').html(obj.oneUtamaCount.toLocaleString('en-US'));
+            $('#purchaseInfo').html(obj.damansaraCount.toLocaleString('en-US'));
             $('#receiptInfo').html(obj.oneUtamaTranc);
             $('#receiptInfo2').html(obj.damansaraTranc);
             $('#salesInfoPerc').html(parseFloat((obj.oneUtamaTranc/obj.oneUtamaCount) * 100).toFixed(2));
@@ -237,8 +239,8 @@
         /*removeData(totalVisitorsChart);
         addData(totalVisitorsChart, '1 Utama', obj.oneUtamaCount);
         addData(totalVisitorsChart, 'Damansara', obj.damansaraCount);*/
-        $('#salesInfo').html(obj.oneUtamaCount);
-        $('#purchaseInfo').html(obj.damansaraCount);
+        $('#salesInfo').html(obj.oneUtamaCount.toLocaleString('en-US'));
+        $('#purchaseInfo').html(obj.damansaraCount.toLocaleString('en-US'));
         $('#receiptInfo').html(obj.oneUtamaTranc);
         $('#receiptInfo2').html(obj.damansaraTranc);
         $('#salesInfoPerc').html(parseFloat((obj.oneUtamaTranc/obj.oneUtamaCount) * 100).toFixed(2));

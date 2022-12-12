@@ -735,7 +735,41 @@ $(function () {
     ]
   };
 
+  var barChartData2 = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'Left Door',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'Right Door',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  };
+
   var barChartOptions = {
+    responsive              : true,
+    maintainAspectRatio     : false,
+    datasetFill             : false
+  }
+
+  var barChartOptions2 = {
     responsive              : true,
     maintainAspectRatio     : false,
     datasetFill             : false
@@ -749,8 +783,8 @@ $(function () {
 
   var barChart2 = new Chart(barChartCanvas2, {
     type: 'bar',
-    data: barChartData,
-    options: barChartOptions
+    data: barChartData2,
+    options: barChartOptions2
   })
   //End: BAR CHART
 
@@ -862,7 +896,118 @@ $(function () {
     ]
   };
 
+  var stackedBarChartData2 = {
+    labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label               : 'M1',
+        backgroundColor     : 'rgba(244, 165, 34, 0.9)',
+        borderColor         : 'rgba(244, 165, 34, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#f4a522',
+        pointStrokeColor    : 'rgba(244, 165, 34, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(244, 165, 34, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'M2',
+        backgroundColor     : 'rgba(96, 146, 205, 1)',
+        borderColor         : 'rgba(96, 146, 205, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(96, 146, 205, 1)',
+        pointStrokeColor    : '#6092cd',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(96, 146, 205, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'M3',
+        backgroundColor     : 'rgba(97, 181, 70, 0.9)',
+        borderColor         : 'rgba(97, 181, 70, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#61b546',
+        pointStrokeColor    : 'rgba(97, 181, 70, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(97, 181, 70, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'M4',
+        backgroundColor     : 'rgba(170, 68, 152, 1)',
+        borderColor         : 'rgba(170, 68, 152, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(170, 68, 152, 1)',
+        pointStrokeColor    : '#aa4498',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(170, 68, 152, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'W1',
+        backgroundColor     : 'rgba(220, 204, 119, 0.9)',
+        borderColor         : 'rgba(220, 204, 119, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#dccc77',
+        pointStrokeColor    : 'rgba(220, 204, 119, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(220, 204, 119, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'W2',
+        backgroundColor     : 'rgba(137, 220, 240, 1)',
+        borderColor         : 'rgba(137, 220, 240, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(137, 220, 240, 1)',
+        pointStrokeColor    : '#89dcf0',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(137, 220, 240, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'W3',
+        backgroundColor     : 'rgba(140, 86, 75, 0.9)',
+        borderColor         : 'rgba(140, 86, 75, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#8c564b',
+        pointStrokeColor    : 'rgba(140, 86, 75, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(140, 86, 75, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'W4',
+        backgroundColor     : 'rgba(214, 39, 40, 1)',
+        borderColor         : 'rgba(214, 39, 40, 1)',
+        pointRadius         : false,
+        pointColor          : 'rgba(214, 39, 40, 1)',
+        pointStrokeColor    : '#d62728',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(214, 39, 40, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        label               : 'MVP + WVP',
+        backgroundColor     : 'rgba(40, 56, 60, 0.9)',
+        borderColor         : 'rgba(40, 56, 60, 0.8)',
+        pointRadius          : false,
+        pointColor          : '#28383c',
+        pointStrokeColor    : 'rgba(40, 56, 60, 1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(40, 56, 60, 1)',
+        data                : [0, 0, 0, 0, 0, 0, 0]
+      }
+    ]
+  };
+
   var stackedBarChartOptions = {
+    responsive              : true,
+    maintainAspectRatio     : false,
+    scales: {xAxes: [{stacked: true,}], yAxes: [{stacked: true}]}
+  }
+
+  var stackedBarChartOptions2 = {
     responsive              : true,
     maintainAspectRatio     : false,
     scales: {xAxes: [{stacked: true,}], yAxes: [{stacked: true}]}
@@ -876,8 +1021,8 @@ $(function () {
 
   var stackChart2 = new Chart(stackedBarChartCanvas2, {
     type: 'bar',
-    data: stackedBarChartData,
-    options: stackedBarChartOptions
+    data: stackedBarChartData2,
+    options: stackedBarChartOptions2
   });
   //End: STACKED BAR CHART
 

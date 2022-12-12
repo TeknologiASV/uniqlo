@@ -62,7 +62,9 @@
 							<thead>
 								<tr>
 									<th>Date</th>
-									<th>Transactions</th>
+									<th>Visitors</th>
+                                    <th>Transactions</th>
+                                    <th>Conversion (%)</th>
 									<th>Outlets</th>
 								</tr>
 							</thead>
@@ -160,7 +162,9 @@ $(function () {
         },
         'columns': [
             { data: 'Date'},
+            { data: 'Visitors'},
             { data: 'Transaction'},
+            { data: 'Conversion'},
             { data: 'Outlet'}
         ],       
     });
@@ -268,7 +272,9 @@ function filterTransaction(start,end){
         },
         'columns': [
             { data: 'Date'},
+            { data: 'Visitors'},
             { data: 'Transaction'},
+            { data: 'Conversion'},
             { data: 'Outlet'}
         ],       
     });

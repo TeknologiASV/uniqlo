@@ -68,7 +68,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $damansaraCount += $row2['Count'];
                         $key = array_search(substr($row2['Date'], 0, 10), $dateBar);
                         $message[$key]['uniqloDAS'] += (int)$row2['Count'];
-                        $oneUtamaCount += $row2['Count'];
+                        //$oneUtamaCount += $row2['Count'];
                     }
 
                     if ($select_stmt3 = $db->prepare("SELECT * FROM transaction WHERE Date>=? AND Date<=? ORDER BY Date")) {
