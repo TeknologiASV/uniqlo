@@ -27,7 +27,7 @@
                 <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Monthly</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Daily</a>
+                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Hourly</a>
               </li>
             </ul>
           </div>
@@ -53,7 +53,7 @@
                         <div class="card-header border-0">
                           <div class="d-flex justify-content-between">
                             <h3 class="card-title">Total Visitor Monthly</h3>
-                            <a href="javascript:void(0);" onclick="report('groundlvl1monthly')">View Report</a>
+                            <a href="javascript:void(0);" onclick="report('groundlvl1monthly')">CSV Download</a>
                           </div>
                         </div>
                         <div class="card-body">
@@ -67,7 +67,7 @@
                     <div class="col-lg-4">
                       <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Total Visitors <br></h3>
+                          <h3 class="card-title">Total <br> Visitors <br></h3>
                         </div>
                         <div class="card-body">
                           <canvas id="totalVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -98,12 +98,12 @@
                       </div>
                     </div>
                     <!-- /.col-md-6 -->
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" id="passedingroundmonthly">
                       <div class="card">
                         <div class="card-header border-0">
                           <div class="d-flex justify-content-between">
                             <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Monthly)</h3>
-                            <a href="javascript:void(0);" onclick="report('passedingroundmonthly')">View Report</a>
+                            <a href="javascript:void(0);" onclick="report('passedingroundmonthly')">CSV Download</a>
                           </div>
                         </div>
                         <div class="card-body">
@@ -120,12 +120,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" id="passedinlvl1monthly">
                       <div class="card">
                         <div class="card-header border-0">
                           <div class="d-flex justify-content-between">
                             <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Monthly)</h3>
-                            <a href="javascript:void(0);" onclick="report('passedinlvl1monthly')">View Report</a>
+                            <a href="javascript:void(0);" onclick="report('passedinlvl1monthly')">CSV Download</a>
                           </div>
                         </div>
                         <div class="card-body">
@@ -183,7 +183,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Total Visitor Daily</h3>
-                          <a href="javascript:void(0);" onclick="report('groundlvl1daily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('groundlvl1daily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -233,7 +233,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Daily)</h3>
-                          <a href="javascript:void(0);" onclick="report('passedingrounddaily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('passedingrounddaily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -252,7 +252,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Daily)</h3>
-                          <a href="javascript:void(0);" onclick="report('passedinlvl1daily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('passedinlvl1daily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -535,6 +535,14 @@ $(function () {
             addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
           }
           
+          if(formatDate(start) == formatDate(end)){
+            $('#passedinlvl1monthly').hide();
+            $('#passedingroundmonthly').hide();
+          }
+          else{
+            $('#passedinlvl1monthly').show();
+            $('#passedingroundmonthly').show();
+          }
         }
         else if(obj.status === 'failed'){
           toastr["error"](obj.message, "Failed:");
@@ -852,7 +860,7 @@ $(function () {
     });
   });
 
-  $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
+  $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment().subtract(1, 'days')) + " 00:00:00") + " 23:59:59"}, function(data){
     var obj = JSON.parse(data);
     ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
     ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";

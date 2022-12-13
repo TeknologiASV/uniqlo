@@ -27,7 +27,7 @@
                 <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Monthly</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Daily</a>
+                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Hourly</a>
               </li>
             </ul>
           </div>
@@ -54,7 +54,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Total Visitors</h3>
-                          <a href="javascript:void(0);" onclick="report('dastotalvisitorsmonthly')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('dastotalvisitorsmonthly')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -90,7 +90,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Total Zone Visitors by Month</h3>
-                          <a href="javascript:void(0);" onclick="report('dastotalzonevisitorsmonthly')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('dastotalzonevisitorsmonthly')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -155,7 +155,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Total Visitors (Daily)</h3>
-                          <a href="javascript:void(0);" onclick="report('dastotalvisitorsdaily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('dastotalvisitorsdaily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -191,7 +191,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Total Zone Visitors by Daily</h3>
-                          <a href="javascript:void(0);" onclick="report('dastotalzonevisitorsdaily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('dastotalzonevisitorsdaily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -1145,7 +1145,7 @@ $(function () {
     });
   });
 
-  $.post('php/getdamansara.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
+  $.post('php/getdamansara.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment().subtract(1, 'days')) + " 00:00:00") + " 23:59:59"}, function(data){
     var obj = JSON.parse(data);
     ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
     ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";

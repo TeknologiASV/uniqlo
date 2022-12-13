@@ -31,6 +31,9 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $lvl1InCount = 0;
             
             while ($row = $result->fetch_assoc()) {
+                if(substr($row['Date'], 0, 10) != "2022-11-26" && substr($row['Date'], 0, 10) != "2022-11-27" && substr($row['Date'], 0, 10) != "2022-11-28" && substr($row['Date'], 0, 10) != "2022-11-29"){
+
+                }
                 if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
                     $message[] = array( 
                         'Date' => substr($row['Date'], 0, 10),

@@ -71,8 +71,16 @@ else{
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <!--img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"-->
-      <span class="brand-text font-weight-light">Uniqlo Visitors <br> Counting</span>
+      <div class="row">
+        <div class="col-3">
+          <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8;margin-top: 13px;">
+        </div>
+        <div class="col-9">
+          <span class="brand-text font-weight-light">Uniqlo Visitors <br> Counting</span>
+        </div>
+      </div>
+      
+      
     </a>
 
     <!-- Sidebar -->
@@ -100,12 +108,16 @@ else{
                   <p>Uniqlo OU</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#damansara" data-file="damansara.html" class="nav-link link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Uniqlo DAS</p>
-                </a>
-              </li>
+              <?php
+                if($role == 'ADMIN'){
+                  echo '<li class="nav-item">
+                  <a href="#damansara" data-file="damansara.html" class="nav-link link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Uniqlo DAS</p>
+                  </a>
+                </li>';
+                }
+              ?>
             </ul>
           </li>
           <?php
@@ -118,6 +130,28 @@ else{
             </li>';
             }
           ?>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>Settings<i class="fas fa-angle-left right"></i></p>
+            </a>
+        
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-item">
+                <a href="#myprofile" data-file="myprofile.php" class="nav-link link">
+                  <i class="nav-icon fas fa-id-badge"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+          
+              <li class="nav-item">
+                <a href="#changepassword" data-file="changePassword.html" class="nav-link link">
+                  <i class="nav-icon fas fa-key"></i>
+                  <p>Change Password</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a href="php/logout.php" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
