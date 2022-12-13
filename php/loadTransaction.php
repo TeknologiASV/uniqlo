@@ -41,8 +41,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $empRecords2 = mysqli_query($db, $empQuery2);
 
     while($row2 = mysqli_fetch_assoc($empRecords2)) {
-      if($row2['Door'] == 'in'){
-        $count += (int)$row['Count'];
+      if($row2['Door'] != null && $row2['Count'] != null && $row2['Door'] == 'in'){
+        $count += (int)$row2['Count'];
       }
     }
   }
@@ -51,8 +51,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     $empRecords2 = mysqli_query($db, $empQuery2);
 
     while($row2 = mysqli_fetch_assoc($empRecords2)) {
-      if($row['Door'] == 'in'){
-        $count += (int)$row['Count'];
+      if($row2['Door'] == 'in'){
+        $count += (int)$row2['Count'];
       }
     }
   }
@@ -69,7 +69,8 @@ while($row = mysqli_fetch_assoc($empRecords)) {
     "Transaction"=>$row['Transaction'],
     "Outlet"=>$row['Outlet'],
     "Visitors"=>$count,
-    "Conversion"=>$trans
+    "Conversion"=>$trans,
+    "query"=>$empQuery2
   );
 }
 
