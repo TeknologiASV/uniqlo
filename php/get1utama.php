@@ -32,50 +32,49 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             
             while ($row = $result->fetch_assoc()) {
                 if(substr($row['Date'], 0, 10) != "2022-11-26" && substr($row['Date'], 0, 10) != "2022-11-27" && substr($row['Date'], 0, 10) != "2022-11-28" && substr($row['Date'], 0, 10) != "2022-11-29"){
-
-                }
-                if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
-                    $message[] = array( 
-                        'Date' => substr($row['Date'], 0, 10),
-                        'TotalGroundCount' => 0,
-                        'InStoreGroundCount' => 0,
-                        'PassingGroundCount' => 0,
-                        'TotalLvl1Count' => 0,
-                        'InStoreLvl1Count' => 0,
-                        'PassingLvl1Count' => 0
-                    );
-
-                    array_push($dateBar, substr($row['Date'], 0, 10));
-                }
-
-                $key = array_search(substr($row['Date'], 0, 10), $dateBar);
-
-                if($row['Mode'] == 'Ground'){
-                    if($row['Door'] == 'in'){
-                        $groundInCount += (int)$row['Count'];
-                        $groundTotalCount += (int)$row['Count'];
-                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
-                        $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
+                    if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
+                        $message[] = array( 
+                            'Date' => substr($row['Date'], 0, 10),
+                            'TotalGroundCount' => 0,
+                            'InStoreGroundCount' => 0,
+                            'PassingGroundCount' => 0,
+                            'TotalLvl1Count' => 0,
+                            'InStoreLvl1Count' => 0,
+                            'PassingLvl1Count' => 0
+                        );
+    
+                        array_push($dateBar, substr($row['Date'], 0, 10));
                     }
-                    else if($row['Door'] == 'passing by'){
-                        $groundPassingCount += (int)$row['Count'];
-                        //$groundTotalCount += (int)$row['Count'];
-                        //$message[$key]['TotalGroundCount'] += (int)$row['Count'];
-                        $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+    
+                    $key = array_search(substr($row['Date'], 0, 10), $dateBar);
+    
+                    if($row['Mode'] == 'Ground'){
+                        if($row['Door'] == 'in'){
+                            $groundInCount += (int)$row['Count'];
+                            $groundTotalCount += (int)$row['Count'];
+                            $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                            $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
+                        }
+                        else if($row['Door'] == 'passing by'){
+                            $groundPassingCount += (int)$row['Count'];
+                            //$groundTotalCount += (int)$row['Count'];
+                            //$message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                            $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+                        }
                     }
-                }
-                else if($row['Mode'] == 'Level 1'){
-                    if($row['Door'] == 'in'){
-                        $lvl1InCount += (int)$row['Count'];
-                        $lvl1TotalCount += (int)$row['Count'];
-                        $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
-                        $message[$key]['InStoreLvl1Count'] += (int)$row['Count'];
-                    }
-                    else if($row['Door'] == 'passing by'){
-                        $lvl1PassingCount += (int)$row['Count'];
-                        //$lvl1TotalCount += (int)$row['Count'];
-                        //$message[$key]['TotalLvl1Count'] += (int)$row['Count'];
-                        $message[$key]['PassingLvl1Count'] += (int)$row['Count'];
+                    else if($row['Mode'] == 'Level 1'){
+                        if($row['Door'] == 'in'){
+                            $lvl1InCount += (int)$row['Count'];
+                            $lvl1TotalCount += (int)$row['Count'];
+                            $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
+                            $message[$key]['InStoreLvl1Count'] += (int)$row['Count'];
+                        }
+                        else if($row['Door'] == 'passing by'){
+                            $lvl1PassingCount += (int)$row['Count'];
+                            //$lvl1TotalCount += (int)$row['Count'];
+                            //$message[$key]['TotalLvl1Count'] += (int)$row['Count'];
+                            $message[$key]['PassingLvl1Count'] += (int)$row['Count'];
+                        }
                     }
                 }
             }
