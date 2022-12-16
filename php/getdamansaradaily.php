@@ -77,7 +77,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                             $message[$key]['RightDoorCount'] += (int)$row['Count'];
                         }
                     }
-                    else if($row['Door'] == 'passing by'){
+                    else if($row['Door'] == 'passing by' || $row['Door'] == 'C1A' || $row['Door'] == 'C1B' || $row['Door'] == 'C1C' || $row['Door'] == 'C1D'){
                         $groundPassingCount += (int)$row['Count'];
                         $groundTotalCount += (int)$row['Count'];
                         $message[$key]['TotalGroundCount'] += (int)$row['Count'];
