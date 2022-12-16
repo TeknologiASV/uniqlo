@@ -243,7 +243,20 @@
             <p id="modalTotalVisitorMorF"></p>
             <p id="modalTotalVisitorZone"></p>
             <p id="modalTotalVisitorZonePerc"></p>
-            <p id="modalTotalVisitorMorFZonePerc"></p>
+            <p id="modalTotalVisitorMorFZonePerc"></p><br>
+            <table id="example3" class="table table-bordered table-hover" style="display: none;">
+              <thead>
+                <tr>
+                  <th>C1A</th>
+                  <th>C1B - Female</th>
+                  <th>C1C - Cashiers</th>
+                  <th>C1C - Male</th>
+                </tr>
+              </thead>
+              <tbody id="pathTrackingDetails">
+                <tr><td id="c1a"></td><td id="c1b"></td><td id="c1c"></td><td id="c1d"></td></tr>
+              </tbody>
+            </table>
           </div>
       </div>
       <div class="modal-footer justify-content-between">
@@ -313,6 +326,10 @@ $(function () {
   var R3Total = 0;
   var R4Total = 0;
   var CTotal = 0;
+  var CATotal = 0;
+  var CBTotal = 0;
+  var CCTotal = 0;
+  var CDTotal = 0;
   var groundTotalCount = 0;
   var InTotal = 0;
 
@@ -348,6 +365,10 @@ $(function () {
           R3Total = obj.totalR3;
           R4Total = obj.totalR4;
           CTotal = obj.totalC;
+          CATotal = obj.totalCA;
+          CBTotal = obj.totalCB;
+          CCTotal = obj.totalCC;
+          CDTotal = obj.totalCD;
           groundTotalCount = obj.groundTotalCount;
           InTotal = obj.groundInCount;
 
@@ -490,6 +511,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M4 Zone: " + L4Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M4 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((L4Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M4 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L4Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.2*width + 50) && (0.2*width - 50) <= ev.layerX) && (ev.layerY <= (0.45 * height + 50) && (0.45 * height - 50) <= ev.layerY)){
@@ -499,6 +521,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M3 Zone: " + L3Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M3 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((L3Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M3 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L3Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.2*width + 50) && (0.2*width - 50) <= ev.layerX) && (ev.layerY <= (0.65 * height + 50) && (0.65 * height - 50) <= ev.layerY)){
@@ -508,6 +531,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M2 Zone: " + L2Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M2 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((L2Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M2 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L2Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.25*width + 50) && (0.25*width - 50) <= ev.layerX) && (ev.layerY <= (0.75 * height + 50) && (0.75 * height - 50) <= ev.layerY)){
@@ -517,6 +541,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To M1 Zone: " + L1Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To M1 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((L1Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To M1 Zone <br>over Total Visitor of Male Zone  (%): " + parseFloat((L1Total/(L1Total+L2Total+L3Total+L4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.9*width + 50) && (0.9*width - 50) <= ev.layerX) && (ev.layerY <= (0.2 * height + 50) && (0.2 * height - 50) <= ev.layerY)){
@@ -526,6 +551,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W4 Zone: " + R4Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W4 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((R4Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W4 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R4Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.9*width + 50) && (0.9*width - 50) <= ev.layerX) && (ev.layerY <= (0.45 * height + 50) && (0.45 * height - 50) <= ev.layerY)){
@@ -535,6 +561,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W3 Zone: " + R3Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W3 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((R3Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W3 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R3Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.9*width + 50) && (0.9*width - 50) <= ev.layerX) && (ev.layerY <= (0.65 * height + 50) && (0.65 * height - 50) <= ev.layerY)){
@@ -544,6 +571,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W2 Zone: " + R2Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W2 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((R2Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W2 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R2Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.85*width + 50) && (0.85*width - 50) <= ev.layerX) && (ev.layerY <= (0.75 * height + 50) && (0.75 * height - 50) <= ev.layerY)){
@@ -553,6 +581,7 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To W1 Zone: " + R1Total);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To W1 Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((R1Total/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("Total Visitor To W1 Zone <br>over Total Visitor of Female Zone  (%): " + parseFloat((R1Total/(R1Total+R2Total+R3Total+R4Total))*100).toFixed(1) + " %");
+      $('#editModal').find('#example3').hide();
       $('#editModal').modal('show');
     }
     else if((ev.layerX <= (0.55*width + 50) && (0.55*width - 50) <= ev.layerX) && (ev.layerY <= (0.7 * height + 50) && (0.7 * height - 50) <= ev.layerY)){
@@ -562,6 +591,11 @@ $(function () {
       $('#editModal').find('#modalTotalVisitorZone').html("Total Visitor To Middle Zone: " + CTotal);
       $('#editModal').find('#modalTotalVisitorZonePerc').html("Total Visitor To Middle Zone <br>over Total Visitor of All Zone  (%): " + parseFloat((CTotal/groundTotalCount)*100).toFixed(1) + " %");
       $('#editModal').find('#modalTotalVisitorMorFZonePerc').html("");
+      $('#editModal').find('#example3').show();
+      $('#editModal').find('#c1a').html(CATotal);
+      $('#editModal').find('#c1b').html(CBTotal);
+      $('#editModal').find('#c1c').html(CCTotal);
+      $('#editModal').find('#c1d').html(CDTotal);
       $('#editModal').modal('show');
     }
   };
@@ -1160,6 +1194,10 @@ $(function () {
       R3Total = obj.totalR3;
       R4Total = obj.totalR4;
       CTotal = obj.totalC;
+      CATotal = obj.totalCA;
+      CBTotal = obj.totalCB;
+      CCTotal = obj.totalCC;
+      CDTotal = obj.totalCD;
       groundTotalCount = obj.groundTotalCount;
       InTotal = obj.groundInCount;
 

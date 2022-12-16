@@ -35,6 +35,10 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $totalR3 = 0;
             $totalR4 = 0;
             $totalC = 0;
+            $totalCA = 0;
+            $totalCB = 0;
+            $totalCC = 0;
+            $totalCD = 0;
             
             while ($row = $result->fetch_assoc()) {
                 if(!in_array(substr($row['Date'], 0, 10), $dateBar)){
@@ -75,6 +79,54 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         if($row['Device'] == 'R1' || $row['Device'] == 'r1'){
                             //$totalL1 += (int)$row['Count'];
                             $message[$key]['RightDoorCount'] += (int)$row['Count'];
+                        }
+                    }
+                    else if($row['Door'] == 'C1A'){
+                        $groundPassingCount += (int)$row['Count'];
+                        $groundTotalCount += (int)$row['Count'];
+                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                        $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                        if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                            $totalC += (int)$row['Count'];
+                            $totalCA += (int)$row['Count'];
+                            $message[$key]['TotalC'] += (int)$row['Count'];
+                        }
+                    }
+                    else if($row['Door'] == 'C1B'){
+                        $groundPassingCount += (int)$row['Count'];
+                        $groundTotalCount += (int)$row['Count'];
+                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                        $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                        if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                            $totalC += (int)$row['Count'];
+                            $totalCB += (int)$row['Count'];
+                            $message[$key]['TotalC'] += (int)$row['Count'];
+                        }
+                    }
+                    else if($row['Door'] == 'C1C'){
+                        $groundPassingCount += (int)$row['Count'];
+                        $groundTotalCount += (int)$row['Count'];
+                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                        $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                        if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                            $totalC += (int)$row['Count'];
+                            $totalCC += (int)$row['Count'];
+                            $message[$key]['TotalC'] += (int)$row['Count'];
+                        }
+                    }
+                    else if($row['Door'] == 'C1D'){
+                        $groundPassingCount += (int)$row['Count'];
+                        $groundTotalCount += (int)$row['Count'];
+                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                        $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                        if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                            $totalC += (int)$row['Count'];
+                            $totalCD += (int)$row['Count'];
+                            $message[$key]['TotalC'] += (int)$row['Count'];
                         }
                     }
                     else if($row['Door'] == 'passing by' || $row['Door'] == 'C1A' || $row['Door'] == 'C1B' || $row['Door'] == 'C1C' || $row['Door'] == 'C1D'){
@@ -138,7 +190,11 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                     "totalR2" => $totalR2,
                     "totalR3" => $totalR3,
                     "totalR4" => $totalR4,
-                    "totalC" => $totalC
+                    "totalC" => $totalC,
+                    "totalCA" => $totalCA,
+                    "totalCB" => $totalCB,
+                    "totalCC" => $totalCC,
+                    "totalCD" => $totalCD
                 ));   
         }
     }

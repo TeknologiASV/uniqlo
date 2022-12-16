@@ -36,7 +36,9 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                     $message[] = array( 
                         'Date' => substr($row['Date'], 0, 10),
                         'uniqloOU' => 0,
-                        'uniqloDAS' => 0
+                        'uniqloDAS' => 0,
+                        'transOU' => 0,
+                        'transDAS' => 0
                     );
 
                     array_push($dateBar, substr($row['Date'], 0, 10));
@@ -88,9 +90,11 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                             while($row3 = $result3->fetch_assoc()) {
                                 if($row3['Outlet'] == 'OU'){
                                     $oneUtamaTranc += (int)$row3['Transaction'];
+                                    $message[$key]['transOU'] += (int)$row['Transaction'];
                                 }
                                 else if($row3['Outlet'] == 'DAS'){
                                     $damansaraTranc += (int)$row3['Transaction'];
+                                    $message[$key]['transDAS'] += (int)$row['Transaction'];
                                 }
                             }
                             
