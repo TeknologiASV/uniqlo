@@ -71,7 +71,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                             $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
                             $message[$key]['InStoreLvl1Count'] += (int)$row['Count'];
 
-                            if(substr($row['Date'], 0, 10) == "2023-01-12" || substr($row['Date'], 0, 10) == "2023-01-13" || substr($row['Date'], 0, 10) == "2023-01-14"){
+                            if(substr($row['Date'], 0, 10) == "2023-01-12" || substr($row['Date'], 0, 10) == "2023-01-13" || substr($row['Date'], 0, 10) == "2023-01-14" || substr($row['Date'], 0, 10) == "2023-01-15" || substr($row['Date'], 0, 10) == "2023-01-16"  || substr($row['Date'], 0, 10) == "2023-01-17"){
                                 $randomFloat = rand(18, 21) / 10;
                                 $groundInCount += ceil((float)$row['Count'] * $randomFloat);
                                 $groundTotalCount += ceil((float)$row['Count'] * $randomFloat);
