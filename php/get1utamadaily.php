@@ -49,12 +49,12 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
 
                 if($row['Mode'] == 'Ground'){
                     if($row['Door'] == 'in'){
-                        if(substr($row['Date'], 0, 10) != "2023-01-12" && substr($row['Date'], 0, 10) != "2023-01-13" && substr($row['Date'], 0, 10) != "2023-01-14"){
-                            $groundInCount += (int)$row['Count'];
-                            $groundTotalCount += (int)$row['Count'];
-                            $message[$key]['TotalGroundCount'] += (int)$row['Count'];
-                            $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
-                        }
+                        //if(substr($row['Date'], 0, 10) != "2023-01-12" && substr($row['Date'], 0, 10) != "2023-01-13" && substr($row['Date'], 0, 10) != "2023-01-14"){
+                        $groundInCount += (int)$row['Count'];
+                        $groundTotalCount += (int)$row['Count'];
+                        $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                        $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
+                        //}
                     }
                     else if($row['Door'] == 'passing by'){
                         $groundPassingCount += (int)$row['Count'];
@@ -70,13 +70,13 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
                         $message[$key]['InStoreLvl1Count'] += (int)$row['Count'];
 
-                        if(substr($row['Date'], 0, 10) == "2023-01-12" || substr($row['Date'], 0, 10) == "2023-01-13" || substr($row['Date'], 0, 10) == "2023-01-14" || substr($row['Date'], 0, 10) == "2023-01-15" || substr($row['Date'], 0, 10) == "2023-01-16"  || substr($row['Date'], 0, 10) == "2023-01-17"){
+                       /*if(substr($row['Date'], 0, 10) == "2023-01-12" || substr($row['Date'], 0, 10) == "2023-01-13" || substr($row['Date'], 0, 10) == "2023-01-14" || substr($row['Date'], 0, 10) == "2023-01-15" || substr($row['Date'], 0, 10) == "2023-01-16"  || substr($row['Date'], 0, 10) == "2023-01-17"){
                             $randomFloat = rand(18, 21) / 10;
                             $groundInCount += ceil((float)$row['Count'] * $randomFloat);
                             $groundTotalCount += ceil((float)$row['Count'] * $randomFloat);
                             $message[$key]['TotalGroundCount'] += ceil((float)$row['Count'] * $randomFloat);
                             $message[$key]['InStoreGroundCount'] += ceil((float)$row['Count'] * $randomFloat);
-                        }
+                        }*/
                     }
                     else if($row['Door'] == 'passing by'){
                         $lvl1PassingCount += (int)$row['Count'];
