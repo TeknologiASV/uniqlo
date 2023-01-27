@@ -510,8 +510,8 @@ $(function () {
       else{*/
       var startFormatted = formatDate(start) + " 00:00:00";
 
-      if(end >= new Date("2023-01-12 00:00:00")){
-        var endFormatted = "2023-01-11 23:59:59";
+      if(end >= new Date("2022-12-29 00:00:00")){
+        var endFormatted = "2022-12-28 23:59:59";
       }
       else{
         var endFormatted = formatDate(end) + " 23:59:59";
@@ -816,8 +816,8 @@ $(function () {
   });
 
 
-  if(new Date() >= new Date("2023-01-12 00:00:00")){
-    $('#reservationdate').val(formatDate(new Date("2023-01-11")));
+  if(new Date() >= new Date("2022-12-29 00:00:00")){
+    $('#reservationdate').val(formatDate(new Date("2022-12-28")));
   }
   else{
     $('#reservationdate').val(formatDate(new Date()));
@@ -878,11 +878,11 @@ $(function () {
     });
   });
 
-  if(moment().subtract(29, 'days') < new Date("2023-01-12 00:00:00")){
+  if(moment().subtract(29, 'days') < new Date("2022-12-29 00:00:00")){
     var endDate = "";
 
-    if(moment().subtract(1, 'days') >= new Date("2023-01-12 00:00:00")){
-      endDate = "2023-01-11 23:59:59";
+    if(moment().subtract(1, 'days') >= new Date("2022-12-29 00:00:00")){
+      endDate = "2022-12-28 23:59:59";
     }
     else{
       endDate = formatDate(formatDate(moment().subtract(1, 'days')) + " 00:00:00") + " 23:59:59";
@@ -892,8 +892,8 @@ $(function () {
       var obj = JSON.parse(data);
       ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
 
-      if(moment() >= new Date("2023-01-12 00:00:00")){
-        ouEndDate = "2023-01-11 23:59:59";
+      if(moment() >= new Date("2022-12-29 00:00:00")){
+        ouEndDate = "2022-12-28 23:59:59";
       }
       else{
         ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";
