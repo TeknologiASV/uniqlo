@@ -27,7 +27,7 @@
                 <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Monthly</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Daily</a>
+                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#daily" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Hourly</a>
               </li>
             </ul>
           </div>
@@ -53,7 +53,7 @@
                         <div class="card-header border-0">
                           <div class="d-flex justify-content-between">
                             <h3 class="card-title">Total Visitor Monthly</h3>
-                            <a href="javascript:void(0);" onclick="report('groundlvl1monthly')">View Report</a>
+                            <a href="javascript:void(0);" onclick="report('groundlvl1monthly')">CSV Download</a>
                           </div>
                         </div>
                         <div class="card-body">
@@ -67,7 +67,7 @@
                     <div class="col-lg-4">
                       <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Total Visitors <br></h3>
+                          <h3 class="card-title">Total <br> Visitors <br></h3>
                         </div>
                         <div class="card-body">
                           <canvas id="totalVisitors" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -98,12 +98,12 @@
                       </div>
                     </div>
                     <!-- /.col-md-6 -->
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" id="passedingroundmonthly">
                       <div class="card">
                         <div class="card-header border-0">
                           <div class="d-flex justify-content-between">
                             <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Monthly)</h3>
-                            <a href="javascript:void(0);" onclick="report('passedingroundmonthly')">View Report</a>
+                            <a href="javascript:void(0);" onclick="report('passedingroundmonthly')">CSV Download</a>
                           </div>
                         </div>
                         <div class="card-body">
@@ -120,12 +120,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" id="passedinlvl1monthly">
                       <div class="card">
                         <div class="card-header border-0">
                           <div class="d-flex justify-content-between">
                             <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Monthly)</h3>
-                            <a href="javascript:void(0);" onclick="report('passedinlvl1monthly')">View Report</a>
+                            <a href="javascript:void(0);" onclick="report('passedinlvl1monthly')">CSV Download</a>
                           </div>
                         </div>
                         <div class="card-body">
@@ -149,7 +149,7 @@
                     <div class="form-group">
                       <label>Date:</label>
                       <div class="input-group">
-                        <input id="reservationdate" type="date" class="form-control">
+                        <input id="reservationdate" type="date" class="form-control" min='2023-01-12'>
                       </div>
                     </div>
                   </div>
@@ -183,7 +183,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Total Visitor Daily</h3>
-                          <a href="javascript:void(0);" onclick="report('groundlvl1daily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('groundlvl1daily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -233,7 +233,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Ground - Daily)</h3>
-                          <a href="javascript:void(0);" onclick="report('passedingrounddaily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('passedingrounddaily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -252,7 +252,7 @@
                       <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
                           <h3 class="card-title">Passing By Traffic VS In-Store Traffic (Level 1 - Daily)</h3>
-                          <a href="javascript:void(0);" onclick="report('passedinlvl1daily')">View Report</a>
+                          <a href="javascript:void(0);" onclick="report('passedinlvl1daily')">CSV Download</a>
                         </div>
                       </div>
                       <div class="card-body">
@@ -504,7 +504,13 @@ $(function () {
       endDate  : moment()
     },
     function (start, end) {
-      var startFormatted = formatDate(start) + " 00:00:00";
+      if(start < new Date("2023-01-12 00:00:00")){
+        var startFormatted = "2023-01-12 00:00:00";
+      }
+      else{
+        var startFormatted = formatDate(start) + " 00:00:00";
+      }
+
       var endFormatted = formatDate(end) + " 23:59:59";
       
       $.post('php/get1utama.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
@@ -535,6 +541,14 @@ $(function () {
             addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
           }
           
+          if(formatDate(start) == formatDate(end)){
+            $('#passedinlvl1monthly').hide();
+            $('#passedingroundmonthly').hide();
+          }
+          else{
+            $('#passedinlvl1monthly').show();
+            $('#passedingroundmonthly').show();
+          }
         }
         else if(obj.status === 'failed'){
           toastr["error"](obj.message, "Failed:");
@@ -796,7 +810,14 @@ $(function () {
     options: lineChartOptions2
   });
 
-  $('#reservationdate').val(formatDate(new Date()));
+
+  if(new Date() < new Date("2023-01-12 00:00:00")){
+    $('#reservationdate').val(formatDate(new Date("2023-01-12")));
+  }
+  else{
+    $('#reservationdate').val(formatDate(new Date()));
+  }
+  
   $('#reservationtime').val('00:00');
   $('#endtime').val('23:59');
 
@@ -852,42 +873,62 @@ $(function () {
     });
   });
 
-  $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59"}, function(data){
-    var obj = JSON.parse(data);
-    ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
-    ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";
+  if(moment().subtract(1, 'days') >= new Date("2023-01-12 00:00:00")){
+    var startDate = "";
 
-    if(obj.status === 'success'){
-      removeData(totalVisitorsChart);
-      addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
-      addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
-
-      removeData(passedInGroundPie);
-      addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-      addData(passedInGroundPie, 'In', obj.groundInCount);
-      
-      removeData(passedInLvl1Pie);
-      addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
-      addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
-
-      removeData(barChartMonthly);
-      removeData(lineChartMonthly);
-      removeData(lineChartInLvl1Monthly);
-
-      for(var i=0; i<obj.message.length; i++){
-        addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-        addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-        addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
-      }
-      
-    }
-    else if(obj.status === 'failed'){
-      toastr["error"](obj.message, "Failed:");
+    if(moment().subtract(29, 'days') < new Date("2023-01-12 00:00:00")){
+      startDate = "2023-01-12 00:00:00";
     }
     else{
-      toastr["error"]("Something wrong when geting data", "Failed:");
+      startDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
     }
-  });
+
+    $.post('php/get1utama.php', {startDate: startDate, endDate: formatDate(formatDate(moment().subtract(1, 'days')) + " 00:00:00") + " 23:59:59"}, function(data){
+      var obj = JSON.parse(data);
+
+      if(moment().subtract(29, 'days') < new Date("2023-01-12 00:00:00")){
+        ouStartDate = "2023-01-12 00:00:00";
+      }
+      else{
+        ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
+      }
+
+      ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";
+
+      if(obj.status === 'success'){
+        removeData(totalVisitorsChart);
+        addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
+        addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+
+        removeData(passedInGroundPie);
+        addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
+        addData(passedInGroundPie, 'In', obj.groundInCount);
+        
+        removeData(passedInLvl1Pie);
+        addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
+        addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
+
+        removeData(barChartMonthly);
+        removeData(lineChartMonthly);
+        removeData(lineChartInLvl1Monthly);
+
+        for(var i=0; i<obj.message.length; i++){
+          addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+          addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+          addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+        }
+        
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when geting data", "Failed:");
+      }
+    });
+  }
+
+  
 
   $.post('php/get1utamadaily.php', {startDate: $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00', endDate: $('#reservationdate').val() + " " + $('#endtime').val() + ':59'}, function(data){
     var obj = JSON.parse(data);

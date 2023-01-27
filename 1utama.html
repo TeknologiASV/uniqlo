@@ -149,7 +149,7 @@
                     <div class="form-group">
                       <label>Date:</label>
                       <div class="input-group">
-                        <input id="reservationdate" type="date" class="form-control">
+                        <input id="reservationdate" type="date" class="form-control" max='2023-01-11'>
                       </div>
                     </div>
                   </div>
@@ -504,8 +504,18 @@ $(function () {
       endDate  : moment()
     },
     function (start, end) {
+      /*if(start >= new Date("2023-01-12 00:00:00")){
+        alert("The chosen date is no longer valid in old store. Please visit new store!!!");
+      }
+      else{*/
       var startFormatted = formatDate(start) + " 00:00:00";
-      var endFormatted = formatDate(end) + " 23:59:59";
+
+      if(end >= new Date("2023-01-12 00:00:00")){
+        var endFormatted = "2023-01-11 23:59:59";
+      }
+      else{
+        var endFormatted = formatDate(end) + " 23:59:59";
+      }
       
       $.post('php/get1utama.php', {startDate: startFormatted, endDate: endFormatted}, function(data){
         var obj = JSON.parse(data);
@@ -551,6 +561,7 @@ $(function () {
           toastr["error"]("Something wrong when geting data", "Failed:");
         }
       });
+      //}
     }
   );
 
@@ -804,7 +815,14 @@ $(function () {
     options: lineChartOptions2
   });
 
-  $('#reservationdate').val(formatDate(new Date()));
+
+  if(new Date() >= new Date("2023-01-12 00:00:00")){
+    $('#reservationdate').val(formatDate(new Date("2023-01-11")));
+  }
+  else{
+    $('#reservationdate').val(formatDate(new Date()));
+  }
+  
   $('#reservationtime').val('00:00');
   $('#endtime').val('23:59');
 
@@ -860,42 +878,61 @@ $(function () {
     });
   });
 
-  $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: formatDate(formatDate(moment().subtract(1, 'days')) + " 00:00:00") + " 23:59:59"}, function(data){
-    var obj = JSON.parse(data);
-    ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
-    ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";
+  if(moment().subtract(29, 'days') < new Date("2023-01-12 00:00:00")){
+    var endDate = "";
 
-    if(obj.status === 'success'){
-      removeData(totalVisitorsChart);
-      addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
-      addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
-
-      removeData(passedInGroundPie);
-      addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
-      addData(passedInGroundPie, 'In', obj.groundInCount);
-      
-      removeData(passedInLvl1Pie);
-      addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
-      addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
-
-      removeData(barChartMonthly);
-      removeData(lineChartMonthly);
-      removeData(lineChartInLvl1Monthly);
-
-      for(var i=0; i<obj.message.length; i++){
-        addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
-        addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
-        addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
-      }
-      
-    }
-    else if(obj.status === 'failed'){
-      toastr["error"](obj.message, "Failed:");
+    if(moment().subtract(1, 'days') >= new Date("2023-01-12 00:00:00")){
+      endDate = "2023-01-11 23:59:59";
     }
     else{
-      toastr["error"]("Something wrong when geting data", "Failed:");
+      endDate = formatDate(formatDate(moment().subtract(1, 'days')) + " 00:00:00") + " 23:59:59";
     }
-  });
+
+    $.post('php/get1utama.php', {startDate: formatDate(moment().subtract(29, 'days')) + " 00:00:00", endDate: endDate}, function(data){
+      var obj = JSON.parse(data);
+      ouStartDate = formatDate(moment().subtract(29, 'days')) + " 00:00:00";
+
+      if(moment() >= new Date("2023-01-12 00:00:00")){
+        ouEndDate = "2023-01-11 23:59:59";
+      }
+      else{
+        ouEndDate = formatDate(formatDate(moment()) + " 00:00:00") + " 23:59:59";
+      }
+
+      if(obj.status === 'success'){
+        removeData(totalVisitorsChart);
+        addData(totalVisitorsChart, 'Ground', obj.groundTotalCount);
+        addData(totalVisitorsChart, 'Level 1', obj.lvl1TotalCount);
+
+        removeData(passedInGroundPie);
+        addData(passedInGroundPie, 'Passing By', obj.groundPassingCount);
+        addData(passedInGroundPie, 'In', obj.groundInCount);
+        
+        removeData(passedInLvl1Pie);
+        addData(passedInLvl1Pie, 'Passing By', obj.lvl1PassingCount);
+        addData(passedInLvl1Pie, 'In', obj.lvl1InCount);
+
+        removeData(barChartMonthly);
+        removeData(lineChartMonthly);
+        removeData(lineChartInLvl1Monthly);
+
+        for(var i=0; i<obj.message.length; i++){
+          addLineChartData(barChartMonthly, obj.message[i].Date, obj.message[i].TotalGroundCount, obj.message[i].TotalLvl1Count);
+          addLineChartData(lineChartMonthly, obj.message[i].Date, obj.message[i].InStoreGroundCount, obj.message[i].PassingGroundCount);
+          addLineChartData(lineChartInLvl1Monthly, obj.message[i].Date, obj.message[i].InStoreLvl1Count, obj.message[i].PassingLvl1Count);
+        }
+        
+      }
+      else if(obj.status === 'failed'){
+        toastr["error"](obj.message, "Failed:");
+      }
+      else{
+        toastr["error"]("Something wrong when geting data", "Failed:");
+      }
+    });
+  }
+
+  
 
   $.post('php/get1utamadaily.php', {startDate: $('#reservationdate').val() + " " + $('#reservationtime').val() + ':00', endDate: $('#reservationdate').val() + " " + $('#endtime').val() + ':59'}, function(data){
     var obj = JSON.parse(data);

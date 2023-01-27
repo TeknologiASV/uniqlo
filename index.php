@@ -105,7 +105,13 @@ else{
               <li class="nav-item">
                 <a href="#1utama" data-file="1utama.html" class="nav-link link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Uniqlo OU</p>
+                  <p>Uniqlo OU (Old Store)</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#1utamaNew" data-file="1utamaNew.html" class="nav-link link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Uniqlo OU (New Store)</p>
                 </a>
               </li>
               <?php
