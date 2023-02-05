@@ -63,7 +63,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                         $message[$key]['PassingGroundCount'] += (int)$row['Count'];
                     }
                 }
-                else if($row['Mode'] == 'Level 1'){
+                else if($row['Mode'] == 'Level 1' || $row['Mode'] == 'Level-1'){
                     if($row['Door'] == 'in'){
                         $lvl1InCount += (int)$row['Count'];
                         $lvl1TotalCount += (int)$row['Count'];
