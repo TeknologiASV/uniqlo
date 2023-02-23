@@ -66,7 +66,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 $key = array_search(substr($row['Date'], 0, 10), $dateBar);
 
                 if($row['Mode'] == 'Ground'){
-                    if($row['Door'] == 'in'){
+                    if(trim($row['Door']) == 'in'){
                         $groundInCount += (int)$row['Count'];
                         //$groundTotalCount += (int)$row['Count'];
                         $message[$key]['TotalGroundCount'] += (int)$row['Count'];
