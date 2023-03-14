@@ -28,6 +28,7 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
             $damansaraTranc = 0;
             $result = $select_stmt->get_result();
             $device = 'L1';
+            $device2 = 'R1';
             $message = array();
             $dateBar = array();
             
@@ -52,8 +53,8 @@ if(isset($_POST['startDate'], $_POST['endDate'])){
                 }
             }
             
-            if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE Door=? AND Device=? AND Date>=? AND Date<=? ORDER BY Date")) {
-                $select_stmt2->bind_param('ssss', $door, $device, $startDate, $endDate);
+            if ($select_stmt2 = $db->prepare("SELECT * FROM uniqlo_DA WHERE TRIM(Door)=? AND Device IN (?, ?) AND Date>=? AND Date<=? ORDER BY Date")) {
+                $select_stmt2->bind_param('sssss', $door, $device, $device2, $startDate, $endDate);
                 
                 // Execute the prepared query.
                 if (! $select_stmt2->execute()) {
