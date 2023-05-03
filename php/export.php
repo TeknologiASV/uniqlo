@@ -224,7 +224,7 @@ else{
             $key = array_search($dateTime, $dateBar);
 
             if($row['Mode'] == 'Ground'){
-                if($row['Door'] == 'in'){
+                if($row['Door'] == 'in' || $row['Door'] == ' in'){
                     $groundInCount += (int)$row['Count'];
                     $groundTotalCount += (int)$row['Count'];
                     $message[$key]['TotalGroundCount'] += (int)$row['Count'];
@@ -235,8 +235,8 @@ else{
                     $message[$key]['PassingGroundCount'] += (int)$row['Count'];
                 }
             }
-            else if($row['Mode'] == 'Level 1'){
-                if($row['Door'] == 'in'){
+            else if($row['Mode'] == 'Level 1' || $row['Mode'] == 'level-1'){
+                if($row['Door'] == 'in' || $row['Door'] == ' in'){
                     $lvl1InCount += (int)$row['Count'];
                     $lvl1TotalCount += (int)$row['Count'];
                     $message[$key]['TotalLvl1Count'] += (int)$row['Count'];
