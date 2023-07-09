@@ -3,6 +3,17 @@ require_once "db_connect.php";
 
 session_start();
 
+$cars = array (
+    array(26,7,24,9,12,22),
+    array(22,8,25,10,18,17),
+    array(20,9,21,11,17,22),
+    array(19,7,25,13,17,19),
+    array(17,8,26,13,16,20),
+    array(21,8,22,10,17,22),
+    array(21,8,22,10,17,22),
+    array(21,8,22,10,17,22)
+);
+
 if(isset($_POST['startDate'], $_POST['endDate'])){
     $startDate = filter_input(INPUT_POST, 'startDate', FILTER_SANITIZE_STRING);
     $endDate = filter_input(INPUT_POST, 'endDate', FILTER_SANITIZE_STRING);
