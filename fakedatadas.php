@@ -13,7 +13,7 @@ try {
 }
 
 // Get the RPi-5 data for the past hour
-$query = "SELECT * FROM uniqlo_DA WHERE Door = 'in' AND Mode = 'Ground' AND Device = 'L1' AND Date >= '2023-07-02 14:40:00' AND Date <= '2023-07-09 10:59:59'";
+$query = "SELECT * FROM uniqlo_DA WHERE Door = 'in' AND Mode = 'Ground' AND Device = 'L1' AND Date >= '2023-08-20 00:00:00' AND Date <= '2023-08-21 00:00:00'";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $rpi5Data = $stmt->fetchAll(PDO::FETCH_ASSOC);

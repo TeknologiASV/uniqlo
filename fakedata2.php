@@ -13,7 +13,7 @@ try {
 }
 
 // Get the RPi-5 data for the past hour
-$query = "SELECT * FROM uniqlo_1u WHERE Door = 'in' AND Mode = 'level-1' AND Device = 'RPi-3' AND Date >= '2023-07-15 19:00:00' AND Date <= '2023-07-15 23:40:00'";
+$query = "SELECT * FROM uniqlo_1u WHERE Door = 'in' AND Mode = 'level-1' AND Device = 'RPi-3' AND Date >= '2023-08-31 00:00:00' AND Date <= '2023-08-31 13:00:00'";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $rpi5Data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,15 +30,19 @@ if ($rpi5Data) {
 
         // Generate fake data for RPi-11, RPi-12, RPi-13, and RPi-14
         $rpi11Count = generateFakeData($rpi5Count); // Modify this as per your requirement
-        $rpi12Count = generateFakeData($rpi5Count); // Modify this as per your requirement
-        $rpi13Count = generateFakeData($rpi5Count); // Modify this as per your requirement
+        $rpi12Count = generateFakeData2($rpi5Count); // Modify this as per your requirement
+        $rpi13Count = generateFakeData2($rpi5Count); // Modify this as per your requirement
         $rpi14Count = generateFakeData($rpi5Count); // Modify this as per your requirement
+        $rpi6Count = generateFakeData($rpi5Count); // Modify this as per your requirement
+        $rpi8Count = generateFakeData($rpi5Count); // Modify this as per your requirement
 
         // Insert the fake data for RPi-11, RPi-12, RPi-13, and RPi-14 into the database with the same date and time as RPi-5 data
         $query = "INSERT INTO uniqlo_1u (Date, Count, Door, Mode, Device) VALUES ";
         $query .= "('$rpi5Date', $rpi11Count, 'in', 'level-1', 'RPi-7'), ";
         $query .= "('$rpi5Date', $rpi12Count, 'in', 'Ground', 'RPi-4'), ";
         $query .= "('$rpi5Date', $rpi13Count, 'in', 'Ground', 'RPi-9') ";
+        //$query .= "('$rpi5Date', $rpi6Count, 'in', 'Ground', 'RPi-6'), ";
+        //$query .= "('$rpi5Date', $rpi8Count, 'in', 'Ground', 'RPi-8') ";
 
         $stmt = $pdo->prepare($query);
         $stmt->execute();
@@ -52,6 +56,15 @@ function generateFakeData($count)
     // Modify this as per your requirement
     // For simplicity, generating a random number between 80% and 150% of the given count
     $minCount = $count * 0.8;
+    $maxCount = $count * 1.2;
+    return mt_rand($minCount, $maxCount);
+}
+
+function generateFakeData2($count)
+{
+    // Modify this as per your requirement
+    // For simplicity, generating a random number between 80% and 150% of the given count
+    $minCount = $count * 0.9;
     $maxCount = $count * 1.5;
     return mt_rand($minCount, $maxCount);
 }
