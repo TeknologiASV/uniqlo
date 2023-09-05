@@ -13,18 +13,15 @@ try {
 }
 
 // Get the RPi-5 data for the past hour
-$query = "SELECT * FROM uniqlo_1u WHERE Door = 'passing by' AND Mode = 'Level 1' AND Device = 'RPi-5' AND Date >= '2023-08-31 00:00:00' AND Date <= '2023-08-31 13:00:00'";
+$query = "SELECT * FROM uniqlo_1u WHERE Door = 'passing by' AND Mode = 'Level 1' AND Device = 'RPi-5' AND Date >= '2023-09-05 14:00:00' AND Date <= '2023-09-05 21:00:00'";
 $stmt = $pdo->prepare($query);
 $stmt->execute();
 $rpi5Data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // If RPi-5 data exists for the past hour
 if ($rpi5Data) {
-    $i = 1;
-
     foreach ($rpi5Data as $row) {
         // Extract the required information from RPi-5 data
-        echo $i;
         $rpi5Count = $row['Count'];
         $rpi5Date = $row['Date'];
 
@@ -39,11 +36,10 @@ if ($rpi5Data) {
         $query .= "('$rpi5Date', $rpi11Count, 'passing by', 'Level 1', 'RPi-11'), ";
         $query .= "('$rpi5Date', $rpi12Count, 'passing by', 'Ground', 'RPi-12'), ";
         $query .= "('$rpi5Date', $rpi13Count, 'passing by', 'Ground', 'RPi-13'), ";
-        $query .= "('$rpi5Date', $rpi14Count, 'passing by', 'Ground', 'RPi-14')";
+        $query .= "('$rpi5Date', $rpi14Count, 'passing by', 'Ground', 'RPi-14');";
 
         $stmt = $pdo->prepare($query);
         $stmt->execute();
-        $i++;
     }
 }
 
