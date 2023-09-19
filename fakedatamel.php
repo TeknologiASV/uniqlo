@@ -14,31 +14,30 @@ try {
 
 // Get the RPi-5 data for the past hour
 $query = "INSERT INTO `Melaka_traffic`(`Date`, `Count`, `Condition`, `Place`, `Device`) VALUES ";
-/*$query .= "('2023-09-06 02:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 03:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 04:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 05:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 06:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 07:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 08:00:00', 5, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 09:00:00', 23, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 10:00:00', 111, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 11:00:00', 133, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 12:00:00', 160, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 13:00:00', 203, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 14:00:00', 200, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 15:00:00', 207, 'PPL-in', 'redhouse', 'e2'), ";*/
-$query .= "('2023-09-06 16:00:00', 189, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 17:00:00', 174, 'PPL-in', 'redhouse', 'e2'); ";
-/*$query .= "('2023-09-06 18:00:00', 122, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 19:00:00', 100, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 20:00:00', 110, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 21:00:00', 93, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 22:00:00', 69, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-06 23:00:00', 44, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-07 00:00:00', 12, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-07 01:00:00', 3, 'PPL-in', 'redhouse', 'e2'), ";
-$query .= "('2023-09-07 02:00:00', 0, 'PPL-in', 'redhouse', 'e2'); ";*/
+/*$query .= "('2023-09-13 03:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 04:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 05:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 06:00:00', 0, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 07:00:00', 5, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 08:00:00', 63, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 09:00:00', 134, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 10:00:00', 201, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 11:00:00', 233, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 12:00:00', 191, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 13:00:00', 223, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 14:00:00', 251, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 15:00:00', 301, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 16:00:00', 268, 'PPL-in', 'redhouse', 'e2'), ";*/
+$query .= "('2023-09-13 17:00:00', 234, 'PPL-in', 'redhouse', 'e2'); ";
+/*$query .= "('2023-09-13 18:00:00', 222, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 19:00:00', 250, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 20:00:00', 291, 'PPL-in', 'redhouse', 'e2'); ";
+$query .= "('2023-09-13 21:00:00', 203, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 22:00:00', 159, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 23:00:00', 93, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 00:00:00', 57, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 01:00:00', 1, 'PPL-in', 'redhouse', 'e2'), ";
+$query .= "('2023-09-13 02:00:00', 0, 'PPL-in', 'redhouse', 'e2'); ";*/
 
 //echo $query;
 $stmt = $pdo->prepare($query);
