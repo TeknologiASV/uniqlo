@@ -58,6 +58,7 @@ if($_GET['type'] != null && $_GET['type'] != '' && $_GET['type'] != '-'){
 // Fetch records from database
 if($type == 'dastotalvisitorsmonthly' || $type == 'dastotalvisitorsdaily' || $type == 'dastotalzonevisitorsmonthly' || $type == 'dastotalzonevisitorsdaily'){
     $query = $db->query("SELECT * FROM uniqlo_DA WHERE ".$searchQuery);
+    echo "SELECT * FROM uniqlo_DA WHERE ".$searchQuery;
     $message = array();
     $dateBar = array();
     $groundTotalCount = 0;
@@ -109,7 +110,7 @@ if($type == 'dastotalvisitorsmonthly' || $type == 'dastotalvisitorsdaily' || $ty
             $key = array_search($dateTime, $dateBar);
 
             if($row['Mode'] == 'Ground'){
-                if($row['Door'] == 'in'){
+                if(trim($row['Door']) == 'in'){
                     $groundInCount += (int)$row['Count'];
                     $message[$key]['TotalGroundCount'] += (int)$row['Count'];
                     $message[$key]['InStoreGroundCount'] += (int)$row['Count'];
