@@ -58,7 +58,6 @@ if($_GET['type'] != null && $_GET['type'] != '' && $_GET['type'] != '-'){
 // Fetch records from database
 if($type == 'dastotalvisitorsmonthly' || $type == 'dastotalvisitorsdaily' || $type == 'dastotalzonevisitorsmonthly' || $type == 'dastotalzonevisitorsdaily'){
     $query = $db->query("SELECT * FROM uniqlo_DA WHERE ".$searchQuery);
-    echo "SELECT * FROM uniqlo_DA WHERE ".$searchQuery;
     $message = array();
     $dateBar = array();
     $groundTotalCount = 0;
@@ -73,6 +72,10 @@ if($type == 'dastotalvisitorsmonthly' || $type == 'dastotalvisitorsdaily' || $ty
     $totalR3 = 0;
     $totalR4 = 0;
     $totalC = 0;
+    $totalCA = 0;
+    $totalCB = 0;
+    $totalCC = 0;
+    $totalCD = 0;
 
     if($query->num_rows > 0){ 
         while($row = $query->fetch_assoc()){
@@ -122,7 +125,55 @@ if($type == 'dastotalvisitorsmonthly' || $type == 'dastotalvisitorsdaily' || $ty
                         $message[$key]['RightDoorCount'] += (int)$row['Count'];
                     }
                 }
-                else if($row['Door'] == 'passing by'){
+                else if($row['Door'] == 'C1A'){
+                    $groundPassingCount += (int)$row['Count'];
+                    $groundTotalCount += (int)$row['Count'];
+                    $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                    $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                    if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                        $totalC += (int)$row['Count'];
+                        $totalCA += (int)$row['Count'];
+                        $message[$key]['TotalC'] += (int)$row['Count'];
+                    }
+                }
+                else if($row['Door'] == 'C1B'){
+                    $groundPassingCount += (int)$row['Count'];
+                    $groundTotalCount += (int)$row['Count'];
+                    $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                    $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                    if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                        $totalC += (int)$row['Count'];
+                        $totalCB += (int)$row['Count'];
+                        $message[$key]['TotalC'] += (int)$row['Count'];
+                    }
+                }
+                else if($row['Door'] == 'C1C'){
+                    $groundPassingCount += (int)$row['Count'];
+                    $groundTotalCount += (int)$row['Count'];
+                    $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                    $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                    if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                        $totalC += (int)$row['Count'];
+                        $totalCC += (int)$row['Count'];
+                        $message[$key]['TotalC'] += (int)$row['Count'];
+                    }
+                }
+                else if($row['Door'] == 'C1D'){
+                    $groundPassingCount += (int)$row['Count'];
+                    $groundTotalCount += (int)$row['Count'];
+                    $message[$key]['TotalGroundCount'] += (int)$row['Count'];
+                    $message[$key]['PassingGroundCount'] += (int)$row['Count'];
+
+                    if($row['Device'] == 'C' || $row['Device'] == 'c'){
+                        $totalC += (int)$row['Count'];
+                        $totalCD += (int)$row['Count'];
+                        $message[$key]['TotalC'] += (int)$row['Count'];
+                    }
+                }
+                else if($row['Door'] == 'passing by' || $row['Door'] == 'C1A' || $row['Door'] == 'C1B' || $row['Door'] == 'C1C' || $row['Door'] == 'C1D'){
                     $groundPassingCount += (int)$row['Count'];
                     $groundTotalCount += (int)$row['Count'];
                     $message[$key]['TotalGroundCount'] += (int)$row['Count'];
